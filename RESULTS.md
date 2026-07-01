@@ -149,7 +149,34 @@ halueval/pubmed show negative transfer; FinanceBench stays weak whatever we do).
 - The calibrated-abstention differentiator MATTERS MORE given this: if detection doesn't generalize,
   knowing when it is unreliable (abstain) is the value. (Re-verify abstention holds cross-source — TODO.)
 
+## Result 7 — does ABSTENTION transfer cross-source? PARTIALLY (the differentiator survives)
+`cross_source_abstain.py`: leave-one-source-out, at eval capture the logit-margin risk-coverage on the
+UNSEEN source.
+```
+held-out     | full-cov | @0.6  | @0.5     transfer
+covidQA      | 0.740    | 0.879 | 0.915    strong (+0.18)
+RAGTruth     | 0.792    | 0.908 | 0.915    strong (+0.12)
+pubmedQA     | 0.782    | 0.875 | 0.885    yes (+0.10)
+halueval     | 0.690    | 0.754 | 0.800    yes (+0.11)
+FinanceBench | 0.573    | 0.625 | 0.640    fails (+0.07)  <- near-chance: no signal to be uncertain about
+DROP         | 0.585    | 0.629 | 0.640    fails (+0.06)
+```
+**Abstention transfers on 4/6 UNSEEN sources** — abstaining on low-|z| lifts accuracy to ~0.88-0.92 on
+domains never trained on. So the "knows when it is unsure" property GENERALIZES where there is partial
+signal, even though raw detection does not. **Boundary: on near-chance domains (FinanceBench, DROP) the
+uncertainty also fails** — with no detection signal, the judge does not know it is wrong. Finance is a
+genuine wall (both detection and abstention fail there).
+
+## Honest bottom line (whole study)
+- Raw hallucination detection: modest zero-shot (0.69), fine-tune helps IN-DISTRIBUTION (0.82) but does
+  not robustly generalize cross-domain; FinanceBench (our target) is a hard wall.
+- **Differentiator — calibrated abstention — is more robust than the detector: it transfers to 4/6 unseen
+  domains, lifting reliability to ~0.9 on the committed half.** "The watcher knows its own limits in
+  unseen domains (where any signal exists) and abstains." The honest exception is signal-less domains.
+- What this proves: capability to build + honestly evaluate a reliability watcher, and a real,
+  transferable self-monitoring edge — NOT SOTA raw detection. Entry-ticket + a differentiated angle.
+
 ## Next
-- Verify abstention/risk-coverage cross-source (does uncertainty transfer when detection doesn't?).
-- Package the HONEST story (incl. the negatives) — that discipline IS the differentiator. Sionic outreach.
-- If pursuing higher generalization: much larger, more diverse training data (the Lynx recipe).
+- Package the HONEST story (positives + negatives + the abstention-transfer edge) — the discipline IS
+  the differentiator. Sionic OSS PR + outreach. FinanceBench remains the open hard problem (in-domain
+  data / better judge). Larger diverse training data if chasing raw generalization (the Lynx recipe).
