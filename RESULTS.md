@@ -61,7 +61,26 @@ detect-conflict. Sample decisions confirm it (e.g. "evidence conflicting values 
 benchmark (0.946 vs 0.789), verified by inspection, driven by arithmetic verification on reasoning.**
 The embedding watcher tied — so *reading the trace* is the load-bearing ingredient, as predicted.
 
+## Result 3 — calibrated abstention (the differentiator): DEMONSTRATED
+`self_consistency.py` (K=5 sampling) FAILED as an uncertainty signal — the judge is 98% self-
+consistent (confidently wrong on its errors) → abstain captures 2%, no gain. But `calibrate2.py`
+(first-token logit margin z = logit(ESCALATE)−logit(PASS)) works:
+```
+verdict acc 0.840 | z-sign acc 0.843 | verdict==sign(z) 0.997   (z is a clean single signal)  ECE 0.155
+risk-coverage (abstain least-confident):  cov 1.00 → err 0.160 ;  cov 0.60 → err 0.072
+abstain band:  abstain smallest 30% → accuracy 0.906 on the rest  (vs 0.840 overall)
+```
+**The logit margin is a real uncertainty signal: abstaining on low-margin cases more than halves the
+error.** This is "a watcher that knows when it is unsure and abstains" — shown with numbers.
+(Temperature scaling did NOT improve ECE, T≈6.4, 0.131→0.141 — raw ECE already ~0.13-0.16 on small,
+noisy data; the load-bearing part is the *ranking* / risk-coverage, not the magnitude.)
+
+## Two pillars now established
+1. Watcher (reading judge) beats the tuned rule: **D 0.949 vs C 0.789**.
+2. Watcher is self-aware (calibrated abstention): **abstain 30% → accuracy 0.84 → 0.91**.
+Both on the sealed benchmark, fact-group split, honest caveats above. Self-consistency was a null;
+logit-margin was the win. Abstention = sending N% to humans (a real cost), valuable in high-stakes.
+
 ## Next
-- **Calibration / abstention** (our differentiator): make the judge emit confidence → measure ECE +
-  risk-coverage + an abstain band. Not yet done (current judge is binary).
-- Fine-tuned judge vs zero-shot (is training worth it?). Public benchmarks (RAGTruth/HaluBench) for field-level level.
+- Public benchmarks (RAGTruth / HaluBench) for a field-level number + report the risk-coverage curve
+  (most tools don't). Fine-tuned judge vs zero-shot (is training worth it?). Larger/separate judge.
