@@ -30,8 +30,12 @@ class LLM:
         if self.tok.pad_token_id is None:
             self.tok.pad_token = self.tok.eos_token
         self.tok.padding_side = "left"
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name, dtype=torch.bfloat16, device_map=device)
+        try:  # transformers >=5 uses `dtype`
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name, dtype=torch.bfloat16, device_map=device)
+        except TypeError:  # transformers <5 uses `torch_dtype`
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name, torch_dtype=torch.bfloat16, device_map=device)
         self.model.eval()
         self.device = device
 
