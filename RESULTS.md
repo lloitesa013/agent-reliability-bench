@@ -102,6 +102,31 @@ fine-tuned-SOTA accuracy, at 50% coverage). Raw detection = modest; calibrated a
 - Differentiator (calibrated abstention): **real and transfers (0.69→0.84 by abstaining 50%).**
 - Levers to raise raw: fine-tune the judge (how Lynx reached 0.85), larger/separate judge, finance focus.
 
+## Result 5 — FINE-TUNED LoRA judge (is training worth it? YES)
+`train_judge_lora.py`: LoRA (r=16, 0.13% params) on 3000 HaluBench train examples, 2 epochs, 7B bf16
+on one 5090; evaluated on the SAME 2400 test as the zero-shot judge.
+```
+overall: accuracy 0.815  F1 0.796     (zero-shot 0.688 -> +0.127)
+per source: halueval 0.960 | pubmedQA 0.877 | RAGTruth 0.875 | DROP 0.833 | covidQA 0.728
+            FinanceBench 0.620   <- still the weakest (near-chance 0.53 -> 0.62)
+risk-coverage: cov 1.0 -> 0.816 ; cov 0.6 -> 0.964 ; cov 0.5 -> 0.973
+```
+Published context: Lynx-8B ~0.85, Lynx-70B ~0.88, GPT-4o ~0.86, GPT-3.5 ~0.70.
+**Fine-tuning lifts us into the competitive range: 0.815 (approaching Lynx-8B 0.85, well above GPT-3.5),
+and with calibrated abstention 0.60 coverage -> 0.964.** Training IS worth it (+0.13).
+
+### Honest caveats (do not overclaim "Lynx-level")
+- **IN-DISTRIBUTION**: trained on HaluBench sources, tested on held-out HaluBench examples of the SAME
+  sources. This is not a cross-domain generalization claim; a held-out-SOURCE test is needed for that.
+- **FinanceBench still weakest (0.62)** — our target regulated domain remains hard even after fine-tune.
+- halueval (0.96, easy) inflates the overall; covidQA 0.73 / finance 0.62 are the honest indicators.
+- Small train (3000), 2 epochs — a quick fine-tune; more data/tuning could go higher.
+
+## Current level (field-anchored, updated)
+- Zero-shot 7B: 0.69 (GPT-3.5-tier). **Fine-tuned 7B LoRA: 0.815 in-distribution (competitive range,
+  near Lynx-8B).** Calibrated abstention stacks on top (0.60 coverage -> 0.96).
+- Honest boundary: in-distribution, finance weak. NOT yet a cross-domain / SOTA-beating claim.
+
 ## Next
-- Fine-tune a LoRA judge on a HaluBench train split (held-out test) — is training worth it? (expected big lift).
-- Larger/separate judge (7B self-judge is the weakest link). Package + Sionic OSS PR + outreach.
+- Cross-SOURCE generalization (train on 5 sources, test on the held-out one) — the real "does it
+  generalize" test. Improve FinanceBench (our domain). Larger/separate judge. Package + Sionic outreach.
