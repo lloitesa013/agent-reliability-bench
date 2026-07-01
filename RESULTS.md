@@ -127,6 +127,29 @@ and with calibrated abstention 0.60 coverage -> 0.964.** Training IS worth it (+
   near Lynx-8B).** Calibrated abstention stacks on top (0.60 coverage -> 0.96).
 - Honest boundary: in-distribution, finance weak. NOT yet a cross-domain / SOTA-beating claim.
 
+## Result 6 — CROSS-SOURCE generalization (leave-one-source-out): WEAK (honest negative)
+`cross_source.py`: for each source, train a fresh LoRA on the OTHER 5, test on the held-out source.
+```
+held-out     | cross-source | zero-shot | in-dist     verdict
+DROP         | 0.555        | 0.565     | 0.833       no generalization (≈ zero-shot)
+FinanceBench | 0.588        | 0.532     | 0.620       marginal (+0.06), far below in-dist
+RAGTruth     | 0.795 (F1 0.109) | 0.745 | 0.875       degenerate (predicts mostly PASS)
+covidQA      | 0.760        | 0.688     | 0.728       generalizes (medical transfer) — the only clean win
+halueval     | 0.730        | 0.787     | 0.960       NEGATIVE transfer (worse than zero-shot)
+pubmedQA     | 0.785        | 0.807     | 0.877       slight negative transfer
+```
+**The fine-tuning gains were largely IN-DISTRIBUTION. On a held-out source the judge falls back to
+~zero-shot (or worse). Generalization is weak and inconsistent** (only covidQA clearly transfers;
+halueval/pubmed show negative transfer; FinanceBench stays weak whatever we do).
+
+## Honest final level (do not overstate)
+- **Defensible *generalizing* level ≈ zero-shot 0.69.** The 0.815 holds only WITH in-domain training data.
+- Robust cross-domain generalization: NO (with our modest fine-tune; Lynx's 0.88 came from large diverse data we don't have).
+- FinanceBench (our target domain): weak (0.53-0.62) regardless.
+- The calibrated-abstention differentiator MATTERS MORE given this: if detection doesn't generalize,
+  knowing when it is unreliable (abstain) is the value. (Re-verify abstention holds cross-source — TODO.)
+
 ## Next
-- Cross-SOURCE generalization (train on 5 sources, test on the held-out one) — the real "does it
-  generalize" test. Improve FinanceBench (our domain). Larger/separate judge. Package + Sionic outreach.
+- Verify abstention/risk-coverage cross-source (does uncertainty transfer when detection doesn't?).
+- Package the HONEST story (incl. the negatives) — that discipline IS the differentiator. Sionic outreach.
+- If pursuing higher generalization: much larger, more diverse training data (the Lynx recipe).
