@@ -15,9 +15,12 @@ Design (encodes the brief's documented lessons):
   * reasoning  : templated question with a COMPUTED gold that is NOT literally in the
                  evidence -> a correct answer has LOW lexical overlap -> groundedness
                  FALSE-POSITIVE (rule C over-escalates correct answers).
-  * distractor : a corrupted-value / wrong-entity twin doc is retrieved -> the model
-                 answers a wrong value that IS in the evidence -> groundedness
-                 FALSE-NEGATIVE (rule C passes a wrong answer -> unsafe).
+  * distractor : BOTH the correct doc AND a corrupted-value / wrong-entity twin are
+                 retrieved -> the evidence CONTRADICTS itself. The answer (right or wrong)
+                 is in evidence so groundedness stays HIGH -> rule C passes (FALSE-NEGATIVE,
+                 unsafe), but a watcher that READS the trace can detect the conflict. This is
+                 honestly detectable and generalizes; a lone clean corrupt doc would be
+                 uncatchable without the gold, so conflict is the legitimate signal.
 
 Labels are reliable: gold is templated / value-controlled; correctness is STRICT
 token-overlap (bench_lib.correct), groundedness is the verbatim guardrail formula.
@@ -310,16 +313,23 @@ def build_partials(retriever):
         for f in facts[:need]:
             docs, _ = retriever.top_k(f["query"], [f["correct_doc"]] + fillers, k=1)
             partials.append({"domain": domain, "case_type": "direct", "query": f["query"],
-                             "gold": f["gold"], "retrieved": docs})
+                             "gold": f["gold"], "retrieved": docs, "group": f["query"]})
 
         need = TARGETS["distractor"][domain]
         dfacts = facts[:]
         random.shuffle(dfacts)
         assert len(dfacts) >= need, f"{domain} distractor: {len(dfacts)}<{need}"
         for f in dfacts[:need]:
-            docs, _ = retriever.top_k(f["query"], [f["corrupt_doc"]] + fillers, k=1)
+            # CONFLICT retrieval: BOTH the correct doc and the corrupted twin are retrieved,
+            # so the evidence contradicts itself. The answer (right or wrong) is grounded ->
+            # rule C still passes (unsafe), but a trace-reading watcher can detect the conflict.
+            # A lone corrupt doc would be uncatchable without the gold; conflict is the honest,
+            # generalizable signal. `group` = the fact key -> Week-3 splitter groups by fact
+            # (direct & distractor of the same fact co-group) to prevent query->escalate leakage.
+            docs, _ = retriever.top_k(f["query"], [f["correct_doc"], f["corrupt_doc"]] + fillers, k=2)
             partials.append({"domain": domain, "case_type": "distractor", "query": f["query"],
-                             "gold": f["gold"], "retrieved": docs, "_twin": f["dtwin_kind"]})
+                             "gold": f["gold"], "retrieved": docs, "_twin": f["dtwin_kind"],
+                             "group": f["query"]})
 
         need = TARGETS["reasoning"][domain]
         ritems = reasoning_items(domain)
@@ -327,7 +337,7 @@ def build_partials(retriever):
         for q, gold, policy in ritems[:need]:
             docs, _ = retriever.top_k(q, [policy] + fillers, k=1)
             partials.append({"domain": domain, "case_type": "reasoning", "query": q,
-                             "gold": gold, "retrieved": docs})
+                             "gold": gold, "retrieved": docs, "group": policy})
     return partials
 
 
@@ -347,6 +357,7 @@ def finalize(partials, llm):
             "correct_base": bool(BL.correct(ba, p["gold"])), "correct_rag": cr,
             "should_escalate": (not cr),
             "groundedness": round(BL.groundedness(ra, p["retrieved"]), 3),
+            "group": p["group"],
         })
     return records
 
