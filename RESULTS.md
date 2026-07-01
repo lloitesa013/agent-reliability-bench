@@ -81,6 +81,27 @@ noisy data; the load-bearing part is the *ranking* / risk-coverage, not the magn
 Both on the sealed benchmark, fact-group split, honest caveats above. Self-consistency was a null;
 logit-margin was the win. Abstention = sending N% to humans (a real cost), valuable in high-stakes.
 
+## Result 4 — PUBLIC benchmark (HaluBench): first field-level number
+`halubench_eval.py`: our 7B zero-shot reading judge on PatronusAI/HaluBench (2400, 6 sources balanced),
+task = faithful(PASS) vs hallucinated(FAIL=ESCALATE).
+```
+overall: accuracy 0.688  F1 0.685
+per source: pubmedQA 0.807 | halueval 0.787 | RAGTruth 0.745(F1 0.386) | covidQA 0.688
+            DROP 0.565 | FinanceBench 0.532   <- near-chance on finance + multi-step reasoning
+risk-coverage (abstain least-confident by |logit margin|): cov 1.00 -> 0.688 ; cov 0.50 -> 0.838
+```
+Approx published on HaluBench (context): Lynx-8B (fine-tuned) ~0.85, Lynx-70B ~0.88, GPT-4o ~0.86,
+GPT-3.5 ~0.70, RAGAS ~0.66.
+**Honest placement: raw 0.688 ≈ GPT-3.5-tier zero-shot, above RAGAS, well BELOW fine-tuned SOTA (0.85+),
+and near-chance on FinanceBench (our own target domain) + DROP.** BUT the abstention differentiator
+transfers to real data: abstain the 50% least-confident → **0.838 on the committed half** (near
+fine-tuned-SOTA accuracy, at 50% coverage). Raw detection = modest; calibrated abstention = the edge.
+
+## Honest current level (field-anchored)
+- Raw hallucination detection: **modest zero-shot (0.69), NOT SOTA, weak on finance/multi-step.**
+- Differentiator (calibrated abstention): **real and transfers (0.69→0.84 by abstaining 50%).**
+- Levers to raise raw: fine-tune the judge (how Lynx reached 0.85), larger/separate judge, finance focus.
+
 ## Next
-- Public benchmarks (RAGTruth / HaluBench) for a field-level number + report the risk-coverage curve
-  (most tools don't). Fine-tuned judge vs zero-shot (is training worth it?). Larger/separate judge.
+- Fine-tune a LoRA judge on a HaluBench train split (held-out test) — is training worth it? (expected big lift).
+- Larger/separate judge (7B self-judge is the weakest link). Package + Sionic OSS PR + outreach.
