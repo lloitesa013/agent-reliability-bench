@@ -1,0 +1,23 @@
+{
+  "question": "Where is the Eiffel Tower?",
+  "steps": [
+    {
+      "step": "retrieve",
+      "retrieved": [
+        "The Eiffel Tower is located in Paris, France, and was completed in 1889."
+      ]
+    },
+    {
+      "step": "prompt",
+      "prompt": "Answer the question using ONLY the context. If the context does not contain the answer, say 'I don't know'.\n\nContext:\nThe Eiffel Tower is located in Paris, France, and was completed in 1889.\n\nQuestion: Where is the Eiffel Tower?\nAnswer:"
+    },
+    {
+      "step": "answer",
+      "answer": "The Eiffel Tower is located in Paris, France, and was completed in 1889."
+    }
+  ],
+  "answer": "The Eiffel Tower is located in Paris, France, and was completed in 1889.",
+  "expected": "Paris",
+  "ground_truth_cause": "no_failure",
+  "looks_correct": true
+}

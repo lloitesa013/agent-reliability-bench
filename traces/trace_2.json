@@ -1,0 +1,23 @@
+{
+  "question": "What is the capital of Japan?",
+  "steps": [
+    {
+      "step": "retrieve",
+      "retrieved": [
+        "The capital of France is Paris."
+      ]
+    },
+    {
+      "step": "prompt",
+      "prompt": "Answer the question using ONLY the context. If the context does not contain the answer, say 'I don't know'.\n\nContext:\nThe capital of France is Paris.\n\nQuestion: What is the capital of Japan?\nAnswer:"
+    },
+    {
+      "step": "answer",
+      "answer": "The capital of France is Paris."
+    }
+  ],
+  "answer": "The capital of France is Paris.",
+  "expected": "Tokyo",
+  "ground_truth_cause": "retrieval_miss",
+  "looks_correct": false
+}

@@ -1,0 +1,23 @@
+{
+  "question": "Who wrote Hamlet?",
+  "steps": [
+    {
+      "step": "retrieve",
+      "retrieved": [
+        "The Eiffel Tower is located in Paris, France, and was completed in 1889."
+      ]
+    },
+    {
+      "step": "prompt",
+      "prompt": "Answer the question using ONLY the context. If the context does not contain the answer, say 'I don't know'.\n\nContext:\nThe Eiffel Tower is located in Paris, France, and was completed in 1889.\n\nQuestion: Who wrote Hamlet?\nAnswer:"
+    },
+    {
+      "step": "answer",
+      "answer": "I don't know."
+    }
+  ],
+  "answer": "I don't know.",
+  "expected": "Shakespeare",
+  "ground_truth_cause": "missing_knowledge",
+  "looks_correct": false
+}

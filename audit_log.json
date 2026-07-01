@@ -1,0 +1,42 @@
+[
+  {
+    "query": "What is the personal loan APR for prime customers?",
+    "answer": "Personal loan APR for prime customers is 6.9% with no origination fee.",
+    "trust": 1.0,
+    "decision": "PASS",
+    "reason": "answer supported by retrieved policy",
+    "ts": "2026-06-26T23:22:52.138241"
+  },
+  {
+    "query": "Is there a penalty for early loan repayment?",
+    "answer": "Early repayment of a personal loan incurs no penalty after the first 12 months.",
+    "trust": 1.0,
+    "decision": "PASS",
+    "reason": "answer supported by retrieved policy",
+    "ts": "2026-06-26T23:22:52.138241"
+  },
+  {
+    "query": "What is the daily ATM withdrawal limit?",
+    "answer": "The daily ATM withdrawal limit for a standard checking account is 1,000 USD.",
+    "trust": 1.0,
+    "decision": "PASS",
+    "reason": "answer supported by retrieved policy",
+    "ts": "2026-06-26T23:22:52.138241"
+  },
+  {
+    "query": "What is the interest rate on a business credit line?",
+    "answer": "The daily ATM withdrawal limit for a standard checking account is 1,000 USD.",
+    "trust": 1.0,
+    "decision": "PASS",
+    "reason": "answer supported by retrieved policy",
+    "ts": "2026-06-26T23:22:52.138241"
+  },
+  {
+    "query": "What is the APR on a business credit line?",
+    "answer": "The APR on a business credit line is 4.5%.",
+    "trust": 0.0,
+    "decision": "ESCALATE",
+    "reason": "answer NOT supported by retrieved evidence (hallucination risk)",
+    "ts": "2026-06-26T23:22:52.138241"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "question": "Who created Python?",
+  "steps": [
+    {
+      "step": "retrieve",
+      "retrieved": [
+        "The Python programming language was created by Guido van Rossum in 1991."
+      ]
+    },
+    {
+      "step": "prompt",
+      "prompt": "Answer the question using ONLY the context. If the context does not contain the answer, say 'I don't know'.\n\nContext:\nThe Python programming language was created by Guido van Rossum in 1991.\n\nQuestion: Who created Python?\nAnswer:"
+    },
+    {
+      "step": "answer",
+      "answer": "The Python programming language was created by Guido van Rossum in 1991."
+    }
+  ],
+  "answer": "The Python programming language was created by Guido van Rossum in 1991.",
+  "expected": "Guido van Rossum",
+  "ground_truth_cause": "no_failure",
+  "looks_correct": true
+}
