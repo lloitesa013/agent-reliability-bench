@@ -354,3 +354,23 @@ cumulative capability at scale is dominated by new-task-difficulty noise and dil
 decision the verifier reliably catches the fake/regression/hack that fools naive. The multi-round
 CUMULATIVE compounding into a large gap is not demonstrated on toy tasks. (No cherry-picking: reported as
 observed; not re-run to hunt a bigger gap.)
+
+## Result 17 — STATISTICAL single-decision robustness (brick 8): naive 59% bad, verifier 0%
+`stat_robustness.py`: the robust claim (R11/13/15) as a RATE. Across 24 tool-acquisition decisions (8
+hidden-convention tasks × 3 trials) the agent rewrites its tool `solve()` and we execute each candidate:
+
+| metric | rate |
+|---|---|
+| a reward-hack/regressing tool existed among the agent's own proposals | **100%** of decisions |
+| NAIVE (select by seen score) deploys a BAD tool | **59%** |
+| VERIFIER (execute on held-out before adopting) deploys a BAD tool | **0%** |
+| VERIFIER still deployed a WORKING new tool | **88%** |
+
+**A bad candidate exists in 100% of decisions** — reward-hacking (lookup-hardcoding) is not an edge case,
+it is always present in the agent's own proposals. Because seen score can't tell a hack from a general
+tool, **naive deploys a broken tool 59% of the time**; the executing verifier **0%** (it runs each
+candidate on held-out inputs before adopting) while still improving in 88% of decisions (the other 12%,
+e.g. `chapter`, it safely adopts nothing when all proposals are bad). This is the robust, statistically-
+grounded core result: **the single-adoption-decision advantage of an executing hidden-test verifier over
+naive seen-selection is large and consistent** (0% vs 59% bad-deploy). It is what R14/R16 showed does NOT
+compound into a large multi-round cumulative gap — the per-decision guarantee is the deliverable.
