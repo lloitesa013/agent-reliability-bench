@@ -6,6 +6,12 @@ non-reproduction). The field cannot currently do this — in April 2026 UC Berke
 agent benchmarks are reward-hackable to ~100%. **The verifier is the missing, valuable piece; and fake
 improvement is the norm.** We prove both, in text and in an embodied driving domain, on one RTX 5090.
 
+**The artifact this builds toward: a self-verifying agent** — an agent that treats its OWN
+{prompt / rule / memory / tool} self-modifications as UNTRUSTED and adopts one only if it clears a
+HIDDEN TEST (improves on held-out, not memorized) AND a REGRESSION check (does not break an existing
+capability). This is the safe self-improvement loop: it lets an agent improve without self-deception.
+R11–R15 below demonstrate it end-to-end across rule, memory, and tool self-modifications.
+
 ## What is proven (both directions of the verifier)
 - **REJECT (fake is caught).** Prompt-rule self-improvement (`loop_v2.py`, the ExpeL/AutoGuide family)
   and cross-source fine-tuning (`cross_source.py`, `faith_loop.py`) do **not** transfer. Candidate
@@ -22,6 +28,28 @@ improvement is the norm.** We prove both, in text and in an embodied driving dom
   and induces wrong rules; a *pattern-fitting* inducer (ignore priors, fit output=f(input)) produces
   candidates that include the true rule, and the **verifier selects it**. So the model's self-improvement
   candidates are unreliable; the verifier is the essential selection mechanism that makes the loop work.
+
+## The self-verifying agent — {prompt / rule / memory / tool} (R11–R15)
+The verifier, turned on the agent's OWN self-modifications. Each result is `RESULTS.md`.
+- **Fine-tuning level (R11, `candidate_ft.py`).** Among three candidate LoRA fine-tunes, the one that
+  memorized its single training source (in-dist 0.993, held-out 0.507) is what NAIVE deploys; the
+  verifier (held-out) deploys the broad fine-tune (0.578) = the reward-hacking/memorization signature
+  caught at the fine-tuning level. Verified ≠ naive, verified generalizes better.
+- **Regression verifier (R12, `verified_integration.py`).** Naively fine-tuning to fix one source
+  silently REGRESSES another by **−0.16 (16 pts)**; a 1D "did the target improve?" check misses it. The
+  2D verifier (gain AND no-regression) catches it; a retention-replay candidate regresses nothing (even
+  +0.12 elsewhere). The X-MoD "naive correction backfires" warning, reproduced and gated.
+- **FLAGSHIP single-round (R13, `self_verify_agent.py`).** Agent handles A (1.00), fails B (0.00),
+  proposes rule-edits to fix B. It ADOPTS only the edit that transfers to held-out B AND keeps A —
+  even REJECTING the edit that fixes B best (hidden 1.00) because it regresses A. Capability 0.50→0.92
+  vs naive 0.67. Safe self-modification, demonstrated.
+- **Multi-round (R14, `self_improve_loop.py`).** Acquiring B,C,D one per round: self-verifying is higher
+  every round (final 0.88 vs naive 0.79); naive adopts a −0.50-regressing edit round 1 and stagnates,
+  the verifier never regresses. Gated adoption compounds; ungated erodes.
+- **Tool/code self-mods (R15, `self_verify_tool.py`).** The agent rewrites its own Python tool; **2 of 3
+  rewrites are lookup-hacks** (perfect on seen inputs, executed-held-out 0.0). Seen score can't tell them
+  from the general tool (naive gambles, expected 0.67); EXECUTING each on held-out is decisive → verifier
+  adopts the general tool (1.00). The self-coding-agent failure mode, caught by an executing hidden test.
 
 ## Embodied confirmation (CARLA driving)
 - Reused the operator's own assets (CARLA+LEAD, Bench2Drive-220, X-MoD, failure taxonomy).
@@ -43,15 +71,20 @@ improvement is the norm.** We prove both, in text and in an embodied driving dom
 
 ## Honest scope & limits
 - Small models (7B), synthetic + public benchmark data, single node — not production, not SOTA raw
-  detection. The autonomous loop is closed in TEXT on simple hidden-rule tasks (R10); it needs a
-  prior-overcoming inducer and the model's candidates are unreliable (the verifier does the real work).
-  The **EMBODIED/CARLA** version remains the open hard core: failures are flaky (need statistical
-  verification), and prior X-MoD work shows naive correction-retraining backfires + naive data-scaling
-  is flat — the honest lever is retention-DAgger, a multi-week build. So "verified self-improvement on
-  driving" is not solved; the verifier + the honest negatives are the deliverable.
-- **Bottom line:** the verifier — the thing that separates real from fake self-improvement — is proven,
-  robust, and transfers; that is the deliverable. The full autonomous self-improvement loop is not solved
-  (transfer is the frontier), and the honest negatives here *are* the evidence for why the verifier matters.
+  detection. The self-verifying agent (R11–R15) is demonstrated on **hidden-convention tasks + arithmetic
+  tool code** — controlled substrates where a real improvement exists and transfers. On a HARD real task
+  (cross-source faithfulness) prompt-rule/fine-tune self-mods do NOT transfer, so the verifier safely
+  adopts little (R6, R11–12) — honest, and the correct behavior (refuse fake improvement), but not a
+  triumphant climb. The **EMBODIED/CARLA** version remains the open hard core: failures are flaky (need
+  statistical verification), and prior X-MoD work shows naive correction-retraining backfires + naive
+  data-scaling is flat — the honest lever is retention-DAgger, a multi-week build.
+- **Bottom line:** the self-verifying agent — an agent that gates its own {prompt/rule/memory/tool}
+  changes through a hidden-test + regression verifier and so improves without self-deception — is
+  demonstrated end-to-end (R11–R15): it accepts real transfer, rejects overfit/lookup-hacks and
+  regressions that fool the naive agent, and compounds capability across rounds while the naive agent
+  erodes. The verifier is the load-bearing mechanism; the honest negatives (hard-task non-transfer,
+  CARLA flakiness) *are* the evidence for why it is needed. Next frontier: a harder/real substrate and
+  the embodied loop.
 
 ## Repo map
 `bench/` sealed benchmark · `RESULTS.md` authoritative results (R1–8) · `loop*.py` self-improvement loops ·
