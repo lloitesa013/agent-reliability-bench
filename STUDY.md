@@ -83,8 +83,10 @@ The verifier, turned on the agent's OWN self-modifications. Each result is `RESU
 - **Bottom line:** the self-verifying agent — an agent that gates its own {prompt/rule/memory/tool}
   changes through a hidden-test + regression verifier — reliably wins the **single adoption decision**:
   it accepts real transfer and rejects the overfit fine-tune (R11), the −0.16 regression (R12), the
-  best-B-fix that breaks A (R13), and the 2/3 lookup-hacks (R15) that all fool the naive agent. That
-  per-decision advantage is the robust, load-bearing result. The **multi-round CUMULATIVE** advantage is
+  best-B-fix that breaks A (R13), and the 2/3 lookup-hacks (R15) that all fool the naive agent.
+  **Quantified (R17): over 24 tool-acquisition decisions a reward-hack existed in 100%, naive deploys a
+  broken tool 59% of the time, the executing verifier 0% (while still improving 88%).** That per-decision
+  advantage is the robust, load-bearing result. The **multi-round CUMULATIVE** advantage is
   small and noisy at scale (R16, honest) — not a large-compounding claim. The honest negatives (hard-task
   non-transfer, multi-round dilution, CARLA flakiness) *are* the evidence for what the verifier does and
   does not buy. Next frontier: a harder/real substrate and the embodied loop.
