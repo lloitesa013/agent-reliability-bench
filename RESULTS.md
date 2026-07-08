@@ -244,3 +244,28 @@ in-dist score is fool's gold; held-out transfer is the correct selection signal.
 (Caveat: absolute held-out is modest (0.51–0.58) — cross-source faithfulness transfer is intrinsically
 hard; brick 4 measures base-vs-candidate per source to separate "which generalizes best" from "does any
 beat base". The selection result — verified ≠ naive, verified better — stands regardless.)
+
+## Result 12 — the REGRESSION verifier (brick 4): naive adoption silently forgets; retention prevents it
+`verified_integration.py`: extend the verifier from 1D (does the target improve?) to 2D (target improves
+AND no old capability regresses). Base judge profile then two candidate adoptions to fix the weak target
+FinanceBench:
+
+| source | base | NAIVE (finetune finance only) | RETAIN (finance + replay old 100×4) |
+|---|---|---|---|
+| DROP | 0.560 | 0.555 (−0.005) | **0.680 (+0.120)** |
+| RAGTruth | 0.830 | **0.670 (−0.160)** | 0.830 (0.000) |
+| halueval | 0.845 | 0.815 (−0.030) | 0.855 (+0.010) |
+| covidQA | 0.640 | 0.640 (0.000) | 0.675 (+0.035) |
+| FinanceBench (target) | 0.605 | 0.610 (+0.005) | 0.590 (−0.015) |
+
+Two honest findings: (1) **the regression is real and severe** — naively fine-tuning to fix FinanceBench
+tanks RAGTruth by **−0.160 (16 pts)** and halueval by −0.03, i.e. the X-MoD "naive correction backfires"
+warning reproduced on the judge; a 1D verifier (target only, +0.005) would have MISSED it and adopted a
+capability-destroying change. (2) **retention (replay) prevents all regression** (worst old Δ = 0.000,
+even DROP +0.12) — a safe net-positive change. Under the correct regression verifier (reject any candidate
+that regresses an existing capability): **NAIVE → REJECT (RAGTruth −0.16), RETAIN → regression-free.**
+The target-gain gate rejects both because finetuning-on-finance does not raise held-out finance
+(+0.005 / −0.015) — the same cross-source non-transfer as R11 — so a finance-gated adoption safely takes
+nothing. **Validated: the regression half of the self-verifying agent catches a silent −0.16 forgetting
+that naive adoption walks into.** The full accept-a-real-gain-without-regression loop needs a substrate
+where the gain transfers → the flagship (hidden-convention tasks, `self_verify_agent.py`).
