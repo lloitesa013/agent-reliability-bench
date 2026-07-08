@@ -202,3 +202,13 @@ is correct on 4/4** — it ACCEPTS the general rule that transfers to held-out v
 REJECTS the overfit + spurious rules on every task. The naive seen-only baseline is fooled by the overfit
 on 2/4 (the tasks where the lookup actually raised the seen score) — i.e. wherever a fake creates a
 seen-gain, naive accepts it and the verifier catches it. Verified self-improvement is robust, not cherry-picked.
+
+## Result 9 — autonomous rule-induction FAILS (prior-anchoring); verifier still robust
+`proof_autonomous.py`: the model induces rules from its OWN failures (not given). On both hidden-rule
+tasks it FAILED to induce the true rule — it stayed **anchored to its prior** ("overtime after 8h",
+"dozen = 12") despite failure examples showing 6h / ×10. All induced rules were wrong → 0 transfer, and
+the verifier correctly **adopted none**. Finding: prompt-rule self-improvement cannot override the model's
+strong priors from a few examples (a confirmation-bias failure mode) → autonomous self-improvement via
+induction is unreliable — *which is exactly why the verifier is needed*. The control-based ACCEPT proof
+(R8) shows the verifier CAN recognize a real improvement when one exists; autonomy is blocked by the
+*inducer*, not the verifier.
