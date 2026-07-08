@@ -58,10 +58,14 @@ The verifier, turned on the agent's OWN self-modifications. Each result is `RESU
 - **WATCHER** (`run_taxonomy.ps1`): 201 route failures observed and clustered.
 - **JUDGE** (`get_scenarios.ps1`): 7 hard failures attributed to scenarios (EnterActorFlow→collision,
   pedestrian-crossing→collision, …).
-- **VERIFY pipeline** works (re-run routes) — and revealed the key embodied fact: **driving failures are
-  FLAKY.** The same route+agent, zero changes, flips FAILED↔PASSED across runs (route 11755 collision
-  in the batch → PASSED on re-run; 3436/18252 similarly). So single-run "the fix worked" is meaningless;
-  verification must be a **statistical failure-RATE** — the embodied analog of the fake-improvement problem.
+- **STATISTICAL failure-rate verifier (R19, `run_multi.ps1`).** Re-running routes N times (fresh CARLA,
+  zero changes) QUANTIFIES the flakiness: route **11755 fails 3/6 = 50%** (PASS,PASS,FAIL,FAIL,FAIL,PASS —
+  score flips 100↔60↔22), route **3436 is 0/4 = 0% (stable)**. The SAME route and agent, unchanged, is a
+  coin-flip on 11755 — so single-run "the fix worked / the agent fails here" is **fool's gold** (the
+  embodied analog of trusting a seen-score for a text self-mod). Verification must be a **failure RATE over
+  N runs**; a candidate fix is real only if it lowers the rate beyond this stochastic noise. The full
+  embodied self-improvement loop (a fix that provably lowers the rate) remains the open hard core, now
+  gated by a working statistical verifier.
 
 ## The reliability foundation it stands on (the watcher itself)
 - A zero-shot *reading* judge beats a tuned groundedness rule on a sealed benchmark (**0.949 vs 0.789**,
