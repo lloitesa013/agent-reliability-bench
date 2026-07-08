@@ -11,8 +11,8 @@ $env:PYTHONUNBUFFERED = "1"; $env:PYTHONIOENCODING = "utf-8"; $env:PYTHONUTF8 = 
 $env:PATH = "$EnvDir;$EnvDir\Scripts;$EnvDir\Library\bin;$EnvDir\Library\usr\bin;$env:PATH"
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 
-# 11755 = EnterActorFlow (documented flaky: collision->PASS on re-run); 3436 = HazardSideLane (3 baseline collisions)
-$plan = @(@("11755", 6), @("3436", 4))
+# Extend the flaky/stable map: 18252 = pedestrian-crossing, 2509/2513 = construction family (1825 siblings)
+$plan = @(@("18252", 5), @("2509", 4), @("2513", 4))
 $csv = Join-Path $Lead "outputs\failure_rate.csv"
 "route,run,status,score,collisions,route_dev,failed" | Out-File -Encoding utf8 $csv
 $results = @()
