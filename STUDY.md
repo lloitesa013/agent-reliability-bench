@@ -43,9 +43,11 @@ The verifier, turned on the agent's OWN self-modifications. Each result is `RESU
   proposes rule-edits to fix B. It ADOPTS only the edit that transfers to held-out B AND keeps A —
   even REJECTING the edit that fixes B best (hidden 1.00) because it regresses A. Capability 0.50→0.92
   vs naive 0.67. Safe self-modification, demonstrated.
-- **Multi-round (R14, `self_improve_loop.py`).** Acquiring B,C,D one per round: self-verifying is higher
-  every round (final 0.88 vs naive 0.79); naive adopts a −0.50-regressing edit round 1 and stagnates,
-  the verifier never regresses. Gated adoption compounds; ungated erodes.
+- **Multi-round (R14, `self_improve_loop.py`).** Acquiring B,C,D one per round: self-verifying higher
+  every round (0.88 vs 0.79), naive adopts a −0.50-regressing edit round 1. **HONEST caveat (R16):** at
+  5 rounds this gap is NOT robust — cumulative capability at scale is dominated by new-task-difficulty
+  noise + dilution (final mean Δ only +0.03). The robust claim is the SINGLE-DECISION advantage (R11–13,
+  R15); large multi-round CUMULATIVE compounding is not demonstrated on these toy tasks.
 - **Tool/code self-mods (R15, `self_verify_tool.py`).** The agent rewrites its own Python tool; **2 of 3
   rewrites are lookup-hacks** (perfect on seen inputs, executed-held-out 0.0). Seen score can't tell them
   from the general tool (naive gambles, expected 0.67); EXECUTING each on held-out is decisive → verifier
@@ -79,12 +81,13 @@ The verifier, turned on the agent's OWN self-modifications. Each result is `RESU
   statistical verification), and prior X-MoD work shows naive correction-retraining backfires + naive
   data-scaling is flat — the honest lever is retention-DAgger, a multi-week build.
 - **Bottom line:** the self-verifying agent — an agent that gates its own {prompt/rule/memory/tool}
-  changes through a hidden-test + regression verifier and so improves without self-deception — is
-  demonstrated end-to-end (R11–R15): it accepts real transfer, rejects overfit/lookup-hacks and
-  regressions that fool the naive agent, and compounds capability across rounds while the naive agent
-  erodes. The verifier is the load-bearing mechanism; the honest negatives (hard-task non-transfer,
-  CARLA flakiness) *are* the evidence for why it is needed. Next frontier: a harder/real substrate and
-  the embodied loop.
+  changes through a hidden-test + regression verifier — reliably wins the **single adoption decision**:
+  it accepts real transfer and rejects the overfit fine-tune (R11), the −0.16 regression (R12), the
+  best-B-fix that breaks A (R13), and the 2/3 lookup-hacks (R15) that all fool the naive agent. That
+  per-decision advantage is the robust, load-bearing result. The **multi-round CUMULATIVE** advantage is
+  small and noisy at scale (R16, honest) — not a large-compounding claim. The honest negatives (hard-task
+  non-transfer, multi-round dilution, CARLA flakiness) *are* the evidence for what the verifier does and
+  does not buy. Next frontier: a harder/real substrate and the embodied loop.
 
 ## Repo map
 `bench/` sealed benchmark · `RESULTS.md` authoritative results (R1–8) · `loop*.py` self-improvement loops ·
