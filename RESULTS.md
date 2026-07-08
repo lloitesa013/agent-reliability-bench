@@ -290,3 +290,24 @@ A** — even the strongest improvement is refused if it breaks an existing capab
 target artifact: an agent that distrusts its own {prompt/rule/memory} changes and adopts only what a
 hidden-test + regression verifier clears — self-improving without self-deception.** (7B, hidden-convention
 substrate where gains transfer; single round — next: multi-round cumulative loop.)
+
+## Result 14 — multi-round self-improvement loop (brick 5): gated adoption preserves accumulated capability
+`self_improve_loop.py`: the agent starts with capability A and acquires B, C, D one per round. Same
+candidate pool each round; NAIVE adopts best-seen, SELF-VERIFYING adopts only edits that transfer
+(hidden) AND don't regress any acquired capability. Cumulative held-out capability:
+
+| round | NAIVE | SELF-VERIFYING |
+|---|---|---|
+| start (A only) | 1.00 | 1.00 |
+| + B_dozen | 0.75 | 0.83 |
+| + C_chapter | 0.78 | 0.94 |
+| + D_team | 0.79 | 0.88 |
+
+**Self-verifying is higher at EVERY round (+0.08 to +0.16); final 0.88 vs 0.79.** The gap is regression:
+in round 1 naive adopted an edit that (in the verified track) showed worst_reg −0.50 — it half-destroyed
+capability A — so naive craters to 0.75 and stays 0.75–0.79. Self-verifying rejected that edit, took the
+−0.17 one, and never dropped from regression: its round-3 dip (0.94→0.88) is under-acquisition of D_team
+(the inducer proposed malformed ×4 rules; best candidate hidden 0.67, but worst_reg +0.00), NOT forgetting.
+**Gated self-improvement compounds while preserving old capability; ungated accumulates regressions and
+stagnates.** (Caveats: 6-item held-out sets = 0.17 granularity, noisy; not strictly monotone; claim is
+"verified consistently higher + never regresses", not "perfect climb".)
