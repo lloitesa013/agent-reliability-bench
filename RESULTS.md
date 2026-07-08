@@ -223,3 +223,24 @@ VERIFY each on held-out → adopt only the one that transfers.** The thesis full
 self-improvement candidates are unreliable (some prior-anchored/wrong), and the VERIFIER is the
 essential mechanism that selects the genuinely-transferring one. (Text domain; the embodied/CARLA
 version stays hard — flaky failures + retention-DAgger is multi-week.)
+
+## Result 11 — verified self-improvement at the FINE-TUNING level (verifier as a model-selection gate)
+`candidate_ft.py`: instead of prompt-rules, we now generate three candidate LoRA fine-tunes of the 7B
+judge with DIFFERENT training-data compositions and ask whether HELD-OUT selection beats IN-DIST
+selection. Held-out sources (never trained): FinanceBench, pubmedQA. Candidates & results:
+
+| candidate (training data) | verified (held-out finance/pubmed) | in-dist (own-domain held-out) |
+|---|---|---|
+| broad4 (250 ea × 4 sources) | **0.578** ← verifier picks | 0.800 |
+| single (halueval ×1000)     | 0.507 | **0.993** ← naive picks |
+| pair (DROP+RAGTruth ×500)   | 0.547 | 0.847 |
+
+`single` trained on one source, drove training loss to **0.000** (memorized, in-dist **0.993**) yet
+generalizes **worst** (held-out **0.507**) — the reward-hacking/overfit signature at the fine-tuning
+level. **NAIVE selection (best in-dist) deploys `single` = the worst generalizer; the VERIFIER (best
+held-out) deploys `broad4` = +0.071 better held-out.** The two policies pick DIFFERENT models, and the
+verifier's pick generalizes better. Confirms the thesis scales from prompt-rules to fine-tunes: seen/
+in-dist score is fool's gold; held-out transfer is the correct selection signal.
+(Caveat: absolute held-out is modest (0.51–0.58) — cross-source faithfulness transfer is intrinsically
+hard; brick 4 measures base-vs-candidate per source to separate "which generalizes best" from "does any
+beat base". The selection result — verified ≠ naive, verified better — stands regardless.)
