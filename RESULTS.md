@@ -180,3 +180,18 @@ genuine wall (both detection and abstention fail there).
 - Package the HONEST story (positives + negatives + the abstention-transfer edge) — the discipline IS
   the differentiator. Sionic OSS PR + outreach. FinanceBench remains the open hard problem (in-domain
   data / better judge). Larger diverse training data if chasing raw generalization (the Lynx recipe).
+
+## Result 8 — verified self-improvement PROVEN (both directions of the verifier)
+`proof_loop.py`: hidden-convention task (overtime after 6h; the model assumes the usual 8h -> fails,
+baseline held-out 0.00). Three candidate self-improvements, each verified on HELD-OUT disjoint values:
+```
+candidate                 | seen Δ | held-out Δ | verifier | naive-seen
+correct (general rule)    | +0.80  | +1.00      | ACCEPT   | accept
+overfit (train lookup)    | +0.80  | +0.00      | REJECT   | accept   <- naive FOOLED
+spurious (wrong rule)     | -0.20  | +0.00      | REJECT   | reject
+```
+The verifier ACCEPTS the real transferring improvement and REJECTS the overfit one that the naive
+"measure on the tasks you learned from" baseline wrongly accepts (the reward-hacking / illusion-of-
+progress gap, caught by held-out verification). **This completes the thesis:** the REJECT direction was
+shown earlier (loop_v2 / faith_loop on real-gap data); ACCEPT + discrimination + naive-fooled contrast
+are now shown. Verified self-improvement = the verifier separates real from fake self-improvement.
