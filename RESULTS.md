@@ -330,3 +330,27 @@ selection has no signal to avoid the hacks — it gambles (expected capability 0
 verifier **deterministically adopts the general tool (1.00)**. This is the self-coding-agent failure mode
 (reward-hacking by hardcoding) caught by an executing hidden-test — the {tool} element of
 {prompt/rule/memory/tool}, and the most rigorous brick (verification is deterministic execution).
+
+## Result 16 — multi-round at scale (5 rounds): cumulative advantage is small/noisy — HONEST correction to R14
+`self_improve_loop6.py` (A + acquire B,C,D,E,F), tracking BOTH mean and min (worst) capability:
+
+| round | NAIVE mean/min | VERIFYING mean/min |
+|---|---|---|
+| B_dozen | 0.75 / 0.50 | 0.83 / 0.83 |
+| C_chapter | 0.78 / 0.50 | 0.94 / 0.83 |
+| D_team | 0.79 / 0.50 | 0.88 / 0.67 |
+| E_week | 0.87 / 0.67 | 0.87 / 0.67 |
+| F_crate | 0.81 / 0.67 | 0.83 / **0.50** |
+| **final** | **0.81 / 0.67** | **0.83 / 0.50** |
+
+Early rounds behave as expected (verifying preserves min 0.83 while naive breaks a capability to 0.50).
+**But at scale the advantage does NOT hold up:** final mean Δ+0.03, and final MIN is actually WORSE for
+verifying (0.50 vs 0.67) — because verifying under-ACQUIRED the last task F_crate (0.50, a new-task
+failure, not a regression) while naive's early regression got diluted/recovered across 6 capabilities.
+**This is an honest correction: R14's larger 3-round gap (0.88 vs 0.79) is NOT robust to more rounds** —
+cumulative capability at scale is dominated by new-task-difficulty noise and dilution on these small
+(6-item) toy tasks. **What IS robust is the SINGLE-DECISION verifier advantage** (R11 memorizer, R12
+−0.16 regression, R13 rejecting the best-B-fix that regresses A, R15 2/3 lookup-hacks): in one adoption
+decision the verifier reliably catches the fake/regression/hack that fools naive. The multi-round
+CUMULATIVE compounding into a large gap is not demonstrated on toy tasks. (No cherry-picking: reported as
+observed; not re-run to hunt a bigger gap.)
