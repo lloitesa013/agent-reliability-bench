@@ -12,10 +12,16 @@ improvement is the norm.** We prove both, in text and in an embodied driving dom
   "improvements" that raise the *seen* score fail on held-out; the verifier rejects them robustly and
   is not fooled by seen-gains. Shown on synthetic and on public HaluBench (a real-gap task).
 - **ACCEPT (real is recognized).** `proof_loop.py` / `proof_robust.py`: on 4 hidden-convention tasks,
-  the verifier ACCEPTS a general rule that transfers to held-out values (held-out accuracy +1.00) and
-  REJECTS an overfit rule that the naive "measure on what you learned from" baseline wrongly accepts.
-  **Verifier correct 4/4; naive-seen fooled by the overfit where it creates a seen-gain.** = the
-  reward-hacking / illusion-of-progress gap, caught by held-out verification.
+  the verifier ACCEPTS a general rule that transfers to held-out values (held-out +1.00) and REJECTS an
+  overfit rule that the naive "measure on what you learned from" baseline wrongly accepts. **Verifier
+  correct 4/4; naive-seen fooled by the overfit where it creates a seen-gain** = the reward-hacking /
+  illusion-of-progress gap, caught by held-out verification.
+- **AUTONOMOUS loop closed.** `proof_autonomous2.py`: the model induces candidate rules from its OWN
+  failures and the verifier adopts only the one that transfers (2/2 tasks). Key nuance (`proof_autonomous.py`):
+  a *naive* inducer is **prior-anchored** — it rationalizes its failures with its prior (kept "8h"/"dozen=12")
+  and induces wrong rules; a *pattern-fitting* inducer (ignore priors, fit output=f(input)) produces
+  candidates that include the true rule, and the **verifier selects it**. So the model's self-improvement
+  candidates are unreliable; the verifier is the essential selection mechanism that makes the loop work.
 
 ## Embodied confirmation (CARLA driving)
 - Reused the operator's own assets (CARLA+LEAD, Bench2Drive-220, X-MoD, failure taxonomy).
@@ -37,11 +43,12 @@ improvement is the norm.** We prove both, in text and in an embodied driving dom
 
 ## Honest scope & limits
 - Small models (7B), synthetic + public benchmark data, single node — not production, not SOTA raw
-  detection. The `ACCEPT` proof uses positive/negative controls (a known-transferring rule + an overfit
-  one) to prove the verifier discriminates — it is a proof of the *verifier*, not of a general
-  self-improvement algorithm. Producing an *autonomously-discovered* real transferring improvement (esp.
-  in CARLA) remains the open hard core — prior X-MoD work shows naive correction-retraining backfires and
-  naive data-scaling is flat; the honest lever is retention-DAgger, a multi-week build.
+  detection. The autonomous loop is closed in TEXT on simple hidden-rule tasks (R10); it needs a
+  prior-overcoming inducer and the model's candidates are unreliable (the verifier does the real work).
+  The **EMBODIED/CARLA** version remains the open hard core: failures are flaky (need statistical
+  verification), and prior X-MoD work shows naive correction-retraining backfires + naive data-scaling
+  is flat — the honest lever is retention-DAgger, a multi-week build. So "verified self-improvement on
+  driving" is not solved; the verifier + the honest negatives are the deliverable.
 - **Bottom line:** the verifier — the thing that separates real from fake self-improvement — is proven,
   robust, and transfers; that is the deliverable. The full autonomous self-improvement loop is not solved
   (transfer is the frontier), and the honest negatives here *are* the evidence for why the verifier matters.
