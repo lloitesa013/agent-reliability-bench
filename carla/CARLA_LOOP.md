@@ -58,3 +58,14 @@ unchanged tfv6 agent (`run_lead_route.ps1`, CARLA up in 3s, ~2min/route).
 - Multi-run baseline: run each failure route N times -> per-route failure RATE (stable vs flaky).
 - Policy-override layer on tfv6 (watcher-as-enforcer: e.g. speed cap / yield in the failing scenario).
 - Verify: does the override lower the failure RATE on held-out same-scenario routes (real transfer)?
+
+## Step 4 — multi-run failure-rate (FLAKY confirmed)
+Re-ran failure routes multiple times (`run_multi.ps1`, fixed to `schtasks /end` before `/run` — a
+documented CARLA-restart gotcha that must clear the task 'Running' wedge). Valid runs:
+- 11755 (EnterActorFlow): PASS(100) and FAIL(60, collision) across runs = **definitively FLAKY**.
+- 3436 (baseline 3 collisions) and 18252 (baseline pedestrian collision): both **PASSED (100) on re-run**.
+=> driving failures are dominated by stochasticity; **stable failures are rare**. So the full CARLA
+self-improvement loop is low-probability (you can only learn from / verify fixes on STABLE failures),
+and the honest CARLA deliverable is the **flakiness-aware statistical verifier**, not the autonomous loop.
+Lesson (repeated a known one): do NOT run other GPU jobs (text experiments) while a CARLA eval runs —
+single-GPU contention stalls both (memory: 'one executor at a time on the 5090').
