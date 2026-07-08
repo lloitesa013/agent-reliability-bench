@@ -55,10 +55,13 @@ candidate improvements; the *verifier* decides which are real.
   — seen can't tell them apart, executing on held-out can. **Honest scope (R14, R16):** the CUMULATIVE
   multi-round advantage is small and noisy at scale (final mean Δ≈+0.03 over 5 rounds); the robust result is
   the SINGLE adoption DECISION, where the verifier reliably catches the fake/regression/hack that fools naive.
-- **Embodied confirmation (CARLA).** Watcher clusters 201 route failures; judge attributes them to scenarios.
-  The verify pipeline (re-running routes) reveals that **driving failures are flaky**: the same route and
-  agent, unchanged, flip FAILED↔PASSED across runs. So single-run "the fix worked" is meaningless — the
-  embodied analog of accepting a seen-gain — and verification must be a statistical failure rate.
+- **Embodied statistical verifier (R19–R20, CARLA/Bench2Drive).** Re-running real routes N times (fresh
+  CARLA, LEAD tfv6 agent, zero changes) quantifies the flakiness: **11755 = 50% (3/6), 18252 = 20% (1/5)**
+  fail — genuinely flaky collision scenarios — while **3436, 2509, 2513 pass 100% (0%)** even though they
+  were labeled FAILURES in the single-run taxonomy: their "failure" was one-off noise that does not
+  reproduce. **Single-run failure labels — the driving-leaderboard standard — are unreliable** (they
+  measure stochastic noise as much as capability; the embodied illusion-of-progress). An embodied verifier
+  must use a failure RATE over N runs; a candidate fix is real only if it lowers the rate beyond this noise.
 
 ## 4. Findings
 1. **Fake improvement is the default**, in text and driving. Held-out / statistical verification is required.
