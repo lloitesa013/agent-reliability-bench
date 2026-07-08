@@ -21,10 +21,14 @@ BASE_SYS = "You are a precise assistant. Answer with only the final number. End 
 # the agent already adopted this rule for family A (overtime) — this is its existing capability
 ADOPTED_A = "For overtime questions: overtime hours = (hours worked) minus 6, floored at 0."
 
-FIT_SYS = ("You are a pattern finder. You are given (input, correct_output) pairs from ONE kind of question. "
-           "IGNORE what the words normally mean — the system uses a NON-STANDARD rule. Find the exact rule "
-           "output=f(input) fitting ALL pairs and state it as ONE short instruction. Propose THREE candidate "
-           "rule-edits, numbered 1., 2., 3. Each must be a single sentence the assistant can follow.")
+FIT_SYS = ("You are a pattern finder. You are given (input, correct_output) pairs from questions about a "
+           "specific quantity. IGNORE what the words normally mean — the system uses a NON-STANDARD rule. "
+           "Find the exact rule output=f(input) fitting ALL pairs. IMPORTANT: the assistant ALSO answers "
+           "OTHER kinds of questions, so a safe rule must apply ONLY to THESE questions and must not change "
+           "answers to other questions. Propose THREE candidate rule-edits, numbered 1., 2., 3., RANGING "
+           "from broad (just the arithmetic, no scope) to narrow (a rule that explicitly names the exact "
+           "question type it applies to, e.g. 'For questions asking how many items are in N dozen, ...'). "
+           "Each must be a single sentence the assistant can follow.")
 
 A = dict(name="overtime(A, existing)",
          q=lambda x: f"An employee worked {x} hours in one day. How many were overtime hours?",

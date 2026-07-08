@@ -269,3 +269,24 @@ The target-gain gate rejects both because finetuning-on-finance does not raise h
 nothing. **Validated: the regression half of the self-verifying agent catches a silent −0.16 forgetting
 that naive adoption walks into.** The full accept-a-real-gain-without-regression loop needs a substrate
 where the gain transfers → the flagship (hidden-convention tasks, `self_verify_agent.py`).
+
+## Result 13 — FLAGSHIP: the self-verifying agent (safe self-modification, full loop)
+`self_verify_agent.py`: an agent already handles family A (overtime, held-out 1.00) and fails family B
+(dozen, 0.00). It proposes candidate self-modifications (rule-edits) to fix B from its own failures, and
+adopts one only if it clears TWO gates: HIDDEN TEST (improves B on held-out inputs) AND REGRESSION (does
+not break A on held-out). Candidates:
+
+| edit | seen-B | hidden-B (transfer) | A after (regression) |
+|---|---|---|---|
+| #1 "for N-dozen questions, N×10" | 1.00 | 0.50 | 0.83 (Δ−0.17) |
+| #2 "...each dozen=10 items, multiply..." | 1.00 | **1.00** | 0.83 (Δ−0.17) |
+| #3 "total items in N dozen is N×10" | 1.00 | 0.83 | **1.00 (Δ0.00)** |
+
+**NAIVE** (adopt best seen-B) → #1 → A=0.83, B=0.50, **mean 0.67** (regressed A + overfit B).
+**SELF-VERIFYING** (both gates) → #3 → A=1.00, B=0.83, **mean 0.92**. Capability 0.50→0.92, safely.
+The decisive moment: edit **#2 fixes B best (hidden 1.00) but the agent REJECTS it because it regresses
+A** — even the strongest improvement is refused if it breaks an existing capability; the agent trades B
+(1.00→0.83) to preserve A. Naive, seeing only seen-B, adopts a regressing/overfit edit. **This is the
+target artifact: an agent that distrusts its own {prompt/rule/memory} changes and adopts only what a
+hidden-test + regression verifier clears — self-improving without self-deception.** (7B, hidden-convention
+substrate where gains transfer; single round — next: multi-round cumulative loop.)
