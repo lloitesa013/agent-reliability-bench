@@ -1,0 +1,3256 @@
+{
+  "entries": [
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_10857_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_11381_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_11715_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 8,
+        "route_dev": 1
+      },
+      "route_id": "RouteScenario_11755_rep0",
+      "scores": {
+        "score_composed": 29.628,
+        "score_penalty": 0.6,
+        "score_route": 49.38
+      },
+      "status": "Failed - Agent deviated from the route",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_14194_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_14842_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_14862_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_14909_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_1711_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_17563_rep0",
+      "scores": {
+        "score_composed": 60.0,
+        "score_penalty": 0.6,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_17569_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 17
+      },
+      "route_id": "RouteScenario_17598_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_17635_rep0",
+      "scores": {
+        "score_composed": 60.0,
+        "score_penalty": 0.6,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_17655_rep0",
+      "scores": {
+        "score_composed": 60.0,
+        "score_penalty": 0.6,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_1773_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_17752_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_1790_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_1792_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_pedestrian": 1,
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_18252_rep0",
+      "scores": {
+        "score_composed": 50.0,
+        "score_penalty": 0.5,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_1825_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_18305_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_18311_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_1833_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_18356_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_1852_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_1956_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_2050_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_2082_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_2084_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_2086_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2091_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_20920_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_2115_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2127_rep0",
+      "scores": {
+        "score_composed": 60.0,
+        "score_penalty": 0.6,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_2129_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2143_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2144_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2164_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 17,
+        "red_light": 1
+      },
+      "route_id": "RouteScenario_2201_rep0",
+      "scores": {
+        "score_composed": 42.0,
+        "score_penalty": 0.42,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 5
+      },
+      "route_id": "RouteScenario_2204_rep0",
+      "scores": {
+        "score_composed": 30.26,
+        "score_penalty": 1.0,
+        "score_route": 30.26
+      },
+      "status": "Failed - TickRuntime",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20,
+        "red_light": 1
+      },
+      "route_id": "RouteScenario_2215_rep0",
+      "scores": {
+        "score_composed": 70.0,
+        "score_penalty": 0.7,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_2273_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19,
+        "route_dev": 1
+      },
+      "route_id": "RouteScenario_2283_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100.0
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_2286_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_23658_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 12,
+        "route_dev": 1
+      },
+      "route_id": "RouteScenario_23659_rep0",
+      "scores": {
+        "score_composed": 79.89,
+        "score_penalty": 1.0,
+        "score_route": 79.89
+      },
+      "status": "Failed - Agent deviated from the route",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20,
+        "route_dev": 1
+      },
+      "route_id": "RouteScenario_23670_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100.0
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20,
+        "outside_route_lanes": 1
+      },
+      "route_id": "RouteScenario_23687_rep0",
+      "scores": {
+        "score_composed": 96.770791,
+        "score_penalty": 0.967708,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_23695_rep0",
+      "scores": {
+        "score_composed": 60.0,
+        "score_penalty": 0.6,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_23700_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_23708_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_2373_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_23771_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20,
+        "route_dev": 1
+      },
+      "route_id": "RouteScenario_23901_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100.0
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_2390_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18,
+        "route_dev": 1
+      },
+      "route_id": "RouteScenario_23910_rep0",
+      "scores": {
+        "score_composed": 96.08,
+        "score_penalty": 1.0,
+        "score_route": 96.08
+      },
+      "status": "Failed - Agent deviated from the route",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20,
+        "route_dev": 1
+      },
+      "route_id": "RouteScenario_23918_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100.0
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19,
+        "route_dev": 1
+      },
+      "route_id": "RouteScenario_23930_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100.0
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_2397_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_2403_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_layout": 1,
+        "min_speed_infractions": 17,
+        "outside_route_lanes": 1,
+        "vehicle_blocked": 1
+      },
+      "route_id": "RouteScenario_24041_rep0",
+      "scores": {
+        "score_composed": 55.628204,
+        "score_penalty": 0.618297,
+        "score_route": 89.97
+      },
+      "status": "Failed - Agent got blocked",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_24071_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_24078_rep0",
+      "scores": {
+        "score_composed": 60.0,
+        "score_penalty": 0.6,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_24092_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18,
+        "route_dev": 1
+      },
+      "route_id": "RouteScenario_24098_rep0",
+      "scores": {
+        "score_composed": 96.08,
+        "score_penalty": 1.0,
+        "score_route": 96.08
+      },
+      "status": "Failed - Agent deviated from the route",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2416_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {},
+      "route_id": "RouteScenario_24206_rep0",
+      "scores": {
+        "score_composed": 0.0,
+        "score_penalty": 1.0,
+        "score_route": 0.0
+      },
+      "status": "Failed - Simulation crashed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_24211_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_pedestrian": 1,
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_24224_rep0",
+      "scores": {
+        "score_composed": 50.0,
+        "score_penalty": 0.5,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_24240_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_24252_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_24258_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_24294_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_24330_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_24333_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_24340_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_24367_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_24757_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_24781_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_24784_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_24785_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_24795_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {},
+      "route_id": "RouteScenario_24816_rep0",
+      "scores": {
+        "score_composed": 0.0,
+        "score_penalty": 1.0,
+        "score_route": 0.0
+      },
+      "status": "Failed - Simulation crashed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_24841_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2509_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_2513_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_25300_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_25318_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_2534_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_25358_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_25383_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_2539_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_25424_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_25439_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_2554_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_25845_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 17
+      },
+      "route_id": "RouteScenario_25863_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_25865_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_25928_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_25951_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_25968_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_25975_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_2606_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_26394_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_26396_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_26401_rep0",
+      "scores": {
+        "score_composed": 60.0,
+        "score_penalty": 0.6,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_26405_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_26406_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_26408_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_26418_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_2643_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_26458_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_2664_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2668_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 17
+      },
+      "route_id": "RouteScenario_26944_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_27018_rep0",
+      "scores": {
+        "score_composed": 60.0,
+        "score_penalty": 0.6,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2709_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2715_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 17
+      },
+      "route_id": "RouteScenario_27494_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_27506_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_27529_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_27532_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_27582_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19,
+        "outside_route_lanes": 1
+      },
+      "route_id": "RouteScenario_2790_rep0",
+      "scores": {
+        "score_composed": 98.993457,
+        "score_penalty": 0.989935,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2802_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19,
+        "red_light": 1
+      },
+      "route_id": "RouteScenario_28035_rep0",
+      "scores": {
+        "score_composed": 70.0,
+        "score_penalty": 0.7,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_28087_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_28099_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 17
+      },
+      "route_id": "RouteScenario_28111_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_28154_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_28198_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_28210_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_28219_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_28229_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_28241_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 17
+      },
+      "route_id": "RouteScenario_28243_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_28330_rep0",
+      "scores": {
+        "score_composed": 60.0,
+        "score_penalty": 0.6,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_2844_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_2847_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_2881_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_2913_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_2943_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3048_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3072_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_3074_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3080_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 17
+      },
+      "route_id": "RouteScenario_3086_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 17
+      },
+      "route_id": "RouteScenario_3090_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 1,
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3093_rep0",
+      "scores": {
+        "score_composed": 60.0,
+        "score_penalty": 0.6,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3099_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 17
+      },
+      "route_id": "RouteScenario_3100_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_3144_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3178_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3184_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3189_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3248_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_3255_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3307_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19,
+        "yield_emergency_vehicle_infractions": 1
+      },
+      "route_id": "RouteScenario_3364_rep0",
+      "scores": {
+        "score_composed": 70.0,
+        "score_penalty": 0.7,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19,
+        "yield_emergency_vehicle_infractions": 1
+      },
+      "route_id": "RouteScenario_3373_rep0",
+      "scores": {
+        "score_composed": 70.0,
+        "score_penalty": 0.7,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19,
+        "yield_emergency_vehicle_infractions": 1
+      },
+      "route_id": "RouteScenario_3378_rep0",
+      "scores": {
+        "score_composed": 70.0,
+        "score_penalty": 0.7,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18,
+        "yield_emergency_vehicle_infractions": 1
+      },
+      "route_id": "RouteScenario_3380_rep0",
+      "scores": {
+        "score_composed": 70.0,
+        "score_penalty": 0.7,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3410_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "collisions_vehicle": 3,
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3436_rep0",
+      "scores": {
+        "score_composed": 21.6,
+        "score_penalty": 0.216,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3457_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3464_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_3472_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3476_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3482_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3514_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_3520_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3540_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_3561_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_3564_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3572_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_3575_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3666_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3670_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_3676_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3697_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3708_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_3712_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3717_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 21
+      },
+      "route_id": "RouteScenario_3731_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3737_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3749_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3785_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20,
+        "route_dev": 1
+      },
+      "route_id": "RouteScenario_3800_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100.0
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_3813_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3865_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3869_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_3876_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3890_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_3904_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 1,
+        "vehicle_blocked": 1
+      },
+      "route_id": "RouteScenario_3905_rep0",
+      "scores": {
+        "score_composed": 7.94,
+        "score_penalty": 1.0,
+        "score_route": 7.94
+      },
+      "status": "Failed - Agent got blocked",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 18
+      },
+      "route_id": "RouteScenario_3936_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 19
+      },
+      "route_id": "RouteScenario_4183_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_4468_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_4669_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 20
+      },
+      "route_id": "RouteScenario_4683_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    },
+    {
+      "classification": "",
+      "fix_difficulty": "",
+      "hypothesis": "",
+      "infractions": {
+        "min_speed_infractions": 17
+      },
+      "route_id": "RouteScenario_4937_rep0",
+      "scores": {
+        "score_composed": 100.0,
+        "score_penalty": 1.0,
+        "score_route": 100
+      },
+      "status": "Completed",
+      "town": null
+    }
+  ],
+  "non_clean_count": 201,
+  "total_routes": 201
+}
