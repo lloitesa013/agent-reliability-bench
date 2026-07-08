@@ -195,3 +195,10 @@ The verifier ACCEPTS the real transferring improvement and REJECTS the overfit o
 progress gap, caught by held-out verification). **This completes the thesis:** the REJECT direction was
 shown earlier (loop_v2 / faith_loop on real-gap data); ACCEPT + discrimination + naive-fooled contrast
 are now shown. Verified self-improvement = the verifier separates real from fake self-improvement.
+
+### Result 8 robustness (`proof_robust.py`) — verifier holds across 4 hidden-rule tasks
+Repeated the proof on 4 distinct hidden-convention tasks (overtime/week/dozen/century). **The verifier
+is correct on 4/4** — it ACCEPTS the general rule that transfers to held-out values (held-out +1.00) and
+REJECTS the overfit + spurious rules on every task. The naive seen-only baseline is fooled by the overfit
+on 2/4 (the tasks where the lookup actually raised the seen score) — i.e. wherever a fake creates a
+seen-gain, naive accepts it and the verifier catches it. Verified self-improvement is robust, not cherry-picked.
