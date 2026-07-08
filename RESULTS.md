@@ -393,3 +393,22 @@ reward-hack is present in 100% of tool decisions and naive mis-selection is cata
 — the principle is: the hidden test must be LARGE/FRESH to avoid (a) optimism-gap false confidence and
 (b) catastrophic mis-selection when the candidate pool contains reward-hacks. Reusing a small held-out to
 score many self-mods re-creates the very reward-hacking the verifier exists to prevent.
+
+## Result 19 — EMBODIED statistical failure-rate verifier (CARLA/Bench2Drive): 11755 is 50% flaky
+`run_multi.ps1` on the real LEAD tfv6 agent + CARLA 0.9.15, re-running two routes N times each (fresh CARLA
+per run, no changes to route or agent):
+
+| route | runs (PASS/FAIL) | failure rate | verdict |
+|---|---|---|---|
+| 11755 (EnterActorFlow) | PASS,PASS,FAIL,FAIL,FAIL,PASS | **3/6 = 50%** | **FLAKY** |
+| 3436 (HazardSideLane) | PASS,PASS,PASS,PASS | 0/4 = 0% | STABLE |
+
+Route 11755, the SAME route and agent with zero changes, scores 100 (clean) on 3 runs and collides
+(score 60, then 22) on 3 runs — a **50% failure rate**. A single run reports PASS or FAIL essentially at
+random, so "the fix worked / the agent fails here" from one run is **fool's gold** — the embodied analog
+of trusting a seen-score for a text self-mod. The **failure RATE over N runs** is the real signal, and it
+distinguishes flaky (11755) from stable (3436, 0%). This quantifies the previously-qualitative flakiness
+finding and demonstrates the embodied statistical verifier: verification must be a rate, and a candidate
+"fix" is only real if it lowers the failure RATE beyond this stochastic noise. (Confirms the STUDY.md
+embodied claim with numbers; the full embodied self-improvement loop — a fix that provably lowers the rate
+— remains the open hard core, gated now by a working statistical verifier.)
