@@ -374,3 +374,22 @@ e.g. `chapter`, it safely adopts nothing when all proposals are bad). This is th
 grounded core result: **the single-adoption-decision advantage of an executing hidden-test verifier over
 naive seen-selection is large and consistent** (0% vs 59% bad-deploy). It is what R14/R16 showed does NOT
 compound into a large multi-round cumulative gap — the per-decision guarantee is the deliverable.
+
+## Result 18 — the hidden test must be LARGE/FRESH (brick 9): reused small held-out inflates by 0.045
+`fresh_vs_reused.py`: if the self-verifying agent gates many candidate self-mods on the SAME small
+held-out, selection overfits to it (games the verifier). On HaluBench faithfulness, 8 candidate judge-
+prompts (true acc 0.805–0.837) selected over 300 val/test splits:
+
+| selection | reported (val) | true (test) | note |
+|---|---|---|---|
+| REUSED small val (n=20) | 0.874 | 0.829 | **OPTIMISM GAP = 0.045** |
+| FRESH / large sample | — | 0.837 | picks the truly-best |
+
+**Two honest findings:** (1) the **optimism gap is real and measurable (0.045)** — selecting the best of 8
+on a 20-item reused set reports 0.874 but delivers 0.829; a small reused hidden test gives FALSE CONFIDENCE
+in an improvement. (2) The **deployment cost was small here (0.008)** only because the 8 candidates were all
+close in quality (spread 0.03), so mis-picking barely hurts. **Combined with R17** — where a genuine
+reward-hack is present in 100% of tool decisions and naive mis-selection is catastrophic (59% bad deploy)
+— the principle is: the hidden test must be LARGE/FRESH to avoid (a) optimism-gap false confidence and
+(b) catastrophic mis-selection when the candidate pool contains reward-hacks. Reusing a small held-out to
+score many self-mods re-creates the very reward-hacking the verifier exists to prevent.
