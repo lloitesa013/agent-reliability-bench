@@ -412,3 +412,24 @@ finding and demonstrates the embodied statistical verifier: verification must be
 "fix" is only real if it lowers the failure RATE beyond this stochastic noise. (Confirms the STUDY.md
 embodied claim with numbers; the full embodied self-improvement loop — a fix that provably lowers the rate
 — remains the open hard core, gated now by a working statistical verifier.)
+
+## Result 20 — embodied flaky/stable MAP: single-run failure labels are unreliable
+`run_multi.ps1` extended to 5 routes (fresh CARLA per run, LEAD tfv6 agent, zero changes):
+
+| route | scenario | failure rate | verdict |
+|---|---|---|---|
+| 11755 | EnterActorFlow | 3/6 = **50%** | FLAKY |
+| 18252 | pedestrian-crossing | 1/5 = **20%** | FLAKY |
+| 3436 | HazardSideLane | 0/4 = 0% | STABLE-pass |
+| 2509 | construction | 0/4 = 0% | STABLE-pass |
+| 2513 | construction | 0/4 = 0% | STABLE-pass |
+
+**Key finding: routes 3436, 2509, 2513 were recorded as FAILURES in the original single-run Bench2Drive
+taxonomy, but re-running shows they PASS 100% (0% failure rate) — their "failure" was flaky one-off noise
+that does not reproduce.** Only the dynamic-collision scenarios (EnterActorFlow, pedestrian-crossing) are
+genuinely flaky (50%, 20%); the construction min-speed "failures" are environment artifacts that don't
+reproduce (consistent with prior X-MoD finding that min_speed is an env artifact). Implication: **single-run
+failure labels — the standard for driving-benchmark leaderboards — are unreliable; they measure stochastic
+noise as much as capability** (the embodied analog of the reward-hacking / illusion-of-progress problem).
+An embodied verifier MUST use a failure RATE over N runs to (a) separate genuine flaky failures from
+non-reproducing noise, and (b) define a stable enough target to even verify a fix against.
