@@ -212,3 +212,14 @@ strong priors from a few examples (a confirmation-bias failure mode) → autonom
 induction is unreliable — *which is exactly why the verifier is needed*. The control-based ACCEPT proof
 (R8) shows the verifier CAN recognize a real improvement when one exists; autonomy is blocked by the
 *inducer*, not the verifier.
+
+## Result 10 — AUTONOMOUS verified self-improvement CLOSED (the full loop)
+`proof_autonomous2.py`: after R9 showed naive induction is prior-anchored, a PATTERN-FITTING inducer
+(told to ignore priors and fit output=f(input) to the failure pairs) produces candidate rules that
+INCLUDE the true one. On both hidden-rule tasks the verifier ADOPTED the transferring induced rule
+(overtime "minus 6" held-out +1.00; dozen "×10" +0.83) and rejected the prior-anchored/spurious
+candidates. **2/2 — the full loop closes: fail → induce several candidates from its OWN failures →
+VERIFY each on held-out → adopt only the one that transfers.** The thesis fully realized: the model's
+self-improvement candidates are unreliable (some prior-anchored/wrong), and the VERIFIER is the
+essential mechanism that selects the genuinely-transferring one. (Text domain; the embodied/CARLA
+version stays hard — flaky failures + retention-DAgger is multi-week.)
