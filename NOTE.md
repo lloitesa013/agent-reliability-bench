@@ -45,6 +45,16 @@ candidate improvements; the *verifier* decides which are real.
   failures with its prior, e.g. keeps "overtime after 8h" / "dozen = 12"). A *pattern-fitting* inducer
   (ignore priors; fit output = f(input)) proposes candidates that include the true rule, and the verifier
   adopts the transferring one (2/2). The model's candidates are unreliable; the verifier makes the loop work.
+- **The self-verifying agent — {prompt/rule/memory/tool} (R11–R16).** The verifier turned on the agent's OWN
+  self-modifications, adopting one only if it clears a HIDDEN TEST (transfers to held-out) AND a REGRESSION
+  check (breaks no existing capability). Fine-tuning level (R11): naive deploys the memorizing fine-tune
+  (in-dist 0.993 / held-out 0.507), the verifier the generalizer (0.578). Regression (R12): naively fixing
+  one source silently regresses another by −0.16; the 2D gate catches it. Flagship (R13): the agent fixes B
+  (0→0.83) while keeping A, REJECTING even the best B-fix because it regresses A (0.50→0.92 vs naive 0.67).
+  Tool/code (R15): 2 of 3 of the agent's own tool rewrites are lookup-hacks (seen 1.0, executed held-out 0.0)
+  — seen can't tell them apart, executing on held-out can. **Honest scope (R14, R16):** the CUMULATIVE
+  multi-round advantage is small and noisy at scale (final mean Δ≈+0.03 over 5 rounds); the robust result is
+  the SINGLE adoption DECISION, where the verifier reliably catches the fake/regression/hack that fools naive.
 - **Embodied confirmation (CARLA).** Watcher clusters 201 route failures; judge attributes them to scenarios.
   The verify pipeline (re-running routes) reveals that **driving failures are flaky**: the same route and
   agent, unchanged, flip FAILED↔PASSED across runs. So single-run "the fix worked" is meaningless — the
@@ -55,7 +65,10 @@ candidate improvements; the *verifier* decides which are real.
 2. **The naive reading (seen-only) is fooled**; the verifier is not. This is the field's exact gap.
 3. **Inducers are unreliable** (prior-anchoring); the verifier as a *selection gate over several candidates*
    is what yields reliable improvement.
-4. **Embodied self-improvement is dominated by flakiness**, raising the bar (statistical, multi-run).
+4. **A self-verifying agent can gate its own {prompt/rule/memory/tool} edits** — accepting real transfer,
+   rejecting overfit/lookup-hacks and regressions — reliably per DECISION; cumulative multi-round compounding
+   is not (yet) large on toy tasks (honest).
+5. **Embodied self-improvement is dominated by flakiness**, raising the bar (statistical, multi-run).
 
 ## 5. Related work
 Self-improving / experiential agents: Reflexion, Voyager, ExpeL, AutoGuide, Meta-Reflexion, Trace2Skill, ERL,
@@ -67,11 +80,13 @@ self-improvement — the component the trust crisis says is missing.
 
 ## 6. Limitations (honest)
 Small model (7B), synthetic + benchmark data, single node — not production, not SOTA raw detection. The
-autonomous loop is shown on simple hidden-rule tasks in text; it needs a prior-overcoming inducer and the
-model's candidates are unreliable (the verifier does the real work). The **embodied** verified self-improvement
+self-verifying agent is shown on hidden-convention tasks + arithmetic tool-code (controlled substrates where
+a real improvement exists and transfers); on a hard real task (cross-source faithfulness) self-mods don't
+transfer, so the verifier safely adopts little — correct, but not a triumphant climb. The per-DECISION
+advantage is robust; the multi-round CUMULATIVE advantage is small/noisy at scale (R16). The **embodied**
 loop is **not solved**: failures are flaky and prior driving work (X-MoD) shows naive correction-retraining
 backfires and naive data-scaling is flat; the honest lever (retention-DAgger) is a multi-week build. The
-verifier and the honest negatives are the deliverable.
+verifier, the self-verifying-agent demonstration, and the honest negatives are the deliverable.
 
 ## 7. Conclusion
 Across text and driving, self-improvement heuristics are unreliable and "improvements" are usually fake; a
