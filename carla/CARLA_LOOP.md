@@ -39,3 +39,22 @@ route  town     scenario                              failure
   needs a rule-based override layer or retraining; verifying transfer needs RE-RUNNING held-out
   routes in CARLA (minutes/route). This is the genuinely hard, slow part — consistent with the
   text-loop finding that TRANSFER is the frontier (the verifier is the proven, working piece).
+
+## Step 3 — VERIFY pipeline CONFIRMED + a critical finding (2026-07-09)
+Re-ran route 11755 (EnterActorFlow, baseline: collision + route_dev, score 29.6 = FAILED) with the
+unchanged tfv6 agent (`run_lead_route.ps1`, CARLA up in 3s, ~2min/route).
+- **RE-RUN: status Completed, score 100.0, only min_speed — NO collision, NO route_dev = PASSED.**
+- **CARLA driving failures are FLAKY/stochastic**: the same route+agent, zero changes, flips
+  FAILED -> PASSED across runs (traffic/timing stochasticity).
+- **Implication:** single-run "the rule fixed it" verification is meaningless — the failure may not
+  reproduce anyway. Verified self-improvement in CARLA REQUIRES multi-run failure-RATE estimation
+  (statistical), comparing rates before/after a change. A flaky non-reproduction masquerading as a
+  "fix" is the embodied analog of the fake-self-improvement (seen-gain) problem from the text loops.
+- **This unifies the whole study:** verified self-improvement needs rigorous verification (held-out
+  transfer / statistical failure-rate); naive improvement is fake. The verifier is the value — the
+  field's exact gap (reward-hacking / illusion of progress), now shown in BOTH text and driving.
+
+## Next (the honest hard core, unchanged)
+- Multi-run baseline: run each failure route N times -> per-route failure RATE (stable vs flaky).
+- Policy-override layer on tfv6 (watcher-as-enforcer: e.g. speed cap / yield in the failing scenario).
+- Verify: does the override lower the failure RATE on held-out same-scenario routes (real transfer)?
