@@ -16,7 +16,7 @@ the missing, load-bearing piece.** VSI-0 builds it and stress-tests it.
 | what | result |
 |---|---|
 | **Tool/code self-mods, statistical (R17)** | Across 24 tool-rewrite decisions a reward-hack existed in **100%**; selecting by seen-score (naive) deploys a broken tool **59%** of the time, the executing verifier **0%** — while still improving in **88%**. |
-| **REAL code, MBPP (R22)** — closes the toy→real gap | On 40 real programming problems, deploying a self-written solution by the shown test (naive) ships a held-out-FAILING solution **39%** of the time; executing candidates on held-out tests first ships **0%** failing (and a verified solution 68%). The verifier's edge is not a toy artifact. |
+| **REAL code, MBPP (R22/R24)** — closes the toy→real gap | On 100 real programming problems, a genuine overfit (passes the shown test, fails held-out) appears in **29%**; of those, deploying by the shown test (naive) ships the overfit **19/29 times, the verifier 0**. Even on solvable problems naive ships a held-out-failing solution **12%**, the executing verifier **0%**. The verifier's edge is not a toy artifact. |
 | **Flagship self-modification (R13)** | An agent fixes a new task (0→0.83) while keeping its old one, **rejecting even the edit that fixes the new task best because it regresses the old** → capability **0.50 → 0.92** (naive 0.67). |
 | **Regression caught (R12)** | Naively fine-tuning to fix one source silently forgets another by **−0.16**; a 1-D "did the target improve?" check misses it, the 2-D verifier catches it. |
 | **Embodied (R19–R21, CARLA)** | Re-running real routes N times: route 11755 fails **7/12 = 58%** (genuinely flaky); routes labeled FAILURE by the single-run Bench2Drive taxonomy **pass 100% on re-run** → **single-run failure labels are unreliable**; verification must be a failure RATE. |
@@ -24,8 +24,9 @@ the missing, load-bearing piece.** VSI-0 builds it and stress-tests it.
 ## What is robust vs not (honest — this is the point)
 - **Robust:** the **single adoption decision**. The verifier reliably accepts real transfer and rejects the
   overfit fine-tune, the −0.16 regression, the best-fix-that-regresses, and lookup-hacks that all fool the
-  naive agent (R11–R13, R15, R17) — and this holds on **real code** (MBPP, R22: naive ships a held-out-failing
-  solution 39%, verifier 0%), not just toy conventions. Covers all four of {prompt, rule, memory, tool}.
+  naive agent (R11–R13, R15, R17) — and this holds on **real code** (MBPP, R24: of the 29% of problems with a
+  genuine overfit, naive ships it 19/29 vs verifier 0; 12% vs 0% on solvable problems), not just toy
+  conventions. Covers all four of {prompt, rule, memory, tool}.
 - **Not robust (honest):** the **multi-round cumulative** advantage is small/noisy at scale (R14→R16, final
   mean Δ≈+0.03) — the per-decision guarantee does not (yet) compound into a large cumulative gap on toy tasks.
 - **Open hard core:** the **embodied self-improvement loop** — a fix that provably lowers the failure rate —

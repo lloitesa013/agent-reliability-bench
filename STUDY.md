@@ -52,11 +52,12 @@ The verifier, turned on the agent's OWN self-modifications. Each result is `RESU
   rewrites are lookup-hacks** (perfect on seen inputs, executed-held-out 0.0). Seen score can't tell them
   from the general tool (naive gambles, expected 0.67); EXECUTING each on held-out is decisive → verifier
   adopts the general tool (1.00). The self-coding-agent failure mode, caught by an executing hidden test.
-- **REAL substrate — MBPP code (R22, `mbpp_self_verify.py`).** Closes the toy→real gap: on 40 real
-  programming problems the agent writes candidate solutions; deploying by the shown test (naive) ships a
-  **held-out-FAILING solution 39%** of the time, executing candidates on held-out tests first ships **0%**
-  failing (verified solution 68%, else abstains). The single-decision verifier advantage is NOT a toy
-  artifact — it holds on genuine code with execution-based held-out verification.
+- **REAL substrate — MBPP code (R22/R24, `mbpp_self_verify*.py`).** Closes the toy→real gap: on 100 real
+  programming problems, a genuine overfit (passes the shown test, fails held-out) appears in **29%**; of
+  those, deploying by the shown test (naive) ships the overfit **19/29 times, the verifier 0**. Even on
+  solvable problems naive ships a held-out-failing solution **12%**, the executing verifier **0%**. The
+  single-decision verifier advantage is NOT a toy artifact — it holds on genuine code with execution-based
+  held-out verification. (Clean, confound-free numbers; R24 refines R22's raw 39%.)
 
 ## Embodied confirmation (CARLA driving)
 - Reused the operator's own assets (CARLA+LEAD, Bench2Drive-220, X-MoD, failure taxonomy).
