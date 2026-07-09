@@ -490,3 +490,21 @@ a multi-week build).** Also delivered: `run_multi_wd.ps1`, a **hard wall-clock w
 force-kills a hung python+CARLA per run (fixing the R21 wedge) and self-cleans CARLA at the end — the
 infrastructure the embodied loop needs. **VSI-0 delivers the embodied verifier + its spec + wedge-proof
 harness; the fix-GENERATION is explicit future work.**
+
+## Result 24 — MBPP hardened (n=100, clean metric): refines R22, removes the confound
+`mbpp_self_verify2.py`: R22's 39% mixed two things; here we separate them over 100 problems
+(solvable=64, unsolvable=36) and report the confound-free numbers:
+
+| clean metric | rate |
+|---|---|
+| a genuine overfit existed (shown-test-pass, held-out-FAIL) | **29/100 = 29%** of problems |
+| of those 29, NAIVE ships the overfit / VERIFIER ships it | **19 / 0** |
+| **SOLVABLE problems only** — NAIVE ships a held-out-FAILING solution | **12%** |
+| **SOLVABLE problems only** — VERIFIER ships a held-out-FAILING solution | **0%** |
+
+**The confound-free headline: even on problems the agent CAN solve, ship-by-shown-test deploys a
+held-out-failing solution 12% of the time (picking an overfit/wrong candidate over a correct one); the
+executing verifier 0%.** And genuine reward-hacks are common on real code (29% of problems) — of those,
+naive ships the overfit **19 times, the verifier 0**. This supersedes R22's raw 39% (which conflated
+overfit-catches with abstain-on-unsolvable): 12% is smaller but honest and unimpeachable. The real-code,
+single-decision verifier advantage is bulletproof.
