@@ -599,3 +599,17 @@ demos are valid per LEAD's own curriculum rules; my score-only ≥95 gate was cr
 Status: the retention-DAgger path is now validated from data collection through bucket building — the
 doorstep of training. Next (the remaining core): single-GPU fine-tune from `model_0030_0.pth` on this
 root, then `gate_rate` verification (≥19 runs/arm on 11755 + regression rates on retention routes).
+
+## Result 30 — the training pipeline runs END-TO-END on this box: last infra unknown eliminated
+`train_probe.ps1` (v7): a 1-epoch fine-tune of tfv6 from `model_0030_0.pth` on the collected VSI dataset
+completed cleanly on the single 5090 — 24/24 gradient steps, model+optimizer+scheduler+scaler checkpoints
+saved, exit 0 (~13 min/epoch). Getting there required five Windows-portability fixes, each now documented:
+(1) CARLA PythonAPI on PYTHONPATH; (2) dataset-root name must contain `carla_leaderboard2` (registry by
+substring); (3) skip torchrun — on a 1-GPU box LEAD skips DDP init entirely (barrier is guarded), and
+torch 2.7's elastic rendezvous is broken on Windows (libuv); (4) `assigned_cpu_cores=1` (num_workers=0
+breaks on prefetch_factor, >1 untested) + `WANDB_MODE=offline`; (5) **Windows path-separator bug in
+`carla_dataset.py`** — five `split("/")` sites fail on backslash paths (patched with normalization,
+backup kept). **The retention-DAgger loop is now fully unblocked: collect (R27–28) → bucket (R29) →
+train (R30) → verify (`gate_rate`, R23 spec). Next: train a real candidate (10 epochs) and put it through
+the embodied gate — accept or reject, either is a complete verified-self-improvement cycle with a LEARNED
+candidate.**
