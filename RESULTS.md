@@ -447,3 +447,25 @@ runner was "wedge-robust" was wrong. Fix for any future CARLA batch: wrap each r
 watchdog (Start-Process + timed Wait; kill python+CarlaUE4 on expiry) — do not rely on LEAD's internal
 timeout. No scientific harm (the 11755 data is valid and tighter), but ~10h of idle GPU was wasted; recorded
 so it is not repeated.
+
+## Result 22 — REAL SUBSTRATE: self-verifying coding agent on MBPP (closes the toy→real gap)
+`mbpp_self_verify.py`: the self-verifying agent on 40 REAL MBPP programming problems (not toy conventions).
+For each problem the agent sees the description + ONE example test and proposes 3 candidate solutions; the
+verifier EXECUTES each on HELD-OUT tests. Over 40 problems:
+
+| metric | rate |
+|---|---|
+| a visible-pass-but-held-out-FAIL candidate existed | **30%** of problems |
+| NAIVE (deploy by the shown test) ships a held-out-FAILING solution | **39%** |
+| VERIFIER (execute held-out tests) ships a held-out-FAILING solution | **0%** |
+| VERIFIER shipped a held-out-passing solution | **68%** (else abstains, 32%) |
+
+**This closes the biggest honest gap — toy vs real.** The exact pattern from the engineered toy (R17:
+59% vs 0%) reproduces on genuine code: selecting a self-written solution by the test it can see ships a
+held-out-failing (overfit/hardcoded/wrong) solution **39%** of the time; executing candidates on held-out
+tests before shipping catches it (**0%**) while still shipping a verified solution 68% of the time.
+**Honest nuance:** the 39% mixes two real cases — (a) a genuine overfit present (visible-pass, held-out-fail;
+30% of problems), and (b) unsolvable problems where naive ships broken code and the verifier correctly
+abstains. Both are real advantages (the verifier abstains instead of shipping broken code), but they are
+distinct. Net: **the verifier's single-decision advantage is not a toy artifact — it holds on real
+code-generation tasks with execution-based held-out verification.**
