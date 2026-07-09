@@ -566,3 +566,24 @@ collected on demand with the watchdog harness. What remains for an accepted fix 
 scale collection (failure scenarios + retention/replay set), retrain the student, then verify with
 `gate_rate` (R23 power: ~19+ runs/arm). (Honest note: the expert is privileged, so its 100% is expected —
 the value is that the gap is teachable, not that the expert is good.)
+
+## Result 28 — retention-DAgger brick 2: the training dataset, collected (28/28 runs, zero wedges)
+`run_expert_scale.ps1`: 359 MB of expert demonstrations in LEAD training format, fresh CARLA per run,
+hard watchdog (0 kills):
+
+| set | route | expert scores | verdict |
+|---|---|---|---|
+| FIX | 11755 (EnterActorFlow, student 58% flaky) | **100.0 ×8 — perfect** | teacher signal flawless |
+| FIX | 18252 (pedestrian, student 20% flaky) | 97.8 ×7, 100 ×1 | high-quality |
+| RETENTION | 3436 | 98.0–100 | usable |
+| RETENTION | 2513 | 87–93 | marginal |
+| RETENTION | 2509 (construction) | **76–82** | **worse than the student — exclude** |
+
+Two findings: (1) the fix-target teacher signal is flawless exactly where the student coin-flips (11755:
+expert 8/8 perfect vs student 58% fail) — the gap is teachable; (2) **retention demos must be
+quality-gated**: on construction (2509) the expert scores 76–82 where the student passes 100% — replaying
+those demos would TEACH a regression. Rule: filter retention demos at score ≥95 (keep 3436, drop 2509,
+borderline 2513). A-3 execution path (verified feasible, all infra exists): point `carla_root` at the
+filtered dataset → `build_buckets_posttrain.py` → `LEAD_TRAINING_CONFIG="load_file=outputs/checkpoints/
+tfv6_resnet34/model_0030_0.pth ..."` + `train.py` (single-GPU torchrun) → verify with `gate_rate`
+(11755 ≥19 runs/arm + regression rate on retention routes). Remaining cost is labor/GPU-time, not unknowns.
