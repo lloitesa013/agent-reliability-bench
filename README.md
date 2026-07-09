@@ -1,37 +1,59 @@
-# Agent Reliability Demo
+# VSI-0 — Verified Self-Improvement (v0)
 
-A small, working tool that **diagnoses *why* an LLM/RAG agent failed** and reports
-**how much to trust that diagnosis** — making agent failures *legible and diagnosable*
-(trustworthy AI). Practical, hiring-relevant (LLM agent / RAG reliability).
+**One line.** A self-improving agent must not trust its own changes. **VSI-0 is a *self-verifying agent*:
+it treats every self-modification to its own {prompt, rule, memory, tool} as UNTRUSTED and adopts it only
+if it clears a HIDDEN TEST (transfers to held-out cases) AND a REGRESSION check (breaks no existing
+capability).** Built and validated on one RTX 5090, in text and in an embodied driving domain (CARLA).
 
-## What it does
-1. `agent.py` — a tiny RAG agent (retrieve → answer) that logs a **trace** of every step.
-2. `diagnose.py` — given a trace, attributes the failure cause
-   (`retrieval_miss` / `missing_knowledge` / `reasoning_error` / `correct_abstention`)
-   with a **calibrated confidence**, and **abstains (`uncertain`)** when the evidence is unclear.
-3. `evaluate.py` — measures the diagnoser against ground truth: accuracy, abstention rate,
-   and **calibration** (when it's confident, is it actually right?).
+**Why it matters.** Self-improving-agent methods (Reflexion, ExpeL, …) report gains measured on the same
+tasks they learned from — and in April 2026 UC Berkeley showed all 8 major agent benchmarks are
+reward-hackable to ~100%. A self-improvement loop *without a trustworthy verifier* converges to a confident
+reward-hacker, not to improvement. **The verifier — the thing that separates real improvement from fake — is
+the missing, load-bearing piece.** VSI-0 builds it and stress-tests it.
 
-> The point: it doesn't just guess a cause — it says how much to trust the guess, and
-> stays silent when it can't tell. That "knows when it's unsure" property is the core idea.
+## Headline results (see `RESULTS.md` for all, R1–R21)
 
-## Run it (works offline — no API key needed)
-```bash
-python agent.py        # produces ./traces/*.json   (mock LLM by default)
-python diagnose.py     # prints a diagnosis + confidence for each trace
-python evaluate.py     # accuracy / abstention / calibration summary
-```
-For a **real LLM run**: Python 3.8+, `pip install openai`, set `OPENAI_API_KEY`
-(or swap to Anthropic in `agent.py`). Offline mock runs on older Python too.
+| what | result |
+|---|---|
+| **Tool/code self-mods, statistical (R17)** | Across 24 tool-rewrite decisions a reward-hack existed in **100%**; selecting by seen-score (naive) deploys a broken tool **59%** of the time, the executing verifier **0%** — while still improving in **88%**. |
+| **Flagship self-modification (R13)** | An agent fixes a new task (0→0.83) while keeping its old one, **rejecting even the edit that fixes the new task best because it regresses the old** → capability **0.50 → 0.92** (naive 0.67). |
+| **Regression caught (R12)** | Naively fine-tuning to fix one source silently forgets another by **−0.16**; a 1-D "did the target improve?" check misses it, the 2-D verifier catches it. |
+| **Embodied (R19–R21, CARLA)** | Re-running real routes N times: route 11755 fails **7/12 = 58%** (genuinely flaky); routes labeled FAILURE by the single-run Bench2Drive taxonomy **pass 100% on re-run** → **single-run failure labels are unreliable**; verification must be a failure RATE. |
 
-## Roadmap
-- [x] Step 1 — trace
-- [x] Step 2 — diagnose (calibrated confidence + abstain)
-- [x] Step 3 — evaluate (accuracy / abstention / calibration)
-- [ ] Step 4 — real LLM run, more failure types, real retrieval (vector DB), cleaner report
+## What is robust vs not (honest — this is the point)
+- **Robust:** the **single adoption decision**. The verifier reliably accepts real transfer and rejects the
+  overfit fine-tune, the −0.16 regression, the best-fix-that-regresses, and lookup-hacks that all fool the
+  naive agent (R11–R13, R15, R17). Covers all four of {prompt, rule, memory, tool}.
+- **Not robust (honest):** the **multi-round cumulative** advantage is small/noisy at scale (R14→R16, final
+  mean Δ≈+0.03) — the per-decision guarantee does not (yet) compound into a large cumulative gap on toy tasks.
+- **Open hard core:** the **embodied self-improvement loop** — a fix that provably lowers the failure rate —
+  is not solved; failures are flaky (need statistical verification) and a real fix needs retention-DAgger
+  (a multi-week build). VSI-0 delivers the embodied *verifier*, not the embodied *fix*.
 
-> Honest scope: competent execution on a real problem (agent reliability) — not a novel
-> SOTA claim. Value = a working, legible, *self-aware* reliability tool + honest evaluation.
+## Repo map
+- **`STUDY.md`** — start here: the front-page narrative (thesis, both directions, embodied, honest limits).
+- **`NOTE.md`** — technical note / mini-paper (problem, method, results, related work, limitations).
+- **`RESULTS.md`** — authoritative results, R1–R21, each with the exact numbers and the script that made them.
+- Text self-verifying agent: `self_verify_agent.py` (flagship), `self_improve_loop.py` /
+  `self_improve_loop6.py` (multi-round), `self_verify_tool.py` + `stat_robustness.py` (tool/code + statistics),
+  `candidate_ft.py` (fine-tuning level), `verified_integration.py` (regression), `fresh_vs_reused.py`
+  (why the hidden test must be fresh), `proof_*.py` (the original accept/reject/autonomous proofs).
+- Reliability substrate (the watcher it stands on): `judge_zeroshot.py`, `calibrate2.py`, `halubench_eval.py`,
+  `cross_source*.py`, `bench/` (sealed benchmark).
+- Embodied: `run_multi.ps1` (statistical failure-rate verifier on CARLA/Bench2Drive), `carla/` (watcher/judge).
 
-## License
-MIT
+## Reproduce
+Text results need a 7B instruct model on one GPU (`real_rag.py` loads `Qwen/Qwen2.5-7B-Instruct`) plus
+`transformers`, `peft`, `datasets`. Each `RESULTS.md` entry names its script; run e.g.
+`python self_verify_agent.py`, `python stat_robustness.py`. Embodied results need the LEAD/CARLA stack
+(`run_multi.ps1`, native Windows). All numbers here were produced on a single RTX 5090.
+
+## Claims / non-claims (honest)
+- **We claim:** a hidden-test + regression verifier reliably wins the single self-modification decision
+  across {prompt, rule, memory, tool}, in text and (as a statistical failure-rate verifier) in embodied
+  driving; and that fake/overfit/hack self-modifications are the *norm*, not the exception.
+- **We do NOT claim:** SOTA raw detection, large multi-round cumulative gains, a solved embodied
+  self-improvement loop, or results beyond a 7B model + controlled/benchmark substrates. The honest
+  negatives are reported as first-class results.
+
+MIT.
