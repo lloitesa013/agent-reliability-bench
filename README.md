@@ -20,6 +20,7 @@ the missing, load-bearing piece.** VSI-0 builds it and stress-tests it.
 | **Flagship self-modification (R13)** | An agent fixes a new task (0→0.83) while keeping its old one, **rejecting even the edit that fixes the new task best because it regresses the old** → capability **0.50 → 0.92** (naive 0.67). |
 | **Regression caught (R12)** | Naively fine-tuning to fix one source silently forgets another by **−0.16**; a 1-D "did the target improve?" check misses it, the 2-D verifier catches it. |
 | **Embodied (R19–R21, CARLA)** | Re-running real routes N times: route 11755 fails **7/12 = 58%** (genuinely flaky); routes labeled FAILURE by the single-run Bench2Drive taxonomy **pass 100% on re-run** → **single-run failure labels are unreliable**; verification must be a failure RATE. |
+| **ACCEPTED embodied fix (R27–R31)** — the loop closes on real driving | Student fails 11755 at 58% → expert demos collected → 10-epoch retention-DAgger fine-tune → pre-registered gate: **0/19 fresh rollouts fail (p=6e-8), retention routes 0/12** → **ACCEPT**. Same harness earlier **REJECTED** a harmful plausible fix (R25). Honest scope: same-route repair + 3-route regression set, not cross-route generalization. |
 
 ## What is robust vs not (honest — this is the point)
 - **Robust:** the **single adoption decision**. The verifier reliably accepts real transfer and rejects the
