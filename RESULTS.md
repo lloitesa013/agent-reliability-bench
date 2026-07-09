@@ -613,3 +613,27 @@ backup kept). **The retention-DAgger loop is now fully unblocked: collect (R27�
 train (R30) → verify (`gate_rate`, R23 spec). Next: train a real candidate (10 epochs) and put it through
 the embodied gate — accept or reject, either is a complete verified-self-improvement cycle with a LEARNED
 candidate.**
+
+## Result 31 — THE ACCEPTED EMBODIED FIX: the full verified self-improvement loop closes on real driving
+The complete cycle, end to end, on CARLA/Bench2Drive with the LEAD tfv6 student:
+
+1. **FAIL** — route 11755 (EnterActorFlow): student baseline **7/12 = 58%** failure (R19/R21).
+2. **TEACH** — privileged expert is stable-perfect there (8/8 = 100, R27); collected 359 MB of expert
+   demos on the failure scenarios + retention routes (R28), quality-gated by LEAD's native filter (R29).
+3. **RETRAIN** — 10-epoch fine-tune of tfv6 from `model_0030_0.pth` on the mixed fix+retention dataset
+   (single 5090, ~2.5 h; pipeline unblocked in R30).
+4. **VERIFY (the gate, pre-registered)** — fresh rollouts, same harness as baseline:
+   - hidden test: **11755 = 0/19 failures** (all runs score 100, zero collisions) vs baseline 7/12 —
+     `gate_rate` p = **5.97e-08** → significantly lower.
+   - regression: retention routes 3436/2509/2513 = **0/12 failures** (baseline also 0) → nothing broken.
+5. **ADOPT** — verdict **ACCEPT**: the first embodied self-modification to clear the statistical gate.
+
+**Honest scope (important):** this is verified **same-route repair**, not cross-route generalization —
+the training demos include expert runs on 11755 itself; what makes it non-trivial is that verification is
+over **19 fresh stochastic rollouts** (58%-flaky baseline would fail ~11 of them; p≈6e-8), plus a
+no-regression check. Regression was verified only on the 3 collected retention routes (12 runs) — a full
+Bench2Drive-220 regression sweep (~9–18 h) has NOT been run, and the second fix target (18252) was not in
+this eval round. Within that scope: **fail → attribute → collect teacher data → retrain with retention →
+statistically verify → adopt — the loop the whole study argues for, closed on a real embodied system.**
+Naive single-run verification could have "confirmed" this fix with one lucky rollout of the OLD model
+(42% pass chance); the gate earned the ACCEPT with evidence instead.
