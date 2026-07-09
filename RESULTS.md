@@ -433,3 +433,17 @@ failure labels — the standard for driving-benchmark leaderboards — are unrel
 noise as much as capability** (the embodied analog of the reward-hacking / illusion-of-progress problem).
 An embodied verifier MUST use a failure RATE over N runs to (a) separate genuine flaky failures from
 non-reproducing noise, and (b) define a stable enough target to even verify a fix against.
+
+## Result 21 — 11755 flaky rate tightened to 7/12 = 58% (+ honest ops failure: CARLA wedge)
+A second re-run batch on 11755 added 6 more runs (FAIL,FAIL,FAIL,PASS,PASS,FAIL). Combined with R19's
+6 runs (3 fail): **11755 = 7/12 = 58% failure rate** — a tighter estimate confirming it is genuinely
+flaky (not stable). 18252 stands at 1/5 = 20% (R20).
+
+**Honest operational failure:** the second batch WEDGED on its 7th run — CARLA hung during that run and
+the `python -m lead` eval blocked waiting for it, sitting idle for ~10 hours before I killed it. The
+`--timeout 900` flag is LEAD's *internal scenario* timeout, which only fires if CARLA is responsive; it is
+NOT a hard process-kill watchdog, so a hung CARLA blocks the runner indefinitely. My earlier claim that the
+runner was "wedge-robust" was wrong. Fix for any future CARLA batch: wrap each run in an EXTERNAL wall-clock
+watchdog (Start-Process + timed Wait; kill python+CarlaUE4 on expiry) — do not rely on LEAD's internal
+timeout. No scientific harm (the 11755 data is valid and tighter), but ~10h of idle GPU was wasted; recorded
+so it is not repeated.
