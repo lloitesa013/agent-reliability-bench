@@ -45,6 +45,15 @@ the missing, load-bearing piece.** VSI-0 builds it and stress-tests it.
   `cross_source*.py`, `bench/` (sealed benchmark).
 - Embodied: `run_multi.ps1` (statistical failure-rate verifier on CARLA/Bench2Drive), `carla/` (watcher/judge).
 
+## Use it — `vsi_gate.py` (the verifier as a library)
+Pure stdlib, no dependencies. Wrap ANY candidate self-modifications (prompts, rules, memory entries, tool
+code, checkpoints) with your own evaluators; the gate ACCEPTs only what clears held-out gain + no
+regression, else it abstains. `gate_rate()` is the statistical form for flaky/stochastic domains (verify by
+failure RATE — a single run is noise). Deterministic demo, no LLM needed:
+```bash
+python vsi_gate.py --demo
+```
+
 ## Reproduce
 Text results need a 7B instruct model on one GPU (`real_rag.py` loads `Qwen/Qwen2.5-7B-Instruct`) plus
 `transformers`, `peft`, `datasets`. Each `RESULTS.md` entry names its script; run e.g.
