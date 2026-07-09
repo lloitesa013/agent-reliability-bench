@@ -469,3 +469,24 @@ tests before shipping catches it (**0%**) while still shipping a verified soluti
 abstains. Both are real advantages (the verifier abstains instead of shipping broken code), but they are
 distinct. Net: **the verifier's single-decision advantage is not a toy artifact — it holds on real
 code-generation tasks with execution-based held-out verification.**
+
+## Result 23 — embodied verifier statistical SPEC + hard-watchdog runner (C, as far as achievable)
+`embodied_power.py`: given route 11755's measured baseline failure rate 7/12 = **0.58, 95% CI [0.32, 0.81]**
+(even the baseline is only ±24% at n=12 — single runs are worthless), how many CARLA runs does the
+failure-rate verifier need to CONFIRM a candidate fix lowers the rate? (two-proportion, one-sided α=0.05):
+
+| fix (from 58%) | runs @80% power | runs @90% power |
+|---|---|---|
+| → 40% (−18 pts) | 91 | 126 |
+| → 30% (−28 pts) | 37 | 51 |
+| → 20% (−38 pts) | 19 | 26 |
+| → 10% (−48 pts) | 11 | 15 |
+
+**Confirming even a LARGE fix (58%→20%) needs ~19 runs; a modest one (58%→40%) needs ~91** — at ~2-4
+min/run that is 30–360 min of CARLA *per candidate fix*, and a self-improvement loop tries many candidates.
+This is the honest COST of embodied verified self-improvement, and why the full embodied loop is the hard
+core: **the statistical verifier is cheap to SPEC, but a real fix must first be CREATED (retention-DAgger,
+a multi-week build).** Also delivered: `run_multi_wd.ps1`, a **hard wall-clock watchdog** runner that
+force-kills a hung python+CARLA per run (fixing the R21 wedge) and self-cleans CARLA at the end — the
+infrastructure the embodied loop needs. **VSI-0 delivers the embodied verifier + its spec + wedge-proof
+harness; the fix-GENERATION is explicit future work.**
