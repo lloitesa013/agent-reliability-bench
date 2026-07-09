@@ -546,3 +546,23 @@ Two independent real code benchmarks, near-identical rates: ~30% of problems dra
 the agent's own solution stream, naive selection ships it ~4 times out of 5 when present, and executing
 candidates on held-out tests ships zero. **The single-decision verifier advantage on real code is
 replicated, not benchmark-specific.**
+
+## Result 27 — retention-DAgger brick 1: a teacher EXISTS for the flaky failure, and demos collect cleanly
+`run_expert_collect.ps1`: the LEAD privileged expert run on route 11755 — the route where the tfv6 student
+fails **58%** of runs (R21) — with data generation on:
+
+| run | status | score | demo data |
+|---|---|---|---|
+| 1 | Perfect | 100 | 457 files, 4.1 MB |
+| 2 | Perfect | 100 | 457 files, 4.0 MB |
+| 3 | Perfect | 100 | 457 files, 5.7 MB |
+
+Demonstrations land under `data/EnterActorFlow/` — the exact failure scenario — in training format
+(png/jpg camera, npz features, pkl measurements, laz point clouds). Two conclusions: (1) **the failure is
+a student problem, not an impossible scenario** — the privileged expert is stable-perfect (3/3) where the
+learned policy is a 58% coin-flip, so a teacher signal for an ACCEPTED embodied fix exists; (2) **the
+data side of retention-DAgger is validated end-to-end** — expert demos on the failure scenario can be
+collected on demand with the watchdog harness. What remains for an accepted fix (the multi-week core):
+scale collection (failure scenarios + retention/replay set), retrain the student, then verify with
+`gate_rate` (R23 power: ~19+ runs/arm). (Honest note: the expert is privileged, so its 100% is expected —
+the value is that the gap is teachable, not that the expert is good.)
