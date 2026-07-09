@@ -587,3 +587,15 @@ borderline 2513). A-3 execution path (verified feasible, all infra exists): poin
 filtered dataset → `build_buckets_posttrain.py` → `LEAD_TRAINING_CONFIG="load_file=outputs/checkpoints/
 tfv6_resnet34/model_0030_0.pth ..."` + `train.py` (single-GPU torchrun) → verify with `gate_rate`
 (11755 ≥19 runs/arm + regression rate on retention routes). Remaining cost is labor/GPU-time, not unknowns.
+
+## Result 29 — the training pipeline accepts the dataset: 28/28 routes trainable (~2,000 frames)
+Staged the collected demos into a LEAD training root (`data/carla_leaderboard2_vsi`) and ran the native
+posttrain bucket builder (`build_buckets_posttrain.py`, `LEAD_TRAINING_CONFIG=carla_root=...`): **builds
+clean (exit 0), and LEAD's own route filter accepts 28/28 routes** — 8× EnterActorFlow (35 frames each),
+8× ParkingCrossingPedestrian (~98), 4× HazardAtSideLane (~74), 8× ConstructionObstacle (~85) ≈ 2,000
+training frames. **Honest correction to R28:** the native filter is infraction-TYPE-aware — 2509's 76–82
+scores are min_speed / outside-lane deductions only (both known env artifacts), no collisions, so those
+demos are valid per LEAD's own curriculum rules; my score-only ≥95 gate was cruder than the pipeline's.
+Status: the retention-DAgger path is now validated from data collection through bucket building — the
+doorstep of training. Next (the remaining core): single-GPU fine-tune from `model_0030_0.pth` on this
+root, then `gate_rate` verification (≥19 runs/arm on 11755 + regression rates on retention routes).
