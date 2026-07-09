@@ -531,3 +531,18 @@ self-modification before deployment.** Honest limits: N=6/arm → 50%→83% is d
 (R23 power table); no accepted fix yet — a fix that truly lowers the rate still requires learning-based
 repair (retention-DAgger, future work). Probe infrastructure (env-gated intervention + watchdog runner)
 is now in place and no-op by default.
+
+## Result 26 — HumanEval replication: R24's numbers reproduce almost exactly on a second real benchmark
+`humaneval_self_verify.py` (80 problems, flat-assert filter 116/164, first assert visible / rest hidden):
+
+| metric | MBPP (R24) | HumanEval (R26) |
+|---|---|---|
+| genuine overfit present | 29% | **30%** |
+| SOLVABLE-only: NAIVE ships held-out-FAILING | 12% | **12%** |
+| SOLVABLE-only: VERIFIER ships held-out-FAILING | 0% | **0%** |
+| where an overfit exists, NAIVE ships it | 19/29 | **21/24** |
+
+Two independent real code benchmarks, near-identical rates: ~30% of problems draw a genuine overfit from
+the agent's own solution stream, naive selection ships it ~4 times out of 5 when present, and executing
+candidates on held-out tests ships zero. **The single-decision verifier advantage on real code is
+replicated, not benchmark-specific.**
