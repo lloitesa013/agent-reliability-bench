@@ -90,10 +90,12 @@ transfer cross-source — the first sighting of the central phenomenon.
   hardcoded lookup of the observed examples in **100% of 24 decisions**; seen-score cannot distinguish it
   from the general tool (both 1.00), so naive selection ships a broken tool **59%** of the time. Executing
   candidates on held-out inputs ships **0%**, while still adopting a working tool in 88% of decisions.
-- *Real code (R22, R24; MBPP n=100):* a genuine overfit (passes the shown test, fails held-out tests)
-  appears on **29%** of problems; where it exists, naive ships it **19/29** times, the verifier **0**.
-  Restricted to problems the agent can solve (removing the abstain-on-unsolvable confound), naive ships a
-  held-out-failing solution **12%**, the verifier **0%**. [HumanEval replication: in progress.]
+- *Real code (R22, R24, R26; MBPP n=100 + HumanEval n=80):* a genuine overfit (passes the shown test,
+  fails held-out tests) appears on **29% / 30%** of problems respectively; where it exists, naive ships it
+  **19/29 and 21/24** times, the verifier **0 on both**. Restricted to problems the agent can solve
+  (removing the abstain-on-unsolvable confound), naive ships a held-out-failing solution **12% on both
+  benchmarks**, the verifier **0%**. Two independent benchmarks, near-identical rates: the effect is a
+  property of the self-modification stream, not of a dataset.
 
 **The flagship decision (R13).** An agent with capability A (1.00) and target B (0.00) proposes rule-edits
 from its own failures. The verifier adopts the edit that fixes B *and* keeps A — **rejecting the edit that
