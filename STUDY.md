@@ -72,6 +72,12 @@ The verifier, turned on the agent's OWN self-modifications. Each result is `RESU
   N runs**; a candidate fix is real only if it lowers the rate beyond this stochastic noise. The full
   embodied self-improvement loop (a fix that provably lowers the rate) remains the open hard core, now
   gated by a working statistical verifier.
+- **First embodied cycle END-TO-END (R25, `run_arms.ps1`).** A live control-layer intervention on the real
+  tfv6 agent: the plausible fix candidate ("drive more conservatively") made the failure rate WORSE
+  (50%→83% observed; slower driving adds penalties while collisions persist) — and the statistical
+  verifier correctly REJECTED it before deployment. The X-MoD "naive correction backfires" lesson, caught
+  by the verifier this time. No accepted fix yet (needs learning-based repair, future work) — but the
+  propose→verify→reject cycle ran end-to-end on real CARLA.
 
 ## The reliability foundation it stands on (the watcher itself)
 - A zero-shot *reading* judge beats a tuned groundedness rule on a sealed benchmark (**0.949 vs 0.789**,
