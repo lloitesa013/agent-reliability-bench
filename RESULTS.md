@@ -508,3 +508,26 @@ executing verifier 0%.** And genuine reward-hacks are common on real code (29% o
 naive ships the overfit **19 times, the verifier 0**. This supersedes R22's raw 39% (which conflated
 overfit-catches with abstain-on-unsolvable): 12% is smaller but honest and unimpeachable. The real-code,
 single-decision verifier advantage is bulletproof.
+
+## Result 25 — EMBODIED fix probe: the loop runs end-to-end, and the verifier REJECTS a harmful "fix"
+`run_arms.ps1` + an env-gated throttle intervention injected into the live tfv6 agent
+(`sensor_agent.py`, `LEAD_THROTTLE_SCALE`, default 1.0 = untouched): the first real embodied
+propose→verify→(adopt/reject) cycle, on route 11755 (baseline 58% flaky), 6 runs per arm with a hard
+10-min watchdog (no wedges):
+
+| arm | intervention | failure rate |
+|---|---|---|
+| 1.0 | none (baseline) | 3/6 = **50%** |
+| 0.7 | conservative throttle — the plausible "fix" | 5/6 = **83%** |
+| 1.3 | aggressive throttle — regression probe | 4/6 = **67%** |
+
+**The plausible fix candidate ("drive more conservatively to avoid collisions") made things WORSE:**
+collisions still occur (12.3-23.2 pts) and slower driving adds new penalties (scores drop to 42). The
+statistical verifier's verdict is REJECT — adoption requires evidence the failure RATE drops, and the
+observed rate went UP. This is the embodied analog of R13 (reject the plausible edit that harms) and a
+verifier-caught version of the X-MoD lesson (naive correction-retraining backfires): **the first
+embodied self-improvement cycle ran end-to-end on real CARLA, and its value was REJECTING a harmful
+self-modification before deployment.** Honest limits: N=6/arm → 50%→83% is directional, not conclusive
+(R23 power table); no accepted fix yet — a fix that truly lowers the rate still requires learning-based
+repair (retention-DAgger, future work). Probe infrastructure (env-gated intervention + watchdog runner)
+is now in place and no-op by default.
