@@ -74,10 +74,16 @@ The verifier, turned on the agent's OWN self-modifications. Each result is `RESU
   gated by a working statistical verifier.
 - **First embodied cycle END-TO-END (R25, `run_arms.ps1`).** A live control-layer intervention on the real
   tfv6 agent: the plausible fix candidate ("drive more conservatively") made the failure rate WORSE
-  (50%→83% observed; slower driving adds penalties while collisions persist) — and the statistical
-  verifier correctly REJECTED it before deployment. The X-MoD "naive correction backfires" lesson, caught
-  by the verifier this time. No accepted fix yet (needs learning-based repair, future work) — but the
-  propose→verify→reject cycle ran end-to-end on real CARLA.
+  (50%→83% observed) — and the statistical verifier correctly REJECTED it before deployment. The X-MoD
+  "naive correction backfires" lesson, caught by the verifier this time.
+- **THE ACCEPTED FIX (R27–R31).** The full loop, closed on real driving: student fails 11755 at 58% →
+  the privileged expert is stable-perfect there (teacher exists) → collect 359 MB expert demos
+  (fix + retention) → 10-epoch retention-DAgger fine-tune on the single 5090 → the pre-registered gate:
+  **11755 = 0/19 fresh rollouts failed (was 7/12), p = 6e-8; retention routes 0/12 (nothing broken) →
+  ACCEPT.** Honest scope: verified same-route repair over fresh stochastic rollouts + a 3-route regression
+  set — not cross-route generalization, and not a full 220-route regression sweep. Within that scope, the
+  cycle the study argues for — fail → teach → retrain → statistically verify → adopt — ran end-to-end on
+  an embodied system, with both a REJECT (R25) and an ACCEPT (R31) earned by evidence.
 
 ## The reliability foundation it stands on (the watcher itself)
 - A zero-shot *reading* judge beats a tuned groundedness rule on a sealed benchmark (**0.949 vs 0.789**,
