@@ -221,10 +221,22 @@
     <p class="cap" style="color:var(--mut);font-size:13.5px;margin:16px 0 0">
       To confirm even a large fix (58%→20%) needs ~19 CARLA runs at 80% power; the verifier is cheap to spec,
       the fix is the hard core.</p>
+
+    <div class="readout" style="margin-top:18px">
+      <h3>First embodied self-modification cycle — end to end</h3>
+      <p class="cap">A live control-layer intervention on the real agent: the plausible fix candidate
+        ("drive more conservatively to avoid collisions") was proposed, run, and verified by failure rate.</p>
+      <div class="cmp"><span class="who">baseline</span><div class="track"><div class="fill pass" style="width:50%"></div></div><span class="val" style="color:var(--mut)">50%</span></div>
+      <div class="cmp"><span class="who">"fix" ×0.7</span><div class="track"><div class="fill fake" style="width:83%"></div></div><span class="val fake">83%</span></div>
+      <p class="cap" style="margin:14px 0 0">The plausible fix made the failure rate <i>worse</i> — collisions
+        persist and slower driving adds penalties. <b style="color:var(--ink)">The verifier rejected it before
+        deployment</b> — the propose → verify → reject cycle ran end-to-end on real CARLA. An <i>accepted</i>
+        fix needs learning-based repair (future work).</p>
+    </div>
   </section>
 
   <footer>
-    <div class="big">VSI-0 — 24 logged results (R1–R24), text · real code · embodied, one RTX 5090.</div>
+    <div class="big">VSI-0 — 25 logged results (R1–R25), text · real code · embodied, one RTX 5090.</div>
     <div>
       <span class="pill">self-verifying agent</span><span class="pill">hidden-test + regression</span>
       <span class="pill">reward-hacking</span><span class="pill">held-out verification</span>

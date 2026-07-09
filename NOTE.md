@@ -62,6 +62,11 @@ candidate improvements; the *verifier* decides which are real.
   reproduce. **Single-run failure labels — the driving-leaderboard standard — are unreliable** (they
   measure stochastic noise as much as capability; the embodied illusion-of-progress). An embodied verifier
   must use a failure RATE over N runs; a candidate fix is real only if it lowers the rate beyond this noise.
+  **First embodied cycle end-to-end (R25):** a live control-layer intervention (conservative throttle, the
+  plausible collision fix) RAISED the observed failure rate (50%→83%: collisions persist, slow-driving
+  penalties add) — the statistical verifier correctly REJECTED it before deployment, the verifier-caught
+  version of the "naive correction backfires" lesson. An ACCEPTED embodied fix requires learning-based
+  repair (retention-DAgger) — explicit future work.
 
 ## 4. Findings
 1. **Fake improvement is the default**, in text and driving. Held-out / statistical verification is required.
