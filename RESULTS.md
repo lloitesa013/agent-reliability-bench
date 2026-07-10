@@ -637,3 +637,21 @@ this eval round. Within that scope: **fail → attribute → collect teacher dat
 statistically verify → adopt — the loop the whole study argues for, closed on a real embodied system.**
 Naive single-run verification could have "confirmed" this fix with one lucky rollout of the OLD model
 (42% pass chance); the gate earned the ACCEPT with evidence instead.
+
+## Result 32 — HONEST FLAG: the accepted fix traded a failure mode on the second trained target
+`run_18252_eval.ps1`: the R31-accepted candidate evaluated on its OTHER training target, route 18252
+(pedestrian crossing; baseline 1/5 = 20% flaky collision):
+
+| run | outcome |
+|---|---|
+| candidate 18252 | **3/8 failed — all `vehicle_blocked` at ~28% completion, zero collisions** |
+
+The failure MODE changed: baseline failed by *collision* (20%); the fine-tuned candidate never collides
+but sometimes **stops near the pedestrian and never restarts** (min_speed ×5 + vehicle_blocked) — the
+expert's cautious behavior, over-learned. Direction is worse (37% observed vs 20% baseline; small ns, not
+conclusive) and the new mode is real. **Implication for R31: the ACCEPT was scoped to 11755 + 3 retention
+routes, and that net was too narrow — a gate must cover ALL trained targets and broad regression before a
+GLOBAL model swap.** This strengthens, not weakens, the thesis: a narrowly-scoped verifier can accept a
+change a broader one would question; verification discipline must scale with the deployment scope. Global
+adoption is ON HOLD pending the full 220-route regression screen (running next). R31 stands as verified
+*same-route repair of 11755*; it does not stand as "the model got better everywhere."
