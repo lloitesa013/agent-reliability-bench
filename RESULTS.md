@@ -655,3 +655,17 @@ GLOBAL model swap.** This strengthens, not weakens, the thesis: a narrowly-scope
 change a broader one would question; verification discipline must scale with the deployment scope. Global
 adoption is ON HOLD pending the full 220-route regression screen (running next). R31 stands as verified
 *same-route repair of 11755*; it does not stand as "the model got better everywhere."
+
+## Claim calibration note (2026-07-12 literature/market scan)
+A 94-source scan (4 parallel research angles: VC comparables, academic prior art, industry practice,
+embodied verification) calibrated what this repo may and may not claim. May NOT claim: first to observe
+fake self-improvement (DGM metric-falsification, Berkeley RDI, METR >30%, Honest Lying); first statistical
+gate for self-improving agents (PACE 2026-06, GRACE, PROMOTE/HOLD/ROLLBACK); discovery of driving-benchmark
+flakiness (CARLA non-determinism quantified; ~5 DS run-to-run on Bench2Drive; published scores typically
+single-run — cite as motivation, claim only the OPERATIONALIZATION). MAY claim (unclaimed intersection as
+of 2026-07): (a) fake-improvement rates across all four surfaces {prompt/rule/memory/tool} under one
+protocol + two real code benchmarks; (b) pre-registered statistical accept AND reject inside a closed
+self-improvement loop on embodied CARLA (R25 reject + R31 accept); (c) the deployment-scope demonstration
+(R32). Market note: every funded eval player (Braintrust $800M, LangChain $1.25B, Judgment $32M A, Mem0)
+is human-gated or ungated on agent self-modifications — the automated adoption-gate niche is open but
+closing (LangSmith Engine ≈ one feature away). PAPER.md §5 updated accordingly.

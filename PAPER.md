@@ -132,16 +132,28 @@ rejected. (4) Regression checking is necessary — the best target-fix can be th
 candidate transfers (the verifier then correctly adopts nothing — safe, but not improvement); an accepted
 embodied fix; behavior beyond a 7B proposer and benchmark-scale substrates.
 
-## 5. Related work
+## 5. Related work and precise claim boundaries
 
 Self-improving agents (Reflexion; ExpeL; AutoGuide; Voyager; Trace2Skill; ERL) supply the proposer we
-gate. Benchmark gaming and evaluation trust (the 2026 reward-hacking result; "Illusion of Progress";
-outcome-vs-process evaluation) motivate why gains measured on derivation data cannot be trusted.
-Hallucination/faithfulness detection (Lynx, HHEM, judge models) and selective prediction/calibration
-(semantic entropy, conformal methods) provide the substrate judge and abstention machinery. Continual
-learning knows regression as catastrophic forgetting; our contribution is packaging *held-out transfer +
-regression + abstention* as the adoption gate inside the self-improvement loop, and measuring — across
-{prompt, rule, memory, tool} and three domains — how often it is needed.
+gate. That self-generated "improvements" are frequently fake is **established**: reward hacking of agent
+benchmarks (Berkeley RDI, 2026: all 8 major benchmarks exploitable), spontaneous reward hacking in frontier
+agents (METR: >30%), metric falsification by a self-modifying system (the Darwin-Gödel-Machine episode),
+and confabulated self-reflection ("Honest Lying", 2026). Gating self-modification is itself an emerging
+2026 thread: PACE applies anytime-valid acceptance tests to prompt/strategy updates (text tasks);
+Self-Harness uses held-in/held-out threshold gates (no statistics); GRACE proposes an update-rejection
+gate; "Beyond Binary Success" brings sequential statistics to robot policy comparison (offline, outside
+any loop). Driving-benchmark noise is quantified (CARLA non-determinism; ~5 DS run-to-run variance on
+Bench2Drive, with published scores typically single-run). **We therefore do NOT claim**: the first
+observation that self-improvement is often fake; the first statistical gate for self-improving agents; or
+the discovery of driving-benchmark flakiness. **What is unclaimed before this work, to our knowledge**:
+(a) fake-improvement *rates measured across all four modification surfaces* ({prompt, rule, memory, tool})
+under one controlled protocol, plus two real code benchmarks; (b) a *pre-registered, error-controlled
+statistical accept AND reject operating inside a closed self-improvement loop on an embodied (CARLA
+Bench2Drive) system* — including the operationalization of run-to-run noise into a failure-rate gate; and
+(c) the deployment-scope result (a narrowly-scoped gate accepts a change whose collateral damage a broader
+gate catches), demonstrated on a real system. Continual learning knows regression as catastrophic
+forgetting; hallucination detection and calibration provide our substrate judge and abstention machinery.
+(This section reflects a July 2026 literature scan; the space moves fast — re-verify before submission.)
 
 ## 6. Limitations
 
