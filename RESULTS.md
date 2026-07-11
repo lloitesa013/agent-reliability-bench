@@ -669,3 +669,20 @@ self-improvement loop on embodied CARLA (R25 reject + R31 accept); (c) the deplo
 (R32). Market note: every funded eval player (Braintrust $800M, LangChain $1.25B, Judgment $32M A, Mem0)
 is human-gated or ungated on agent self-modifications — the automated adoption-gate niche is open but
 closing (LangSmith Engine ≈ one feature away). PAPER.md §5 updated accordingly.
+
+## R33 part 1 — global regression SCREEN complete: a systematic behavioral signature emerges
+Screen of the R31 candidate over the 169 baseline-clean routes (single-run screen, 148 completed;
+resumable watchdog runner, zero wedges after the 30-min fix):
+- **19 collision flags** (baseline-clean → candidate collides once): 10857, 1711, 2143, 24258, 24333,
+  2509, 2539, 25845, 27494, 28243, 2844, 2913, 3086, 3410, 3697, 3717, 3737, 4183, 4669.
+- 3 artifact-only soft flags (min_speed/lane only) — dismissed per pre-registered triage.
+- **27 non-artifact soft flags with a SYSTEMATIC signature**: 14 routes at exactly score 70 with
+  {red_light ×1 + min_speed ×17–20}, 4 routes at 80 with {stop_infraction + min_speed ~20}, plus
+  route_dev cases. This is not noise-shaped: it suggests the fine-tune warped GLOBAL driving behavior —
+  slower everywhere (mass min_speed, consistent with 18252's over-caution) and degraded traffic-light/
+  stop discipline. Consistent with catastrophic forgetting under a too-narrow retention set (3 scenario
+  types), now surfacing as an embodied, measurable signature.
+- Confirm batch launched (pre-registered): 19 collision routes × (candidate 4 vs baseline 4) + 6-route
+  sample of the soft signature × (2+2) = 176 interleaved runs. Verdict rule unchanged: per-route
+  regression = candidate ≥3/4 fail AND baseline ≤1/4; global REJECT if ≥1 confirmed regression or pooled
+  candidate rate significantly above baseline (one-sided α=0.05).
