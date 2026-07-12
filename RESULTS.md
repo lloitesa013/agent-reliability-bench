@@ -686,3 +686,26 @@ resumable watchdog runner, zero wedges after the 30-min fix):
   sample of the soft signature × (2+2) = 176 interleaved runs. Verdict rule unchanged: per-route
   regression = candidate ≥3/4 fail AND baseline ≤1/4; global REJECT if ≥1 confirmed regression or pooled
   candidate rate significantly above baseline (one-sided α=0.05).
+
+## Result 33 — GLOBAL VERDICT: REJECT (12 confirmed regressions, p=8.5e-45) — the deployment gate works
+The pre-registered confirm batch completed clean (176/176 valid runs, 0 invalid, 12.3 h):
+
+| metric | result |
+|---|---|
+| per-route confirmed regressions (cand ≥3/4 fail AND base ≤1/4) | **12 of 19** collision-flagged routes |
+| pooled on collision routes | candidate **53/76 = 70%** vs baseline **5/76 = 7%** |
+| one-sided exact p | **8.5e-45** |
+| soft signature sample | candidate-specific: cand 2/2 fail on 5/6 routes, baseline 0/2 (one route flaky in both arms) |
+| candidate failure modes | vehicle collisions (dominant), red-light violations, stops — global driving discipline collapsed |
+
+**Verdict: the R31 candidate is GLOBALLY REJECTED.** The same model that legitimately repairs its target
+(11755: 0/19, p=6e-8 — that claim stands) is catastrophic as a global swap: it collides on ordinary
+routes the baseline drives cleanly. Mechanism: 10 epochs on ~1.6k frames of 4 scenario types with a
+3-route retention set → catastrophic forgetting of general driving (slow everywhere, red lights, stops).
+R32's 18252 blocked-mode was the canary; R31's narrow retention check (3 routes, 0/12) sampled routes
+that turn out to be among the LEAST affected — the scope lesson in its sharpest form. **This is the
+study's central demonstration: single-target evaluation would have shipped this model; the deployment-
+scope statistical gate rejected it with p=8.5e-45 before deployment. The ratchet held — nothing was
+adopted, the capability floor never dropped.** Next (cycle K=2): a less-forgetting fix recipe — first
+probe: same dataset, 3 epochs (cheapest); then broad-retention collection if needed. The gate stays fixed;
+only the fix recipe iterates.
