@@ -709,3 +709,16 @@ scope statistical gate rejected it with p=8.5e-45 before deployment. The ratchet
 adopted, the capability floor never dropped.** Next (cycle K=2): a less-forgetting fix recipe — first
 probe: same dataset, 3 epochs (cheapest); then broad-retention collection if needed. The gate stays fixed;
 only the fix recipe iterates.
+
+## Result 34 — cycle K=2a (fewer epochs) FAILS the panel: forgetting is a data-breadth problem, not a training-length problem
+Prescription 1 (same dataset, 3 epochs instead of 10) went through the pre-registered gate panel and was
+stopped the moment the verdict became mathematically decided (no wasted runs):
+- **11755 fix: RETAINED — 0/8 failures** (reducing epochs did not cost the repair).
+- **12 confirmed-regression routes: 12/12 failed** — pooled ≥50% even if all remaining runs passed, vs
+  the ≤30% pass line → **FAIL**. Failure modes identical to K=1 (vehicle collisions + red-light).
+Diagnosis: the global damage appears within the first ~72 gradient steps — catastrophic forgetting here is
+driven by the NARROWNESS of the data (4 scenario types), not by training length. Prescription 2 launched:
+**broad retention** — expert demonstrations collected across 40 baseline-clean routes (stratified sample,
+LEAD's native quality filter applies), then retrain (3 epochs, which R34 shows preserves the fix) and
+re-panel. The gate stays fixed; only the fix recipe iterates — this is the ratchet's outer loop doing its
+job: two rejected recipes so far, zero regressions ever adopted.
