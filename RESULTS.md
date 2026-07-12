@@ -722,3 +722,23 @@ driven by the NARROWNESS of the data (4 scenario types), not by training length.
 LEAD's native quality filter applies), then retrain (3 epochs, which R34 shows preserves the fix) and
 re-panel. The gate stays fixed; only the fix recipe iterates — this is the ratchet's outer loop doing its
 job: two rejected recipes so far, zero regressions ever adopted.
+
+## Result 35 — cycle K=2b (broad retention) FAILS but BRACKETS the solution: the stability–plasticity axis, measured
+Prescription 2 (fix demos + broad retention across 17 usable routes / 20 scenario types, 3 epochs) through
+the pre-registered panel (38/38 valid, 0 invalid):
+
+| axis | K=1 (10ep narrow) | K=2a (3ep narrow) | **K=2b (3ep broad)** | pass line |
+|---|---|---|---|---|
+| 11755 fix retained | 0/19 ✅ | 0/8 ✅ | **4/8 = 50% ✗ (fix diluted away)** | ≤25% |
+| forgetting (reg12) | ~94% ✗ | 12/12 ✗ | **8/24 = 33% (was ~94%) — nearly fixed** | ≤30% |
+
+**Verdict: REJECT — but this is the most informative failure yet.** The two recipes bracket the classic
+stability–plasticity trade-off from opposite ends: narrow data ⇒ learns the fix, destroys the rest;
+broad data ⇒ preserves the rest, dilutes the fix (11755 relapses to ~baseline). Broad retention cut
+forgetting from ~94% to 33% — the mechanism (data breadth) is confirmed — but even retention weighting is
+now the lever. The solution is bracketed, not unknown: **prescription 3 = broad retention + fix
+OVERSAMPLING** (LEAD's native `buckets_mixture_per_epoch`, e.g. fix bucket 40% / retention 60%), the
+engineering analog of the brain's selective (importance-weighted) hippocampal replay; fallback = LoRA
+(dedicated capacity, per R11). Ratchet integrity: three recipes rejected, **zero regressions ever adopted,
+capability floor never dropped** — the gate did exactly its job across all three. Cycle K=2 paused here
+pending direction (fix recipe iterates; the gate stays fixed).
