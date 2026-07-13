@@ -742,3 +742,19 @@ engineering analog of the brain's selective (importance-weighted) hippocampal re
 (dedicated capacity, per R11). Ratchet integrity: three recipes rejected, **zero regressions ever adopted,
 capability floor never dropped** — the gate did exactly its job across all three. Cycle K=2 paused here
 pending direction (fix recipe iterates; the gate stays fixed).
+
+## Result 36 — the bracket CONVERGED: A2 (fix 60% oversample / retention 40% / 5 epochs) passes the panel
+Fifth recipe closes the stability–plasticity search that K2a/K2b/A1 bracketed:
+
+| recipe | 11755 fix | reg12 forgetting |
+|---|---|---|
+| K=2a (narrow, 3ep) | 0/8 ✅ | 100% ✗ |
+| K=2b (broad uniform, 3ep) | 4/8 ✗ | 33% ✗ |
+| A1 (fix 40%, 3ep) | 4/8 ✗ | 25% ✅ |
+| **A2 (fix 60%, 5ep)** | **0/8 ✅** | **29% ✅** | 
+Signature sample 0/6 (global-behavior warp gone). 38/38 valid runs. **First candidate to pass the
+pre-registered local panel** — via LEAD's native `buckets_mixture_per_epoch` two-bucket mechanism
+(`vsi_fix_bucket_collection.py`, env-gated). Honest cautions: 29% is razor-thin vs the 30% line, and
+routes 24258/28243 went 2/2 in the panel — plausible residual regressions that the DEPLOYMENT gate
+(169-route screen + interleaved confirm) must now adjudicate. Proceeding to the global gate on the new
+4-instance single-GPU fleet (first live run).
