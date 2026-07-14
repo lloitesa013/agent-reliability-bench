@@ -758,3 +758,23 @@ pre-registered local panel** — via LEAD's native `buckets_mixture_per_epoch` t
 routes 24258/28243 went 2/2 in the panel — plausible residual regressions that the DEPLOYMENT gate
 (169-route screen + interleaved confirm) must now adjudicate. Proceeding to the global gate on the new
 4-instance single-GPU fleet (first live run).
+
+## Result 37 — A2 deployment verdict: REJECT (6 confirmed regressions, p=2.5e-20) — with the sharpest diagnosis yet
+Fleet confirm batch (176 jobs, interleaved cand/base ×4):
+- Pooled on flagged routes: candidate **53/81 = 65%** vs baseline **15/81 = 19%**, one-sided p = **2.5e-20**.
+- **Confirmed regressions (cand ≥3/4, base ≤1/4): 6** — 11715, 17598, 25845, 26944, 27532, 3737 (+9 near-miss).
+- Convergence across cycles: **K=1: 12 confirmed → A2: 6 confirmed**, and the earlier global-behavior warp
+  (red-light/slow signature) is gone. The loop is converging, not diverging.
+Two-part diagnosis:
+1. **Retention coverage holes** (expected): most regressing scenarios (AccidentTwoWays, BlockedIntersection,
+   OppositeVehicleRunningRedLight, signalized-junction family, StaticCutIn, CrossingBicycleFlow,
+   VehicleOpensDoorTwoWays) are absent from the 17-route retention set → prescription: collect expert demos
+   on the exact breakage map (pure DAgger).
+2. **WITHIN-FAMILY OVERFITTING (new finding):** route 11715 — EnterActorFlow, the FIX scenario itself —
+   fails 4/4 under the candidate (base 0/1). Oversampling 11755's demos at 60% taught "how to drive 11755,"
+   not "how to drive EnterActorFlow." Prescription: add fix-FAMILY breadth (expert demos of other
+   EnterActorFlow routes into the fix bucket; scenario-name routing does this automatically).
+**Pre-registered caution (gate-reuse decay, R18 at system level):** iterating recipes against the same
+169-route screen risks overfitting the gate itself; the final accepted candidate must additionally pass
+validation unused during recipe iteration (the 51 non-clean routes as fresh probes + multi-seed) before any
+global-adoption claim. Ratchet integrity: 6 recipes tried, adopted regressions still ZERO.
