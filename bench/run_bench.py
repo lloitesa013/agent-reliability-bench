@@ -11,8 +11,15 @@ Record schema (traces.jsonl):
 Systems:
   A base (always PASS)   B rag (always PASS)   C rag+groundedness rule
   D rag+trained watcher  E rag+watcher+value-mismatch(+evidence)
+
+Post-seal amendment (2026-07-15, presentation only -- metric definitions and win
+conditions are UNTOUCHED): (1) sensible default input path with a friendly error,
+(2) a SKELETON-RUN banner + suppressed win-condition verdicts when no record has
+watcher_prob (D/E degrade to the groundedness rule, so verdicts would be
+meaningless), (3) a tie on the primary condition is reported as TIE, not a win.
 """
 import json
+import os
 import re
 import sys
 
@@ -23,6 +30,11 @@ TAU_W = 0.5    # watcher threshold (D/E)
 def value_mismatch(answer, retrieved):
     # PLACEHOLDER heuristic (refine in week 3): a numeric value asserted in the answer
     # that does not appear in the retrieved evidence.
+    # KNOWN LIMIT: under the conflict-distractor engine (both the correct doc and the
+    # corrupted twin are retrieved) a wrong value is ALWAYS present in evidence, so this
+    # check is inert on exactly the case E exists for. The week-3 detector must target
+    # the conflict itself (contradictory values across retrieved docs / query-qualifier
+    # mismatch), not value absence.
     ans = set(re.findall(r"\d[\d,\.]+", answer))
     ev = set(re.findall(r"\d[\d,\.]+", " ".join(retrieved)))
     return any(n not in ev for n in ans)
@@ -70,9 +82,19 @@ def metrics(records, system):
 
 
 def main(path):
+    if not os.path.exists(path):
+        print("input not found: %s" % path)
+        print("usage: python run_bench.py [traces.jsonl]")
+        print("  real bench : traces_bench.jsonl (repo root, 300 records)")
+        print("  demo sample: bench/sample_bench.jsonl (6 records)")
+        sys.exit(1)
     records = [json.loads(l) for l in open(path)]
     have_watcher = any("watcher_prob" in r for r in records)
-    print("records=%d  watcher_prob present=%s  (D/E fall back to groundedness if absent)\n" % (len(records), have_watcher))
+    print("input=%s  records=%d  watcher_prob present=%s\n" % (path, len(records), have_watcher))
+    if not have_watcher:
+        print("*** SKELETON RUN: no record has watcher_prob -> D/E fall back to the groundedness")
+        print("*** rule (D==C by construction). Win-condition verdicts are NOT evaluable on this")
+        print("*** run and are suppressed below. Train the watcher (week 3) to score them.\n")
 
     hdr = "%-2s | eff_rel  unsafe_pass  overblock  dec_acc" % "sys"
     print(hdr); print("-" * len(hdr))
@@ -87,10 +109,16 @@ def main(path):
         row = ["%-10.3f" % metrics([r for r in records if r.get("case_type") == c], s)["effective_reliability"] for c in cts]
         print("  %-2s  %s" % (s, "  ".join(row)))
 
-    # sealed win-condition checks
+    # sealed win-condition checks -- only meaningful with a trained watcher
+    if not have_watcher:
+        print("\nWIN CONDITIONS: suppressed (skeleton run, see banner above).")
+        return
     print("\nWIN CONDITIONS (from BENCH_SPEC.md):")
     allm = {s: metrics(records, s) for s in "ABCDE"}
-    print("  primary  E best eff_rel:        ", allm["E"]["effective_reliability"] == max(m["effective_reliability"] for m in allm.values()))
+    e_rel = allm["E"]["effective_reliability"]
+    best_other = max(m["effective_reliability"] for s, m in allm.items() if s != "E")
+    primary = "True" if e_rel > best_other else ("TIE (not a win under the sealed spec)" if e_rel == best_other else "False")
+    print("  primary  E best eff_rel:        ", primary)
     reasoning = [r for r in records if r.get("case_type") == "reasoning"]
     distractor = [r for r in records if r.get("case_type") == "distractor"]
     if reasoning:
@@ -102,5 +130,11 @@ def main(path):
           allm["E"]["overblock"] <= min(allm["C"]["overblock"], allm["D"]["overblock"]) + 0.15)
 
 
+def _default_path():
+    here = os.path.dirname(os.path.abspath(__file__))
+    real = os.path.join(here, "..", "traces_bench.jsonl")
+    return real if os.path.exists(real) else os.path.join(here, "sample_bench.jsonl")
+
+
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "traces_bench.jsonl")
+    main(sys.argv[1] if len(sys.argv) > 1 else _default_path())

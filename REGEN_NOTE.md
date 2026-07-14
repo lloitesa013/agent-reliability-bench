@@ -1,7 +1,15 @@
-# REGEN REQUIRED — this branch has the FIXED engine, NOT fixed data
+# REGEN NOTE — RESOLVED (kept as changelog)
 
-`data_engine.py` on this branch (`conflict-fix`) changes two things vs `week2-data`, to resolve
-the honest problems the Week-2 `DATA_REPORT.md` flagged:
+**Status: resolved.** The concerns below were addressed: `traces_bench.jsonl` in this branch WAS
+regenerated with the fixed conflict-distractor engine (week-3 data commit — records carry the
+`group` field, distractor retrieved-len = 2, and a healthy correct/wrong distractor mix ~33/100).
+`DATA_REPORT.md` still describes the OLD week-2 build and is kept for provenance with a STALE
+banner; `RESULTS.md` is the authoritative report.
+
+---
+
+Original note (historical): `data_engine.py` changed two things vs `week2-data`, to resolve the
+honest problems the Week-2 `DATA_REPORT.md` flagged:
 
 1. **CONFLICT retrieval for distractor.** Distractor now retrieves BOTH the correct doc AND the
    corrupted twin (retrieved-len = 2), so the evidence literally contradicts itself. The answer
@@ -19,13 +27,5 @@ the honest problems the Week-2 `DATA_REPORT.md` flagged:
 Offline structural check (`validate_conflict.py`, no GPU): 300 records, case_type 100/100/100,
 distractor retrieved-len = 2, direct∩distractor shared groups = 94, 119 distinct groups.
 
-**`traces_bench.jsonl` and `DATA_REPORT.md` in this branch are STALE** (produced by the old
-single-corrupt-doc engine on `week2-data`). Regenerate on a GPU box before Week 3:
-
-    python data_engine.py            # ~42s on one GPU (Qwen2.5-14B-Instruct + bge-small)
-
-then re-run the offline audit + regenerate the report, confirm distractor now has a healthy
-correct/wrong mix, and only THEN train the watcher (Week 3) with a fact-group split.
-
-Sealed files (bench/*, run_bench.py) are untouched — the `group` field is auxiliary metadata that
-run_bench.py ignores; it does not change any metric or win condition.
+Sealed files (bench/*, run_bench.py) are untouched by the data change — the `group` field is
+auxiliary metadata that run_bench.py ignores; it does not change any metric or win condition.

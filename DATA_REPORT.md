@@ -1,5 +1,12 @@
 # DATA_REPORT — Week-2 traces_bench.jsonl (SCALED build)
 
+> **STALE — kept for provenance.** This report describes the ORIGINAL week-2 dataset
+> (single-corrupt-doc distractor engine). The shipped `traces_bench.jsonl` was later REGENERATED
+> with the conflict-distractor engine (both the correct doc and the corrupted twin retrieved,
+> `group` field added) — see `REGEN_NOTE.md` for what changed and `RESULTS.md` (authoritative)
+> for all numbers. In particular §8-2's "distractor correct_rag = 0/100" no longer describes the
+> shipped data (the regenerated mix is healthy, ~33/100 correct).
+
 - Records: **300**  (target 300)
 - Base LLM (fixed for all systems): `Qwen/Qwen2.5-14B-Instruct`  ·  Retriever: `BAAI/bge-small-en-v1.5`
 - Correctness = STRICT token/value overlap (bench_lib.correct, NOT semantic)  ·  groundedness = verbatim guardrail formula

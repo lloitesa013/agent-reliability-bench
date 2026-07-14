@@ -7,6 +7,8 @@ import json
 import os
 from pathlib import Path
 
+_warned_fallback = False  # one-time notice when a real-LLM run degrades to the mock
+
 KNOWLEDGE = [
     "The Eiffel Tower is located in Paris, France, and was completed in 1889.",
     "Mount Everest is the highest mountain above sea level, at 8,849 meters.",
@@ -35,8 +37,12 @@ def call_llm(prompt):
             r = client.chat.completions.create(
                 model="gpt-4o-mini", messages=[{"role": "user", "content": prompt}])
             return r.choices[0].message.content.strip()
-        except Exception:
-            pass  # SDK missing or call failed -> offline mock
+        except Exception as e:
+            # never degrade silently: a mock run must not pass as a real-LLM run
+            global _warned_fallback
+            if not _warned_fallback:
+                _warned_fallback = True
+                print("[warn] OpenAI call failed (%s) -> falling back to offline mock for this run" % type(e).__name__)
     return _mock_llm(prompt)
 
 

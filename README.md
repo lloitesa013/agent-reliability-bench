@@ -1,9 +1,23 @@
-# VSI-0 — Verified Self-Improvement (v0)
+# Agent Reliability Watcher × VSI-0 (Verified Self-Improvement)
 
-**One line.** A self-improving agent must not trust its own changes. **VSI-0 is a *self-verifying agent*:
-it treats every self-modification to its own {prompt, rule, memory, tool} as UNTRUSTED and adopts it only
-if it clears a HIDDEN TEST (transfers to held-out cases) AND a REGRESSION check (breaks no existing
-capability).** Built and validated on one RTX 5090, in text and in an embodied driving domain (CARLA).
+One system, two layers, one question: **when should an AI agent's output — or its own
+self-modification — be trusted?**
+
+**Layer 1 — the watcher (runtime reliability; the production story).** Watches a RAG/LLM agent at
+inference time, scores trust, **ABSTAINS** when unsure, **ESCALATES** to a human with a reason, and
+writes an audit log. Headline (sealed 300-trace benchmark, fact-group split, `RESULTS.md` R1–R7): a
+zero-shot *reading* judge beats a tuned groundedness rule — **effective reliability 0.946±0.014 vs
+0.789, 0 unsafe passes** — and calibrated abstention lifts accuracy **0.84 → 0.91** by routing the
+least-confident 30% to humans. Try it offline in 60 seconds: `python demo.py`.
+> Lesson kept on purpose: an early version of the watcher's own demo shipped a grounded-but-irrelevant
+> answer at full trust in its own audit log. Lexical grounding alone is not a safety signal — that
+> failure motivated the relevance gate in `guardrail.py` and the benchmark's distractor class.
+
+**Layer 2 — VSI-0 (the research frontier).** The same verification discipline pointed at the agent's
+OWN changes: a *self-verifying agent* treats every self-modification to its {prompt, rule, memory,
+tool} as UNTRUSTED and adopts it only if it clears a HIDDEN TEST (transfers to held-out cases) AND a
+REGRESSION check (breaks no existing capability). Built and validated on one RTX 5090, in text and in
+an embodied driving domain (CARLA).
 
 **Why it matters.** Self-improving-agent methods (Reflexion, ExpeL, …) report gains measured on the same
 tasks they learned from — and in April 2026 UC Berkeley showed all 8 major agent benchmarks are
@@ -11,7 +25,7 @@ reward-hackable to ~100%. A self-improvement loop *without a trustworthy verifie
 reward-hacker, not to improvement. **The verifier — the thing that separates real improvement from fake — is
 the missing, load-bearing piece.** VSI-0 builds it and stress-tests it.
 
-## Headline results (see `RESULTS.md` for all, R1–R21)
+## Headline results (see `RESULTS.md` for all, R1–R31)
 
 | what | result |
 |---|---|
@@ -37,13 +51,15 @@ the missing, load-bearing piece.** VSI-0 builds it and stress-tests it.
 ## Repo map
 - **`STUDY.md`** — start here: the front-page narrative (thesis, both directions, embodied, honest limits).
 - **`NOTE.md`** — technical note / mini-paper (problem, method, results, related work, limitations).
-- **`RESULTS.md`** — authoritative results, R1–R21, each with the exact numbers and the script that made them.
+- **`RESULTS.md`** — authoritative results, R1–R31, each with the exact numbers and the script that made them.
 - Text self-verifying agent: `self_verify_agent.py` (flagship), `self_improve_loop.py` /
   `self_improve_loop6.py` (multi-round), `self_verify_tool.py` + `stat_robustness.py` (tool/code + statistics),
   `candidate_ft.py` (fine-tuning level), `verified_integration.py` (regression), `fresh_vs_reused.py`
   (why the hidden test must be fresh), `proof_*.py` (the original accept/reject/autonomous proofs).
-- Reliability substrate (the watcher it stands on): `judge_zeroshot.py`, `calibrate2.py`, `halubench_eval.py`,
-  `cross_source*.py`, `bench/` (sealed benchmark).
+- **Layer 1 — the watcher (runtime reliability):** `demo.py` (60-second offline tour), `guardrail.py`
+  (PASS/SAFE/ESCALATE gate: groundedness × relevance + audit log), `agent.py`/`diagnose.py`/`evaluate.py`
+  (traced agent + failure-cause attribution with abstain), `judge_zeroshot.py`, `calibrate2.py`,
+  `halubench_eval.py`, `cross_source*.py`, `bench/` (sealed benchmark) + `traces_bench.jsonl` (300 records).
 - Embodied: `run_multi.ps1` (statistical failure-rate verifier on CARLA/Bench2Drive), `carla/` (watcher/judge).
 
 ## Use it — `vsi_gate.py` (the verifier as a library)

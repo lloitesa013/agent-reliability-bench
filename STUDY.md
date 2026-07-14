@@ -86,7 +86,7 @@ The verifier, turned on the agent's OWN self-modifications. Each result is `RESU
   an embodied system, with both a REJECT (R25) and an ACCEPT (R31) earned by evidence.
 
 ## The reliability foundation it stands on (the watcher itself)
-- A zero-shot *reading* judge beats a tuned groundedness rule on a sealed benchmark (**0.949 vs 0.789**,
+- A zero-shot *reading* judge beats a tuned groundedness rule on a sealed benchmark (**0.946±0.014 vs 0.789**,
   unsafe_pass 0.000); an embedding watcher ties it — reading the trace is load-bearing (`RESULTS.md` R1–2).
 - **Calibrated abstention** (the differentiator): the judge's logit margin is a real uncertainty signal —
   abstain the least-confident 30% → accuracy 0.84→0.91; and it **transfers to 4/6 unseen domains** (R3, R7).

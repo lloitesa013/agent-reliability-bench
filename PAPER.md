@@ -1,6 +1,6 @@
 # The Verifier Is the Loop: Self-Improving Agents Must Not Trust Their Own Changes
 
-*Workshop-format draft (v0). All numbers reproduce from this repository (`RESULTS.md` R1–R25); single RTX 5090.*
+*Workshop-format draft (v0). All numbers reproduce from this repository (`RESULTS.md` R1–R31); single RTX 5090.*
 
 ## Abstract
 
@@ -74,7 +74,7 @@ the load-bearing mechanism (R10).
 
 ## 3. Experiments
 
-**Substrate (R1–R7).** A reading judge with calibrated abstention over agent traces: 0.949 vs a tuned
+**Substrate (R1–R7).** A reading judge with calibrated abstention over agent traces: 0.946±0.014 vs a tuned
 guardrail's 0.789 on a sealed benchmark; abstaining the least-confident 30% lifts 0.84→0.91 and transfers
 to 4/6 unseen domains; fine-tuning a 7B judge reaches 0.815 in-distribution on HaluBench but does not
 transfer cross-source — the first sighting of the central phenomenon.
@@ -161,5 +161,5 @@ deployment. If self-improving agents are to be trusted with their own modificati
 is the loop**; the rest is a proposal generator.
 
 ---
-*Artifacts: `RESULTS.md` (R1–R25, each with its script), `vsi_gate.py` (the gate as a library),
+*Artifacts: `RESULTS.md` (R1–R31, each with its script), `vsi_gate.py` (the gate as a library),
 `STUDY.md`/`NOTE.md` (narratives). Repository: github.com/lloitesa013/agent-reliability-bench.*

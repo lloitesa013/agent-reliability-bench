@@ -33,7 +33,7 @@ candidate improvements; the *verifier* decides which are real.
 
 ## 3. Results
 - **Reliability substrate (R1–7).** A zero-shot *reading* judge beats a tuned groundedness rule on a sealed
-  benchmark (0.949 vs 0.789; an embedding watcher only ties — reading the trace is load-bearing). A
+  benchmark (0.946±0.014 vs 0.789; an embedding watcher only ties — reading the trace is load-bearing). A
   calibrated-abstention signal (logit margin) lets it abstain the least-confident 30% → 0.84→0.91, and this
   transfers to 4/6 unseen domains. On public HaluBench, 7B zero-shot 0.688; fine-tuned 0.815 **in-distribution**
   but **not** cross-source — the negative that motivates the thesis.

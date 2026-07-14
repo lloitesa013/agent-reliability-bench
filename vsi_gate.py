@@ -9,7 +9,7 @@ untrusted and ACCEPTs one only if it
   (2) REGRESSION   — does not degrade any existing capability beyond a noise margin.
 
 If no candidate clears both gates, the gate ABSTAINS (adopt nothing) — which is the safe outcome.
-Backed by VSI-0 results R11–R25 (github.com/lloitesa013/agent-reliability-bench): selecting by the score
+Backed by VSI-0 results R11–R31 (github.com/lloitesa013/agent-reliability-bench): selecting by the score
 a candidate was tuned on ships fakes (59% on tool rewrites, 19/29 overfits on MBPP, 12% on solvable
 problems); this gate shipped 0% across all of them.
 

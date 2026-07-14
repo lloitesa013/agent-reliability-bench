@@ -41,6 +41,6 @@ CRAFTED = [
 if __name__ == "__main__":
     out = Path("traces")
     out.mkdir(exist_ok=True)
-    for i, t in enumerate(CRAFTED, start=8):
+    for i, t in enumerate(CRAFTED, start=4):  # agent.py writes trace_0..3; crafted fixtures continue the sequence
         (out / f"trace_{i}.json").write_text(json.dumps(t, indent=2))
     print(f"Wrote {len(CRAFTED)} crafted hard-case traces to ./traces/")

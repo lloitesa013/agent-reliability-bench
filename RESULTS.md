@@ -76,7 +76,7 @@ error.** This is "a watcher that knows when it is unsure and abstains" — shown
 noisy data; the load-bearing part is the *ranking* / risk-coverage, not the magnitude.)
 
 ## Two pillars now established
-1. Watcher (reading judge) beats the tuned rule: **D 0.949 vs C 0.789**.
+1. Watcher (reading judge) beats the tuned rule: **D 0.946±0.014 vs C 0.789**.
 2. Watcher is self-aware (calibrated abstention): **abstain 30% → accuracy 0.84 → 0.91**.
 Both on the sealed benchmark, fact-group split, honest caveats above. Self-consistency was a null;
 logit-margin was the win. Abstention = sending N% to humans (a real cost), valuable in high-stakes.

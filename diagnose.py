@@ -1,12 +1,19 @@
 """
-Diagnose WHY the RAG agent failed, with a CALIBRATED confidence and the option to
-ABSTAIN ("uncertain") when the evidence does not clearly point to one cause.
+Diagnose WHY the RAG agent failed, with a HEURISTIC confidence score and the
+option to ABSTAIN ("uncertain") when the evidence does not clearly point to one
+cause.
 
 Causes: no_failure | retrieval_miss | missing_knowledge | reasoning_error |
         correct_abstention | uncertain (abstain)
 
-The point (the "trustworthy" angle): the tool reports not just a cause but how
-much to trust that diagnosis -- and stays silent when it genuinely can't tell.
+Honesty note on "confidence": the score is a linear map of a token-overlap
+margin (0.5 + margin, capped at 0.99). It is NOT calibrated -- the thresholds
+below are the knobs a real deployment would fit on labeled data (that
+calibration is what the 300-trace bench in bench/ exists to measure). The
+point demonstrated here is the SHAPE: cause + score + abstain, not the values.
+
+This diagnoser is an OFFLINE tool: it needs the trace's gold answer
+("expected"). The runtime path with no gold is guardrail.py.
 """
 
 import json
@@ -48,6 +55,11 @@ def diagnose(trace):
     expected = trace.get("expected", "")
     answer = trace.get("answer", "")
     retrieved = next((s["retrieved"] for s in trace["steps"] if s["step"] == "retrieve"), [])
+
+    # No gold answer -> this offline diagnoser cannot attribute a cause.
+    # Refuse loudly instead of degrading into a confident wrong label.
+    if not expected:
+        return _out("uncertain", 0.0, 0.0, 0.0, 0.0)
 
     in_answer = _match([answer], expected)   # did the agent actually answer it?
     in_kb = _match(KNOWLEDGE, expected)      # is the answer available at all?
