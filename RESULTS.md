@@ -778,3 +778,18 @@ Two-part diagnosis:
 169-route screen risks overfitting the gate itself; the final accepted candidate must additionally pass
 validation unused during recipe iteration (the 51 non-clean routes as fresh probes + multi-seed) before any
 global-adoption claim. Ratchet integrity: 6 recipes tried, adopted regressions still ZERO.
+
+## Result 38 — A3 (family-breadth fix bucket) FAILS the fix axis: within-bucket dilution + demo conflict
+A3 = A2's recipe (fix60/ret40/5ep) with R37's data prescription (11715+27506 added to the fix bucket via
+scenario routing; 13 targeted-retention routes added). Panel was cut short by a CARLA wedge (29/38 runs
+invalid — `load_world` timeout cascade; ops, not model), but the valid arm already decides the fix axis:
+**11755 = 6 fails / 7 valid runs** (pass line ≤2/8) — the repair that was perfect in A2 (0/8) collapsed.
+Failure modes split: 2 collisions + 3 runs at score 70 with zero collisions (red-light signature) —
+the added EnterActorFlow demos (different towns/routes) didn't just dilute 11755's share of the fix
+bucket (280/427 = 66%), they CONFLICTED with its learned behavior. Family breadth at equal weight
+traded away the route-specific repair — the dilution phenomenon reappearing one level down (fractal).
+**Prescription A4 (one variable from the known-good A2):** fix bucket restored to 11755-only via new
+route-scoped bucket routing (`VSI_FIX_ROUTES`), family demos (11715/27506) demoted to the retention
+bucket (protect without stealing fix budget), targeted-retention 13 routes KEPT (they address A2's
+actual global failure). A3's remaining reg12 arm intentionally not re-run — A4's own panel measures it
+fresh (waste rule). Convergence ledger: recipes tried 7, adopted regressions still zero.
