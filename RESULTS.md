@@ -793,3 +793,18 @@ route-scoped bucket routing (`VSI_FIX_ROUTES`), family demos (11715/27506) demot
 bucket (protect without stealing fix budget), targeted-retention 13 routes KEPT (they address A2's
 actual global failure). A3's remaining reg12 arm intentionally not re-run — A4's own panel measures it
 fresh (waste rule). Convergence ledger: recipes tried 7, adopted regressions still zero.
+
+## Result 39 — A4 FAILS (fix 4/8, reg 33%; 38/38 valid): the data-mixture card family is EXHAUSTED
+A4 restored A2's exact fix bucket (11755-only, via new route-scoped bucket routing) and kept the targeted
+retention — yet the fix collapsed to 4/8 (A2: 0/8) and reg12 worsened to 33% (A2: 29%). With the fix data
+IDENTICAL to the passing recipe, merely ADDING retention data broke the repair. Combined ledger of the
+four data variants (K2b broad / A1-A2 ratios / A3 family / A4 targeted): none dominates A2, and A2 itself
+fails the deployment gate (R37). **Conclusion (bounded, evidence-based): in the full-fine-tune regime,
+fix and retention share weights and sit on a see-saw — the 11755 repair is a brittle optimum that any
+data-composition change disturbs. The data-mixture axis is exhausted.** Escalating per the pre-registered
+path to PARAMETER-SPACE ISOLATION: LEAD natively exposes `freeze_backbone` (perception frozen, planning
+head-only training — the cheap form of dedicated capacity) and `lr`. **A5 = A4 + freeze_backbone=true**
+(one variable). If the head-only regime shows the same see-saw, LoRA-style adapters are next; if that
+fails too, the honest conclusive-negative shape is "global-gate-passing repair of this route is not
+achievable by fine-tuning at this budget" — itself a publishable boundary. Recipes tried: 8. Adopted
+regressions: still zero.
