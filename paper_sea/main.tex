@@ -348,13 +348,13 @@ adopted; the deployed capability floor never dropped.
   title={\small target scope (route 11755): \textcolor{vok}{\textbf{ACCEPT}}},
   ylabel={\small failure rate (\%)},
   symbolic x coords={baseline, candidate},
-  xtick=data, ymin=0, ymax=100, bar width=16pt,
+  xtick={baseline, candidate}, ymin=0, ymax=100, bar width=16pt,
   enlarge x limits=0.45,
   tick label style={font=\small},
   nodes near coords, every node near coord/.append style={font=\scriptsize},
 ]
-\addplot[fill=vblue!55, draw=vblue] coordinates {(baseline,58)};
-\addplot[fill=vok!70, draw=vok] coordinates {(candidate,0)};
+\addplot[fill=vblue!55, draw=vblue, bar shift=0pt] coordinates {(baseline,58)};
+\addplot[fill=vok!70, draw=vok, bar shift=0pt] coordinates {(candidate,0)};
 \node[font=\scriptsize, anchor=north] at (axis cs:candidate,97) {$0/19$, $p{=}6{\times}10^{-8}$};
 \node[font=\scriptsize, anchor=north] at (axis cs:baseline,97) {$7/12$};
 \end{axis}
@@ -363,13 +363,13 @@ adopted; the deployed capability floor never dropped.
   ybar, width=.46\linewidth, height=5.0cm,
   title={\small deployment scope (flagged routes): \textcolor{vbad}{\textbf{REJECT}}},
   symbolic x coords={baseline, candidate},
-  xtick=data, ymin=0, ymax=100, bar width=16pt,
+  xtick={baseline, candidate}, ymin=0, ymax=100, bar width=16pt,
   enlarge x limits=0.45,
   tick label style={font=\small},
   nodes near coords, every node near coord/.append style={font=\scriptsize},
 ]
-\addplot[fill=vblue!55, draw=vblue] coordinates {(baseline,7)};
-\addplot[fill=vbad!70, draw=vbad] coordinates {(candidate,70)};
+\addplot[fill=vblue!55, draw=vblue, bar shift=0pt] coordinates {(baseline,7)};
+\addplot[fill=vbad!70, draw=vbad, bar shift=0pt] coordinates {(candidate,70)};
 \node[font=\scriptsize, anchor=north] at (axis cs:candidate,97) {$53/76$, $p{=}8.5{\times}10^{-45}$};
 \node[font=\scriptsize, anchor=north] at (axis cs:baseline,97) {$5/76$};
 \end{axis}
@@ -425,31 +425,33 @@ A6 & A2 data + frozen backbone & $3/8$ & $\mathbf{17\%}$ \checkmark & REJECT (fi
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-  width=.72\linewidth, height=6.4cm,
+  width=.8\linewidth, height=6.8cm,
   xlabel={\small fix failure rate on 11755 (panel)},
   ylabel={\small retention failure rate (reg-12, pooled)},
-  xmin=-0.06, xmax=1.02, ymin=-0.06, ymax=1.06,
+  xmin=-0.06, xmax=1.02, ymin=-0.06, ymax=1.12,
   xtick={0,.25,.5,.75,1}, ytick={0,.3,.5,1},
   xticklabels={0,\textbf{.25},.5,.75,1}, yticklabels={0,\textbf{.30},.5,1},
   tick label style={font=\small},
   grid=none,
 ]
 \fill[vok!14] (axis cs:-0.06,-0.06) rectangle (axis cs:0.25,0.30);
-\node[font=\scriptsize\itshape, text=vok!60!black] at (axis cs:0.095,0.045) {pass region};
+\node[font=\scriptsize\itshape, text=vok!60!black] at (axis cs:0.10,0.05) {pass region};
 \addplot[only marks, mark=*, mark size=2.6pt, color=vbad] coordinates {
-  (0.0,1.0) (0.5,0.33) (0.5,0.25) (0.857,1.0) (0.5,0.33) (0.5,0.31)
+  (0.0,1.0) (0.5,0.33) (0.5,0.25) (0.857,1.0) (0.5,0.31)
 };
 \addplot[only marks, mark=square*, mark size=2.8pt, color=vblue] coordinates {(0.0,0.29)};
 \addplot[only marks, mark=triangle*, mark size=3.6pt, color=vblue] coordinates {(0.375,0.17)};
-\node[font=\scriptsize, anchor=west] at (axis cs:0.02,1.0) {K2a (narrow: repairs, forgets all)};
-\node[font=\scriptsize, anchor=south west] at (axis cs:0.51,0.335) {K2b / A4};
-\node[font=\scriptsize, anchor=north west] at (axis cs:0.51,0.245) {A1};
-\node[font=\scriptsize, anchor=west] at (axis cs:0.52,0.30) {A5};
-\node[font=\scriptsize, anchor=south] at (axis cs:0.857,1.0) {A3};
-\node[font=\scriptsize, anchor=west, text=vblue] at (axis cs:0.03,0.245)
+\node[font=\scriptsize, anchor=west] at (axis cs:0.03,1.0) {K2a (narrow: repairs, forgets all)};
+\node[font=\scriptsize, anchor=north] at (axis cs:0.857,0.97) {A3};
+\node[font=\scriptsize, anchor=west] at (axis cs:0.53,0.38) {K2b / A4};
+\node[font=\scriptsize, anchor=west] at (axis cs:0.53,0.31) {A5};
+\node[font=\scriptsize, anchor=west] at (axis cs:0.53,0.24) {A1};
+\draw[vgray, very thin] (axis cs:0.505,0.335) -- (axis cs:0.525,0.375);
+\node[font=\scriptsize, anchor=south west, text=vblue] at (axis cs:0.02,0.44)
   {A2: panel pass $\to$ \textcolor{vbad}{deployment REJECT}};
-\node[font=\scriptsize, anchor=west, text=vblue] at (axis cs:0.41,0.17)
-  {A6 (head-only): best retention, misses fix by one run};
+\draw[vgray, very thin] (axis cs:0.012,0.30) -- (axis cs:0.05,0.435);
+\node[font=\scriptsize, align=left, anchor=north west, text=vblue] at (axis cs:0.30,0.115)
+  {A6 (head-only): best retention,\\misses the fix line by one run};
 \end{axis}
 \end{tikzpicture}
 \caption{The measured repair--retention frontier across the recipe search (panel scope; A3's retention

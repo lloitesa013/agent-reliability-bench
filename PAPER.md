@@ -1,6 +1,8 @@
 # The Verifier Is the Loop: Self-Improving Agents Must Not Trust Their Own Changes
 
-*Workshop-format draft (v0). All numbers reproduce from this repository (`RESULTS.md` R1–R25); single RTX 5090.*
+*Workshop-format draft (v0, R1–R25 era). **SUPERSEDED by `paper_sea/main.tex`** (NeurIPS-format LaTeX,
+R1–R41: adds the accepted embodied fix, the deployment-scope REJECT, and the 10-recipe search/frontier).
+This markdown is kept as the readable early draft; edit the LaTeX, not this file.*
 
 ## Abstract
 
