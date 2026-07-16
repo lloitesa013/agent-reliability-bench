@@ -859,3 +859,28 @@ Per the sealed pre-registration (`S2_PREREG.md`, commit 69374ec, written BEFORE 
 Remaining for S2: **W2** — cheapest guaranteed path = MBPP/HumanEval closed auto-loop (also the
 sealed 5090 fallback); embodied W2 (a NEW target through the automated pipeline, e.g. 18252 —
 NOT a reopening of the closed 11755 search) only if 5090 access allows before the 8/15 AoE cutoff.
+
+## Result 43 — S2 GREEN: the automated loop ran two fresh trials, earned one ACCEPT and one honest
+## REJECT with zero human verdicts, and stopped itself (W2 complete, 29 days before the sealed cutoff)
+`w2_autoloop.py` on the 5090 (11 minutes end-to-end), per the sealed prereg (69374ec):
+- **W2-MBPP-fresh** (n=100, task_id 131–230 — never touched by R22/R24): per problem the tests split
+  visible / gate-hidden / **audit** (the gate NEVER sees the audit — without this split "gate ships 0
+  failures" would be true by construction). Naive (ship best-visible, no abstain) ships an
+  audit-failing solution **41/100 = 41%**; the gate adopts 59, abstains 41, and its adoptions fail
+  audit **5/59 = 8.5%**. Registry-computed verdict: **ACCEPT, p = 2.81e-8** (exact binomial). Note the
+  honest non-zero: the audit split measures what the gate actually buys (41%→8.5%), not a tautology.
+  (Metric differs from R24's 12%: that was solvable-only; this is deployed-artifact quality over ALL
+  fresh problems, where naive has no abstain.)
+- **The prescriber, not a human, ordered the scope escalation** (a verdict is only valid at its
+  measured scope) → **W2-HumanEval-fresh** (n=26 remaining fresh problems): naive ships **0/26**
+  audit failures — this slice is easy for the model, there is NO failure to improve on — and the
+  registry returns **REJECT (p = 1, no improvement evidence)**. The correct verdict: the system
+  declined to manufacture significance where none exists. The prescriber then hit an unmapped state
+  and **handed back to the operator instead of guessing** — exactly the sealed design.
+- Sealed W2 requirements, all met: trials registered before their verdicts; zero human verdict
+  intervention (human role = launch + read, as permitted); no candidate adopted against any line;
+  every per-problem decision recorded with evidence (`results_w2/w2_details.jsonl`, 126 rows;
+  ledger `results_w2/w2_trials.jsonl`).
+**S2 = W1 (R42) + W2 = GREEN — 29 days before the 8/15 AoE cutoff → S2 enters the paper as a strict
+addition (Rail 1).** The title's claim is now literal: the loop that ran these two trials — propose →
+register → gate → verdict → next move — contained no human decision-maker.
