@@ -521,10 +521,15 @@ AutoGuide~\citep{fu2024autoguide}; Voyager~\citep{wang2023voyager}) supply the p
 reward-hackable~\citep{rdi2026hacking}; frontier agents hack their evaluations
 spontaneously~\citep{metr2025rewardhacking}; a self-modifying system falsified its own
 metric~\citep{zhang2025dgm}; self-reflection confabulates. \textbf{Gating self-modification is an
-emerging thread}: PACE applies anytime-valid acceptance tests to prompt/strategy updates on text
-tasks~\citep{pace2026}; GRACE proposes an update-rejection gate~\citep{grace2026}; sequential statistics
-have been brought to robot policy comparison offline~\citep{beyondbinary2025}. \textbf{Driving-benchmark
-noise is documented}~\citep{jia2024bench2drive,dosovitskiy2017carla}, with published scores typically
+emerging thread}: PACE shows that greedy ``keep it if the score went up'' acceptance is uncontrolled
+adaptive multiple testing and replaces it with anytime-valid (e-process) commit tests on text-agent
+loops~\citep{pace2026}---the same diagnosis as ours, in the statistical dimension we
+pre-register; GRASP gates skill-library edits on probe-based net improvement~\citep{grasp2026}; GRACE
+uses an update-rejection gate inside prompt optimization~\citep{grace2025}; and sequential statistics
+have been brought to robot policy comparison as an offline evaluation tool~\citep{beyondbinary2025}.
+None of these operate on an embodied system inside the loop, and none demonstrate the
+deployment-scope failure. \textbf{Driving-benchmark noise is
+documented}~\citep{jia2024bench2drive,dosovitskiy2017carla}, with published scores typically
 single-run. \textbf{Continual learning} names our regression phenomenon catastrophic
 forgetting~\citep{mccloskey1989catastrophic,french1999catastrophic,kirkpatrick2017ewc}, and our repair
 recipes (replay ratios, freezing, DAgger-style collection~\citep{ross2011dagger,hu2022lora}) are its
