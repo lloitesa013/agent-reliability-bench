@@ -808,3 +808,17 @@ head-only training — the cheap form of dedicated capacity) and `lr`. **A5 = A4
 fails too, the honest conclusive-negative shape is "global-gate-passing repair of this route is not
 achievable by fine-tuning at this budget" — itself a publishable boundary. Recipes tried: 8. Adopted
 regressions: still zero.
+
+## Result 40 — A5 (frozen backbone, A4 data) FAILS the fix axis too: the see-saw lives in the HEAD
+A5 froze the perception backbone (16.6M trainable head-only params) over A4's dataset. Verdict from
+on-disk run records (fix arm complete, 8/8 present): **11755 = 4/8 (pass ≤2/8) — identical to A4.**
+Freezing perception did not recover the repair: the fix/retention interference is concentrated in the
+planning head, not the backbone. reg12 partial arm (13 runs) at 31% ≈ unchanged. Ops note: CSV(37) vs
+json(22) divergence traced to interrupted re-runs deleting prior outputs before completing — per-run
+JSONs are ground truth; verdict uses only complete arms. **Timebox status: one literature-informed shot
+remains — A6 = A2's EXACT dataset (the 13 targeted-retention + family additions quarantined; training
+root verified back to A2's 48 route dirs) + frozen backbone.** Hypothesis: A2's panel-pass survives the
+gentler head-only update while frozen perception reduces its global regressions. After A6's verdict —
+pass or fail — the repair search closes and paper-writing mode begins (the gate story is complete either
+way: 10 recipes, zero adopted regressions, every verdict pre-registered). Panels now fleet-parallelized
+(3-way, ~5h→1.7h).
