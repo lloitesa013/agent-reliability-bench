@@ -57,8 +57,11 @@ deployment scope} (12 confirmed collateral regressions, $p=8.5\times10^{-45}$)--
 that single-target evaluation would have shipped---and then protects the system through a ten-recipe
 repair search that maps the repair--retention Pareto frontier without ever adopting a regression. The
 search itself ends in an honest bounded negative: at this budget, no fine-tuning recipe passes both
-gates. We argue this is exactly the point: in a loop whose own proposal stream is adversarial, the
-verifier---not the proposer---is the load-bearing component. \emph{The verifier is the loop.}
+gates. Finally we remove the human from the loop: an append-only trial registry and a rule-based
+prescriber replay every recorded verdict exactly and run fresh trials with zero human verdicts---one
+accept ($p=2.8\times10^{-8}$), one honest null. We argue this is exactly the point: in a loop whose own
+proposal stream is adversarial, the verifier---not the proposer---is the load-bearing component.
+\emph{The verifier is the loop.}
 \end{abstract}
 
 \section{Introduction}
@@ -120,6 +123,12 @@ frozen backbone) map the repair--retention Pareto frontier of this failure: full
 perfectly but collapses globally; head-only training retains best but under-repairs. No recipe passes
 both gates at this budget---and across all ten, the gate adopted zero regressions; the capability floor
 never dropped (\S\ref{sec:search}).
+\item \textbf{The outer loop, automated.} Under a sealed protocol, an append-only trial registry plus a
+rule-based prescriber (the gate remaining sole adoption authority) replays every recorded verdict of
+the embodied search exactly from raw counts, then runs fresh code-surface trials with \emph{zero human
+verdicts}: one accept ($41\%\!\to\!8.5\%$ audit failures, $p=2.8\times10^{-8}$), one honest null
+(REJECT where no failure existed to improve on), and a self-stop on unmapped state
+(\S\ref{sec:automated}).
 \end{enumerate}
 
 All results were produced on a single RTX~5090; every number in this paper reproduces from a script in
@@ -493,6 +502,38 @@ pre-registered caution for practitioners: iterating recipes against a fixed scre
 gate itself (the embodied form of the gate-reuse effect of \S\ref{sec:method}); any finally-accepted
 candidate must additionally pass held-back validation never used during iteration.
 
+\subsection{The outer loop, automated}
+\label{sec:automated}
+
+The searches above were orchestrated by a human (verdicts were always computed by the gate). A fair
+objection: is this a self-improvement \emph{loop}, or a human-curated search? We answer by removing the
+human. Under a pre-registered protocol (win conditions, a hard cutoff, and a compute fallback, all
+sealed before any code was written), we implemented the outer loop as code: an \emph{append-only trial
+registry} (thresholds stored at registration time, before data; trials frozen once a verdict is
+computed; verdicts computed from raw counts, never stored by fiat) and a \emph{rule-based prescriber}
+(the continual-learning ladder: cheapest variable $\to$ replay breadth $\to$ replay weighting $\to$
+targeted replay $\to$ parameter isolation) that may only propose---the gate remains the sole adoption
+authority.
+
+\textbf{Replay (consistency).} Replaying the S1 search through this machinery reproduces all 12
+recorded verdicts exactly from raw counts---including the scope splits and the honest early-stops---and
+the prescriber emits the move the human search actually made at 9/9 recipe transitions, both scope
+escalations, and the budget-exhausted closure. Sealed caveat: the rules were distilled \emph{from} that
+search, so replay validates the distillation, not generality.
+
+\textbf{New trials (zero human verdicts).} The automated loop then ran fresh trials end-to-end (the
+human launched a script and read the result). On 100 never-before-used MBPP problems, with each
+problem's tests split visible / gate-hidden / \emph{audit} (the gate never sees the audit; without this
+split ``the gate ships zero failures'' would be true by construction): naive ships an audit-failing
+solution $41/100$; the gate adopts 59, abstains 41, and its adoptions fail audit $5/59 = 8.5\%$---a
+registry-computed \textbf{ACCEPT} ($p = 2.8\times10^{-8}$). Note the honest non-zero: the audit
+measures what the gate buys ($41\%\!\to\!8.5\%$), not a tautology. The prescriber---not a
+human---then ordered scope escalation, and on the remaining 26 fresh HumanEval problems naive shipped
+\emph{zero} audit failures: the registry returned \textbf{REJECT} (no improvement evidence, $p=1$),
+declining to manufacture significance where none exists, and the prescriber, hitting a state its rules
+do not map, handed back to the operator and stopped rather than guessing. One accept, one honest null,
+no human in the verdict path: the title's claim is literal for these trials.
+
 \section{What is and is not established}
 \label{sec:established}
 
@@ -504,7 +545,9 @@ $21/24\!\to\!0$. (4)~Regression checking is necessary: the best target-fix can b
 (5)~In stochastic embodied domains, only rate-based statistical verification is meaningful, and it
 supports both accept ($p=6\times10^{-8}$) and reject ($p=8.5\times10^{-45}$) with error control.
 (6)~A verdict is only valid at its measured scope; scope-mismatched acceptance ships catastrophic
-forgetting on a real system.
+forgetting on a real system. (7)~The outer loop needs no human: registry + prescriber + gate replays
+the recorded search exactly from raw counts and runs fresh trials end-to-end, accepting where evidence
+exists and returning an honest null where it does not (\S\ref{sec:automated}).
 
 \textbf{Not established.} Large cumulative multi-round gains (\S\ref{sec:negative}); verified
 self-improvement on hard tasks where no candidate transfers (the verifier then correctly adopts
