@@ -1,0 +1,17 @@
+﻿route,run,status,score,collisions,route_dev,failed
+11755,1,Completed,60,12.325,0.0,1
+11755,2,Completed,60,12.325,0.0,1
+11755,3,Failed,22.2978,23.215,23.215,1
+11755,4,Completed,100,0,0.0,0
+11755,5,Completed,100,0,0.0,0
+11755,6,Completed,60,12.325,0.0,1
+11755,7,,0,0,,1
+11755,8,Failed,31.854,23.215,23.215,1
+18252,1,Completed,100,0,0.0,0
+18252,2,Completed,50,7.51,0.0,1
+18252,3,Completed,50,7.51,0.0,1
+18252,4,Completed,100,0,0.0,0
+18252,5,Completed,100,0,0.0,0
+18252,6,Completed,100,0,0.0,0
+18252,7,Completed,100,0,0.0,0
+18252,8,Completed,100,0,0.0,0
