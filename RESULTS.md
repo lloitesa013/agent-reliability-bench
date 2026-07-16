@@ -837,3 +837,25 @@ adopted, capability floor never dropped. Combined with R31 (the accepted same-ro
 (rejections), the gate has now demonstrated every decision mode it exists for: accept-real,
 reject-harmful, reject-insufficient, and protect-through-a-long-search. **Paper mode begins** (SEA
 @ NeurIPS 2026, deadline 8/29): the story is complete.
+
+## Result 42 — S2/W1 GREEN: the outer loop is now code, and it replays the S1 search exactly
+Per the sealed pre-registration (`S2_PREREG.md`, commit 69374ec, written BEFORE any S2 code):
+- **W1a (verdict replay): 12/12 exact.** All S1 verdicts (R25, K1-local/deploy, K2a, K2b, A1,
+  A2-panel/deploy, A3, A4, A5, A6) recomputed from RAW COUNTS by `vsi_registry.compute_verdict` +
+  `vsi_gate.gate_rate` — including K1's scope split (local ACCEPT p=5.97e-8 / deployment REJECT,
+  12 confirmed) and A2's panel-pass → deployment-REJECT, and the honest early-stop decisions
+  (K2a retention decided at 12/12; A3 decided on a 7-run fix arm; A5 decided with a partial
+  retention arm left UNDECIDED).
+- **W1b (prescription replay): 9/9 recipe transitions** (pre-registered line: ≥7/9), plus both
+  scope escalations and the budget-exhausted closure. The rule-based prescriber
+  (`vsi_prescriber.py` — the continual-learning ladder: cheapest variable → replay breadth →
+  replay weighting → targeted replay → parameter isolation, reading diagnoses from the registry)
+  reproduces every move the human search made. HONESTY (sealed in advance): the rules are distilled
+  FROM this search — W1b proves the distillation is faithful, NOT that the rules generalize.
+  Generality evidence can only come from W2 (≥1 new trial, zero human verdict intervention).
+- **Registry integrity enforced:** `vsi_registry.py` is append-only — mutating a frozen
+  (verdict-recorded) trial raises; lines are stored at registration time, before data; verdicts are
+  computed, never stored by fiat. Reproduce: `python s2_replay.py` (stdlib only, Python ≥3.8).
+Remaining for S2: **W2** — cheapest guaranteed path = MBPP/HumanEval closed auto-loop (also the
+sealed 5090 fallback); embodied W2 (a NEW target through the automated pipeline, e.g. 18252 —
+NOT a reopening of the closed 11755 search) only if 5090 access allows before the 8/15 AoE cutoff.
