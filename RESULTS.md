@@ -822,3 +822,18 @@ gentler head-only update while frozen perception reduces its global regressions.
 pass or fail — the repair search closes and paper-writing mode begins (the gate story is complete either
 way: 10 recipes, zero adopted regressions, every verdict pre-registered). Panels now fleet-parallelized
 (3-way, ~5h→1.7h).
+
+## Result 41 — REPAIR SEARCH CLOSED (10 recipes): the trade-off frontier is mapped; bounded negative stands
+A6 (A2's exact dataset + frozen backbone, fleet-parallelized panel, 36/38 valid): **11755 = 3/8 (pass
+≤2/8 — missed by one run); reg12 = 4/24 = 17% — the best retention ever recorded in this search** (A2:
+29%). Per the pre-registered timebox (R40), the repair search CLOSES on this verdict. Final map across
+10 recipes: full fine-tuning (A2) achieves perfect local repair (0/8) but collapses globally (6 confirmed
+regressions, p=2.5e-20); head-only training (A6) nearly preserves everything (17%) but repairs
+insufficiently (3/8). **No tested configuration passes both gates — the honest, bounded conclusion:
+fine-tuning-based repair of this failure that survives the deployment gate is not achievable at this
+budget, and the repair↔retention Pareto frontier is now measured (A2 and A6 as its two poles).**
+Gate integrity across the entire search: 10 recipes, every verdict pre-registered, ZERO regressions
+adopted, capability floor never dropped. Combined with R31 (the accepted same-route repair) and R25/R33
+(rejections), the gate has now demonstrated every decision mode it exists for: accept-real,
+reject-harmful, reject-insufficient, and protect-through-a-long-search. **Paper mode begins** (SEA
+@ NeurIPS 2026, deadline 8/29): the story is complete.
