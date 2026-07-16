@@ -5,3 +5,8 @@ hf_cache/
 *.tar
 *.whl
 models/
+data_w2/
+w2_trials.jsonl
+w2_details.jsonl
+w2_progress.txt
+w2_run.log
