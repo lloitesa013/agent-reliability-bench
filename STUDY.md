@@ -84,6 +84,18 @@ The verifier, turned on the agent's OWN self-modifications. Each result is `RESU
   set — not cross-route generalization, and not a full 220-route regression sweep. Within that scope, the
   cycle the study argues for — fail → teach → retrain → statistically verify → adopt — ran end-to-end on
   an embodied system, with both a REJECT (R25) and an ACCEPT (R31) earned by evidence.
+- **THE DEPLOYMENT GATE (R32–R33) — the paper's spine.** The same locally-accepted candidate, re-verified
+  at deployment scope (169 baseline-clean routes screened, confirmations with interleaved arms): **12
+  confirmed regressions, pooled 70% vs 7% (p=8.5e-45) → GLOBAL REJECT.** A verdict is only valid at the
+  scope it was measured: local pass ≠ global safe. Single-target evaluation would have shipped
+  catastrophic forgetting; the scope-matched gate caught it, and the capability floor never dropped.
+- **THE 10-RECIPE REPAIR SEARCH (R34–R41) — closed as a bounded negative.** Ten pre-registered
+  fine-tuning recipes (data breadth/mixtures/family demos/targeted retention/frozen backbone). Result:
+  the repair↔retention **Pareto frontier is measured** — full FT repairs perfectly but collapses globally
+  (A2: fix 0/8, 6 confirmed regressions); head-only retains best but under-repairs (A6: 17% regression,
+  fix 3/8 vs the ≤2/8 line). **No configuration passed both gates at this budget; across all ten recipes
+  the gate adopted zero regressions.** The stability–plasticity see-saw is real, lives in the planning
+  head, and is not beaten by data mixtures alone — reported as a first-class negative, per the thesis.
 
 ## The reliability foundation it stands on (the watcher itself)
 - A zero-shot *reading* judge beats a tuned groundedness rule on a sealed benchmark (**0.949 vs 0.789**,
