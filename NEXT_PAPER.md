@@ -8,7 +8,22 @@ seal one (S2_PREREG style, before any code) whenever a line item is activated.
 "The price of the gate": making deployment-scope verification affordable — risk-weighted screening
 + verification-cost scaling laws for self-improving embodied agents.
 
-## S3 — risk-weighted deployment screen (the core)
+## ⚠️ 2026-07-17 UPDATE — W1 CLOSED NEGATIVE (R44): static risk ranking is dead; pivot
+W1 retrospective failed its sealed line (LOCO 3/18 ≈ random; in-sample ceiling 4/16): deployment
+regressions are CANDIDATE-DEPENDENT — no candidate-independent route prior can compress the screen.
+Zero GPU was spent. Paper-2 spine pivots to the surviving directions:
+  1. **Sequential/adaptive verification** (the new core) — FIRST NUMBER IN (R45): pure curtailment
+     replay of the R33/R37 confirm records saves **26% of runs (338→249) with per-route-identical
+     verdicts, zero assumptions** (s3_sprt_replay.py). Next rungs: Wald-SPRT / anytime-valid
+     (controlled error, earlier stops on strong effects — validate on the same records first),
+     adaptive allocation across flagged routes, candidate-AWARE screen ordering (training-recipe vs
+     route-family distance — permitted, uses no candidate outcomes). Paper-2 thesis now two-legged:
+     "you cannot pre-compress the gate (R44); you can stream it (R45)."
+  2. **W4 gate-reuse decay** (still live, scorer-independent, sealed as measurement).
+  3. The candidate-dependence finding itself (R44) as a headline negative: "your deployment screen
+     cannot be pre-compressed; verify at scope or don't know."
+
+## S3 — risk-weighted deployment screen (ORIGINAL PLAN — closed by R44, kept for the record)
 Claim shape: the 169-route deployment screen (176 runs / ~12 h) can be cut to a top-K risk-ranked
 screen at a measured recall of confirmed regressions.
 - **Training data ALREADY ON DISK** (produced by S1, no GPU needed to start):
