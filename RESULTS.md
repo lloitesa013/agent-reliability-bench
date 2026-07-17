@@ -969,3 +969,14 @@ arms, itself a property of this population):
 pre-compressible), W2/W3 correctly cancelled by the sealed go/no-go with zero GPU spent,
 sequential-verification numbers delivered en route (R45: curtailment 26% free; R46: naive SPRT
 loses), W4 measurement delivered (this result). Total S3 GPU spend: one 228-run fleet batch.
+
+## Result 48 — S4-① and S4-② delivered: the repro pack verifies fresh, and the reuse protocol is spec
+Per S4_PREREG (9b7bfe2): **(①)** `REPRO.md` — a two-tier reproduction matrix; every verdict-bearing
+number recomputes GPU-free from committed artifacts (verified fresh 2026-07-18: R42 12/12+9/9,
+R44 3/18 REJECT, R45 26%, R46 22%/44-50, R47 -7.8/+12.5pp, R31 p=5.97e-8, R33/R37 confirmed sets
+12+6 — all replay scripts idempotent; S1 panel CSVs and A6 fleet-panel records now committed to
+`s3_data/`, W4 analysis promoted from inline code to `s3_w4_analysis.py`). **(②)** `PROTOCOL.md` —
+the held-back-validation rule for reused gates, formalized from the R18 → R37-caution → R47 chain,
+with the honest boundary stated (no decay OBSERVED at this budget; the protocol is insurance priced
+by R45's free 26%). Remaining S4 piece: ③ prescriber-vs-blind (sealed design, runs after the
+prospective experiment, window 8/20–9/15).

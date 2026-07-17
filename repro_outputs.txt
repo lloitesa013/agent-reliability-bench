@@ -1,0 +1,82 @@
+=== vsi_gate --demo ===
+candidate tool rewrites (visible = seen inputs, hidden = held-out):
+  #1 general  n*10          visible=1.00  hidden=1.00
+  #2 lookup   {3:30,7:70}   visible=1.00  hidden=0.00
+  #3 wrong    n*12          visible=0.00  hidden=0.00
+Traceback (most recent call last):
+  File "C:\Users\DA\AppData\Local\Temp\claude\c--CARLA-demo\3fa36d68-7407-4d3d-95e4-3e1f36fa44a1\scratchpad\w2\vsi_gate.py", line 200, in <module>
+    raise SystemExit(_demo())
+  File "C:\Users\DA\AppData\Local\Temp\claude\c--CARLA-demo\3fa36d68-7407-4d3d-95e4-3e1f36fa44a1\scratchpad\w2\vsi_gate.py", line 176, in _demo
+    print("\nNAIVE (best visible): #%s tie at visible=%.2f \u2014 the seen score CANNOT tell the general tool"
+UnicodeEncodeError: 'cp949' codec can't encode character '\u2014' in position 54: illegal multibyte sequence
+=== s2_replay ===
+== W1a: verdict replay (raw counts -> compute_verdict/gate_rate) ==
+  R25        recorded=REJECT        computed=REJECT        OK   {'hidden': 'FAIL', 'hidden_p': '0.984'}
+  K1-local   recorded=ACCEPT        computed=ACCEPT        OK   {'hidden': 'PASS', 'hidden_p': '5.97e-08', 'regression': 'PASS'}
+  K1-deploy  recorded=GLOBAL_REJECT computed=GLOBAL_REJECT OK   {'confirmed_regressions': '12', 'pooled_worse_p': '0'}
+  K2a        recorded=REJECT        computed=REJECT        OK   {'fix': 'PASS', 'retention': 'FAIL'}
+  K2b        recorded=REJECT        computed=REJECT        OK   {'fix': 'FAIL', 'retention': 'FAIL'}
+  A1         recorded=REJECT        computed=REJECT        OK   {'fix': 'FAIL', 'retention': 'PASS'}
+  A2-panel   recorded=PANEL_PASS    computed=PANEL_PASS    OK   {'fix': 'PASS', 'retention': 'PASS'}
+  A2-deploy  recorded=GLOBAL_REJECT computed=GLOBAL_REJECT OK   {'confirmed_regressions': '6', 'pooled_worse_p': '0'}
+  A3         recorded=REJECT        computed=REJECT        OK   {'fix': 'FAIL', 'retention': 'MISSING'}
+  A4         recorded=REJECT        computed=REJECT        OK   {'fix': 'FAIL', 'retention': 'FAIL'}
+  A5         recorded=REJECT        computed=REJECT        OK   {'fix': 'FAIL', 'retention': 'UNDECIDED'}
+  A6         recorded=REJECT        computed=REJECT        OK   {'fix': 'FAIL', 'retention': 'PASS'}
+W1a: 12/12 exact -> PASS
+
+== W1b: prescription replay (prefix -> next axis; consistency check only) ==
+  after R25       want=learning-repair-narrow           got=learning-repair-narrow           OK
+  after K1-local  [stage] want=escalate-deployment          got=escalate-deployment          OK
+  after K1-deploy want=reduce-epochs                    got=reduce-epochs                    OK
+  after K2a       want=broaden-retention                got=broaden-retention                OK
+  after K2b       want=raise-fix-ratio                  got=raise-fix-ratio                  OK
+  after A1        want=raise-fix-ratio                  got=raise-fix-ratio                  OK
+  after A2-panel  [stage] want=escalate-deployment          got=escalate-deployment          OK
+  after A2-deploy want=family-fix-breadth+targeted-ret  got=family-fix-breadth+targeted-ret  OK
+  after A3        want=restore-fix-bucket-route-only    got=restore-fix-bucket-route-only    OK
+  after A4        want=freeze-backbone                  got=freeze-backbone                  OK
+  after A5        want=restore-known-good-dataset+freeze got=restore-known-good-dataset+freeze OK
+  after A6        [close] want=close-bounded-negative       got=close-bounded-negative       OK
+W1b: 9/9 recipe transitions matched (need >=7); stage escalations 2/2; closure OK
+W1b -> PASS
+
+== registry integrity ==
+  frozen-trial mutation refused (trial A6 is FROZEN (verdict recorded) -- registry is append-only) -- OK
+
+RESULT: W1a PASS | W1b PASS | append-only PASS  =>  W1 GREEN
+s2_replay exit=0
+=== s3_sprt_replay ===
+== R33 / K1 confirm batch ==
+routes: 25 | confirmed: 17 | runs full=176 curtailed=135 -> SAVED 23%
+  biggest savers: [('10857', '8->3'), ('27494', '8->3'), ('2844', '8->3'), ('24333', '8->5'), ('2509', '8->5')]
+== R37 / A2 fleet confirm ==
+routes: 25 | confirmed: 11 | runs full=162 curtailed=114 -> SAVED 30%
+  biggest savers: [('3464', '7->1'), ('24795', '8->3'), ('27529', '8->3'), ('28219', '8->3'), ('3670', '8->3')]
+
+== POOLED ==
+full protocol: 338 runs | curtailed: 249 runs | SAVED 26% -- with IDENTICAL verdicts
+(curtailment = zero-assumption lower bound; SPRT/anytime-valid stops earlier still)
+=== s3_sprt2 ===
+== R33 / K1 confirms ==
+routes 25 | agree 23, disagree 2 | runs fixed=176 sprt=133 -> SAVED 24%
+  DISAGREE 1711: fixed=False sprt=True cand=[1, 1, 0, 0] base=[0, 0, 0, 0]
+  DISAGREE 2539: fixed=False sprt=True cand=[1, 0, 1, 0] base=[0, 0, 0, 0]
+== R37 / A2 confirms ==
+routes 25 | agree 21, disagree 4 | runs fixed=162 sprt=130 -> SAVED 20%
+  DISAGREE 2709: fixed=False sprt=True cand=[0, 1, 1, 0] base=[0, 0, 0, 0]
+  DISAGREE 27506: fixed=False sprt=True cand=[1, 1, 0, 0] base=[0, 0, 0, 0]
+  DISAGREE 3086: fixed=False sprt=True cand=[0, 1, 1, 0] base=[0, 0, 0, 0]
+  DISAGREE 3464: fixed=False sprt=True cand=[0, 1, 1] base=[0, 0, 0, 0]
+
+== POOLED ==
+runs fixed=338  sprt=263  -> SAVED 22% | concordance 44/50 routes
+(curtailment floor was 26% with identity; SPRT trades a controlled 10%/arm error for the extra)
+=== s3_w1 ===
+universe: 169 routes | positives: K1 12, A2 6 (overlap 2)
+train-K1 -> test-A2: 1/6 in top-30 | ranks: {'11715': 101, '17598': 53, '25845': 37, '26944': 166, '27532': 158, '3737': 10}
+train-A2 -> test-K1: 2/12 in top-30 | ranks: {'2143': 141, '24258': 25, '25845': 3, '28243': 115, '2913': 142, '3086': 116, '3410': 52, '3697': 90, '3717': 119, '3737': 118, '4183': 147, '4669': 159}
+
+POOLED LOCO recall@30: 3/18 (sealed line >=12/18; random ~3.2)
+REGISTRY VERDICT: REJECT  axes={'fix': 'FAIL'}
+(PANEL_PASS => W1 GREEN, GPU spend approved -> W2; REJECT => S3 risk-screen direction closes as bounded negative, no GPU spent)

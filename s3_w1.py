@@ -155,7 +155,15 @@ def main():
     print("\nPOOLED LOCO recall@30: %d/%d (sealed line >=12/18; random ~3.2)"
           % (pooled_hits, pooled_total))
 
-    reg = Registry(os.path.join(HERE, "s3_trials.jsonl"))
+    # authoritative ledger s3_trials.jsonl is committed and FROZEN; replays verify against a
+    # fresh temp ledger so this script stays runnable end-to-end (repro pack requirement)
+    import tempfile
+    ledger = os.path.join(HERE, "s3_trials.jsonl")
+    if os.path.exists(ledger) and "S3-W1" in Registry(ledger).trials:
+        ledger = os.path.join(tempfile.gettempdir(), "s3_w1_replay.jsonl")
+        if os.path.exists(ledger):
+            os.remove(ledger)
+    reg = Registry(ledger)
     if "S3-W1" not in reg.trials:
         reg.register("S3-W1",
                      recipe={"name": "S3-W1", "type": "risk-screen", "move": "retrospective-loco"},
