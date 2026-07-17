@@ -945,3 +945,27 @@ replayed on the same R33/R37 confirm records:
 sophistication beyond curtailment must be (a) designed on the paired difference, not per-arm, and
 (b) concordance-validated on recorded data before touching a live gate — else the cost optimizer
 itself becomes the reward hacker. Curtailment (26%, identity) is what a practitioner should ship.
+
+## Result 47 — W4: NO gate-reuse decay detected — the candidate's residual damage stays CONCENTRATED
+## on the known surface, and the out-of-sample floor held. SEALED S3 CLOSES.
+228-run fleet batch (fresh-51 non-clean routes x {A6, baseline} x 2 + reg12 x baseline x 2;
+211 valid, 17 invalid concentrated in 5 wedge-prone routes — 25857/28048/25955 un-runnable in both
+arms, itself a property of this population):
+- **Fresh surface (never seen by any iteration):** A6 65/93 = 70% vs baseline 73/94 = 78% —
+  uplift **-7.8pp** (A6 marginally BETTER; one-sided p=0.051, treat as no-difference). Paired
+  per-route: A6 worse on 5, better on 9, same on 33.
+- **Iterated surface (reg12):** A6 4/24 = 17% (panel) vs contemporaneous baseline 1/24 = 4% —
+  uplift **+12.5pp**. A6's residual regression lives exactly where the search already knew it was.
+- **Verdict of the measurement:** the R37-sealed fear — that iterating recipes against a fixed
+  panel/screen would produce a candidate that secretly regresses on unseen routes — is NOT realized
+  for A6 at this budget: out-of-sample, A6 never dropped below baseline (a decay signal would need
+  A6 significantly WORSE on fresh; observed p_high = 0.97). Honest limits: 2 runs/arm/route
+  (aggregate power only), and the fresh population saturates (both arms fail ~3/4 of these
+  baseline-non-clean routes), limiting per-route discrimination.
+- **Flag for the prospective experiment:** route 18252 (the R32 canary) — A6 2/2 fail vs baseline
+  0/2. The planned Paper-2 prospective candidate (18252 repair via the automated pipeline) targets a
+  confirmed live weakness, not a synthetic one.
+**SEALED S3 IS COMPLETE** per S3_PREREG (f5e1923): W1 bounded negative (R44, gate not
+pre-compressible), W2/W3 correctly cancelled by the sealed go/no-go with zero GPU spent,
+sequential-verification numbers delivered en route (R45: curtailment 26% free; R46: naive SPRT
+loses), W4 measurement delivered (this result). Total S3 GPU spend: one 228-run fleet batch.
