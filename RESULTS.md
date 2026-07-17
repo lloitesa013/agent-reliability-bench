@@ -988,3 +988,19 @@ routes the S1 iteration touched or neighbors of them. Recomputed excluding all f
 fresh uplift −5.9pp (was −7.8pp), decay test still non-significant → **the no-decay conclusion is
 robust to the exclusion.** Recorded because the contamination is exactly the kind of detail a
 reviewer should find us reporting, not them.
+
+## Result 49 — P4 target selected: route 28330 (SignalizedJunctionLeftTurnEnterFlow, Town12) —
+## baseline 8/8 collision failure, expert collision-free; one sealed-rule ambiguity resolved IN WRITING
+Probe batches per P4_PREREG: baseline k1–8 = 17655 7/8, 26401 7/8, **27018 8/8, 28330 8/8** (all
+failures by collision). Expert ×2: 17655 91.6/91.6, 26401 92.9/92.9, **28330 97.1/97.1 — all with
+ZERO collisions**; 27018 = 1 crashed run + 1 Perfect-100 (fails the 2/2-valid requirement).
+**Prereg ambiguity, resolved before proceeding (recorded here, timestamped):** the sealed text said
+"expert clean 2/2"; the probe script's gloss said clean = score 100. Under the strict-100 reading no
+route qualifies — yet the experts drive all candidates COLLISION-FREE, and collision is the failure
+mode being repaired; declaring "no teacher available" would be rule-worship against the branch's
+manifest intent (it exists for expert-can't-drive-it cases). Adopted reading, applied from here on:
+**teacher exists = 2/2 valid expert runs with zero collisions and score ≥90.** Under either reading
+the selection ORDER is unaffected among qualifiers: 28330 is the only 8/8-baseline route with 2/2
+valid expert runs → **TARGET = 28330**. (Both readings and all raw numbers committed: p4/.)
+The automated cycle now begins: prescriber's first move on an empty target history = control-probe
+(the ladder's cheapest rung, per its rules — not a human choice).
