@@ -200,6 +200,12 @@ adoption requires a deployment-scope gate.}
 \section{Fake improvement is the norm}
 \label{sec:fake}
 
+One pattern repeats across every surface an agent can modify: the score on the data a modification
+was derived from is uninformative about its value, because the proposal stream itself manufactures
+candidates that ace exactly that data. We measure this at four levels---fine-tunes, silent
+regressions, tool rewrites, and real code---then show the two-gate verifier converting each into a
+clean adoption decision (Figure~\ref{fig:bars}).
+
 \paragraph{Setup.} Text experiments use a 7B instruct model (Qwen2.5-7B-Instruct) as both proposer and
 substrate; the judge/abstention substrate underneath was validated separately (a zero-shot reading judge
 at 0.949 vs.\ a tuned guardrail's 0.789 on a sealed benchmark, with calibrated abstention transferring
