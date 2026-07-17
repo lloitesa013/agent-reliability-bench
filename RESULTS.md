@@ -980,3 +980,11 @@ the held-back-validation rule for reused gates, formalized from the R18 → R37-
 with the honest boundary stated (no decay OBSERVED at this budget; the protocol is insurance priced
 by R45's free 26%). Remaining S4 piece: ③ prescriber-vs-blind (sealed design, runs after the
 prospective experiment, window 8/20–9/15).
+
+### R47 integrity note (2026-07-18, post-hoc audit)
+The mechanically-defined fresh-51 set CONTAINS 11755 (baseline-flaky → excluded from the clean-169
+→ lands in the non-clean set) and 4 more EnterActorFlow-family routes (11715, 2201, 27506, 3749) —
+routes the S1 iteration touched or neighbors of them. Recomputed excluding all five:
+fresh uplift −5.9pp (was −7.8pp), decay test still non-significant → **the no-decay conclusion is
+robust to the exclusion.** Recorded because the contamination is exactly the kind of detail a
+reviewer should find us reporting, not them.
