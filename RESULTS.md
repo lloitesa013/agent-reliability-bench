@@ -907,3 +907,25 @@ full-scope deployment gate (R33's cost is not lazily avoidable by static ranking
 cost-reduction toward candidate-AWARE or SEQUENTIAL/adaptive verification (early-stopping confirms;
 the Beyond-Binary-Success lineage) — parked in NEXT_PAPER.md. W4 (gate-reuse decay on the 51
 held-out routes) is scorer-independent and remains live. SEA submission untouched throughout.
+
+## Result 45 — sequential verification is the live cost axis: pure curtailment alone recovers 26%
+## of the deployment-confirm cost with PER-ROUTE-IDENTICAL verdicts (replay, GPU-free)
+`s3_sprt_replay.py` replays the R33 and R37 confirm batches under CURTAILMENT — stop each route's
+interleaved cand/base arm the moment the pre-registered verdict is mathematically decided. Zero
+statistical assumptions, zero added error; per-route verdict identity is asserted in code.
+
+| batch | routes | runs (fixed protocol) | runs (curtailed) | saved |
+|---|---|---|---|---|
+| R33 / K1 confirms | 25 | 176 | 135 | **23%** |
+| R37 / A2 confirms | 25 | 162 | 114 | **30%** |
+| pooled | 50 | 338 | 249 | **26%** |
+
+Biggest single-route saves: decided in 3 runs of 8 (e.g. cand fails 1st+2nd, base passes 1st →
+'confirmed' still open only one way after run 3). Accounting note: replay counts positives under
+each route's own rule (4+4 confirmed + 2+2 signature-positives), so its totals (17, 11) exceed the
+official confirmed-regression counts (12, 6) — labels differ, per-route outcomes do not.
+**Meaning:** after R44 killed candidate-independent pre-ranking, the honest cost-reduction axis for
+deployment-scope verification is SEQUENTIAL — and its floor is already 26% for free. A Wald-SPRT /
+anytime-valid rule (controlled error, earlier stops on strong effects like 70% vs 7%) is the
+paper-2 follow-up, validatable on these same records before any new GPU run. Together R44+R45 give
+paper 2 its thesis: "you cannot pre-compress the deployment gate (R44); you can stream it (R45)."
