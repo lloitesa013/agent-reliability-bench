@@ -40,8 +40,14 @@ def _is_deploy(t: dict) -> bool:
 
 
 def _recipes_spent(history: List[dict]) -> int:
-    """Distinct recipes tried (a deployment stage re-uses its panel's recipe -- not a new recipe)."""
-    return len({t["recipe"].get("name", t["id"]) for t in history})
+    """Distinct recipes tried in the CURRENT campaign (same target as the latest trial). A
+    deployment stage re-uses its panel's recipe -- not a new recipe. The budget is a per-campaign
+    timebox, not a lifetime cap: other targets' searches in the global history don't count."""
+    if not history:
+        return 0
+    target = history[-1]["recipe"].get("target")
+    return len({t["recipe"].get("name", t["id"]) for t in history
+                if t["recipe"].get("target") == target})
 
 
 def prescribe(history: List[dict]) -> dict:
@@ -69,6 +75,20 @@ def prescribe(history: List[dict]) -> dict:
 
     # -- control-layer probe rejected: move to learning-based repair --
     if verdict == "REJECT" and recipe.get("type") == "control":
+        # accumulated-knowledge rule: if the global registry already holds a recipe that PASSED a
+        # local panel on a DIFFERENT target, start this target's learning attempt from it instead
+        # of re-climbing the ladder from scratch (the registry is the loop's memory).
+        known_good = [t for t in history
+                      if (t.get("verdict") or {}).get("verdict") == "PANEL_PASS"
+                      and t["recipe"].get("type") == "finetune"
+                      and t["recipe"].get("target") != recipe.get("target")]
+        if known_good:
+            src = known_good[-1]["recipe"]
+            return {"axis": "transfer-known-good",
+                    "why": "control probe rejected; global history holds a panel-passing recipe "
+                           "(%s) from another target -- transfer its mixture to this target"
+                           % src.get("name", "?"),
+                    "template": src}
         return {"axis": "learning-repair-narrow",
                 "why": "control-layer intervention made the rate worse: repair needs learning "
                        "(expert demos on the failure), start with the standard recipe"}

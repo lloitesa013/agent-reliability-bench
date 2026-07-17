@@ -1,0 +1,44 @@
+{"event": "register", "trial": "R25", "recipe": {"name": "R25", "type": "control", "move": "control-probe"}, "lines": {"stat_alpha": 0.05}, "note": ""}
+{"event": "arm", "trial": "R25", "arm": "fix", "data": {"baseline_fails": 3, "baseline_n": 6, "fails": 5, "n": 6}}
+{"event": "verdict", "trial": "R25", "result": {"verdict": "REJECT", "axes": {"hidden": "FAIL", "hidden_p": "0.984"}}}
+{"event": "register", "trial": "K1-local", "recipe": {"name": "K1", "type": "finetune", "move": "learning-repair-narrow", "data": "narrow", "epochs": 10}, "lines": {"stat_alpha": 0.05}, "note": ""}
+{"event": "arm", "trial": "K1-local", "arm": "fix", "data": {"baseline_fails": 7, "baseline_n": 12, "fails": 0, "n": 19}}
+{"event": "arm", "trial": "K1-local", "arm": "retention", "data": {"baseline_fails": 0, "fails": 0, "n": 12}}
+{"event": "verdict", "trial": "K1-local", "result": {"verdict": "ACCEPT", "axes": {"hidden": "PASS", "hidden_p": "5.97e-08", "regression": "PASS"}}}
+{"event": "register", "trial": "K1-deploy", "recipe": {"name": "K1", "type": "finetune", "move": "escalate-deployment"}, "lines": {"deploy_alpha": 0.05, "deploy_max_confirmed": 0}, "note": ""}
+{"event": "arm", "trial": "K1-deploy", "arm": "deploy", "data": {"baseline_fails": 5, "baseline_n": 76, "fails": 53, "n": 76, "confirmed_regressions": 12, "diagnosis": {"behavior_warp": true}}}
+{"event": "verdict", "trial": "K1-deploy", "result": {"verdict": "GLOBAL_REJECT", "axes": {"confirmed_regressions": "12", "pooled_worse_p": "0"}}}
+{"event": "register", "trial": "K2a", "recipe": {"name": "K2a", "type": "finetune", "move": "reduce-epochs", "data": "narrow", "epochs": 3}, "lines": {"fix_max_fails": 2, "fix_n_planned": 8, "ret_max_rate": 0.3, "ret_n_planned": 24}, "note": ""}
+{"event": "arm", "trial": "K2a", "arm": "fix", "data": {"fails": 0, "n": 8}}
+{"event": "arm", "trial": "K2a", "arm": "retention", "data": {"fails": 12, "n": 12}}
+{"event": "verdict", "trial": "K2a", "result": {"verdict": "REJECT", "axes": {"fix": "PASS", "retention": "FAIL"}}}
+{"event": "register", "trial": "K2b", "recipe": {"name": "K2b", "type": "finetune", "move": "broaden-retention", "data": "broad", "epochs": 3}, "lines": {"fix_max_fails": 2, "fix_n_planned": 8, "ret_max_rate": 0.3, "ret_n_planned": 24}, "note": ""}
+{"event": "arm", "trial": "K2b", "arm": "fix", "data": {"fails": 4, "n": 8}}
+{"event": "arm", "trial": "K2b", "arm": "retention", "data": {"fails": 8, "n": 24}}
+{"event": "verdict", "trial": "K2b", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "FAIL"}}}
+{"event": "register", "trial": "A1", "recipe": {"name": "A1", "type": "finetune", "move": "raise-fix-ratio", "data": "broad", "epochs": 3, "fix_ratio": 0.4}, "lines": {"fix_max_fails": 2, "fix_n_planned": 8, "ret_max_rate": 0.3, "ret_n_planned": 24}, "note": ""}
+{"event": "arm", "trial": "A1", "arm": "fix", "data": {"fails": 4, "n": 8}}
+{"event": "arm", "trial": "A1", "arm": "retention", "data": {"fails": 6, "n": 24}}
+{"event": "verdict", "trial": "A1", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "PASS"}}}
+{"event": "register", "trial": "A2-panel", "recipe": {"name": "A2", "type": "finetune", "move": "raise-fix-ratio", "data": "broad", "epochs": 5, "fix_ratio": 0.6}, "lines": {"fix_max_fails": 2, "fix_n_planned": 8, "ret_max_rate": 0.3, "ret_n_planned": 24}, "note": ""}
+{"event": "arm", "trial": "A2-panel", "arm": "fix", "data": {"fails": 0, "n": 8}}
+{"event": "arm", "trial": "A2-panel", "arm": "retention", "data": {"fails": 7, "n": 24}}
+{"event": "verdict", "trial": "A2-panel", "result": {"verdict": "PANEL_PASS", "axes": {"fix": "PASS", "retention": "PASS"}}}
+{"event": "register", "trial": "A2-deploy", "recipe": {"name": "A2", "type": "finetune", "move": "escalate-deployment"}, "lines": {"deploy_alpha": 0.05, "deploy_max_confirmed": 0}, "note": ""}
+{"event": "arm", "trial": "A2-deploy", "arm": "deploy", "data": {"baseline_fails": 15, "baseline_n": 81, "fails": 53, "n": 81, "confirmed_regressions": 6, "diagnosis": {"within_family_overfit": true, "coverage_holes": true}}}
+{"event": "verdict", "trial": "A2-deploy", "result": {"verdict": "GLOBAL_REJECT", "axes": {"confirmed_regressions": "6", "pooled_worse_p": "0"}}}
+{"event": "register", "trial": "A3", "recipe": {"name": "A3", "type": "finetune", "move": "family-fix-breadth+targeted-ret", "data": "broad", "epochs": 5, "fix_ratio": 0.6, "fix_bucket": "family", "targeted_ret": true, "dataset": "modified"}, "lines": {"fix_max_fails": 2, "fix_n_planned": 8, "ret_max_rate": 0.3, "ret_n_planned": 24}, "note": ""}
+{"event": "arm", "trial": "A3", "arm": "fix", "data": {"fails": 6, "n": 7}}
+{"event": "verdict", "trial": "A3", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "MISSING"}}}
+{"event": "register", "trial": "A4", "recipe": {"name": "A4", "type": "finetune", "move": "restore-fix-bucket-route-only", "data": "broad", "epochs": 5, "fix_ratio": 0.6, "fix_bucket": "route", "targeted_ret": true, "dataset": "modified"}, "lines": {"fix_max_fails": 2, "fix_n_planned": 8, "ret_max_rate": 0.3, "ret_n_planned": 24}, "note": ""}
+{"event": "arm", "trial": "A4", "arm": "fix", "data": {"fails": 4, "n": 8}}
+{"event": "arm", "trial": "A4", "arm": "retention", "data": {"fails": 8, "n": 24}}
+{"event": "verdict", "trial": "A4", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "FAIL"}}}
+{"event": "register", "trial": "A5", "recipe": {"name": "A5", "type": "finetune", "move": "freeze-backbone", "data": "broad", "epochs": 5, "fix_ratio": 0.6, "fix_bucket": "route", "targeted_ret": true, "dataset": "modified", "freeze": true}, "lines": {"fix_max_fails": 2, "fix_n_planned": 8, "ret_max_rate": 0.3, "ret_n_planned": 24}, "note": ""}
+{"event": "arm", "trial": "A5", "arm": "fix", "data": {"fails": 4, "n": 8}}
+{"event": "arm", "trial": "A5", "arm": "retention", "data": {"fails": 4, "n": 13}}
+{"event": "verdict", "trial": "A5", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "UNDECIDED"}}}
+{"event": "register", "trial": "A6", "recipe": {"name": "A6", "type": "finetune", "move": "restore-known-good-dataset+freeze", "data": "broad", "epochs": 5, "fix_ratio": 0.6, "fix_bucket": "route", "dataset": "known-good", "freeze": true}, "lines": {"fix_max_fails": 2, "fix_n_planned": 8, "ret_max_rate": 0.3, "ret_n_planned": 24}, "note": ""}
+{"event": "arm", "trial": "A6", "arm": "fix", "data": {"fails": 3, "n": 8}}
+{"event": "arm", "trial": "A6", "arm": "retention", "data": {"fails": 4, "n": 24}}
+{"event": "verdict", "trial": "A6", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "PASS"}}}
