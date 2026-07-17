@@ -884,3 +884,26 @@ NOT a reopening of the closed 11755 search) only if 5090 access allows before th
 **S2 = W1 (R42) + W2 = GREEN — 29 days before the 8/15 AoE cutoff → S2 enters the paper as a strict
 addition (Rail 1).** The title's claim is now literal: the loop that ran these two trials — propose →
 register → gate → verdict → next move — contained no human decision-maker.
+
+## Result 44 — S3/W1 FAILS the sealed line (LOCO 3/18 ≈ random): deployment regressions are
+## CANDIDATE-DEPENDENT — the risk-screen direction closes with zero GPU spent, exactly as designed
+Per S3_PREREG (f5e1923), W1 was the go/no-go for all S3 GPU spend. Verdict from the registry:
+- **LOCO recall@30 = 3/18** (line ≥12/18; random expectation ≈3.2). Trained on K1's 12 confirmed
+  regressions, the scorer finds 1/6 of A2's; trained on A2's 6, it finds 2/12 of K1's — and the only
+  hits are routes confirmed under BOTH candidates (25845, 3737) plus one.
+- Diagnostics that make this conclusive rather than a modeling failure:
+  **(D1) in-sample recall@30 = 4/16** — even seeing both candidates' labels, the sealed
+  candidate-independent features (static route properties + baseline-sweep behavior) cannot rank the
+  regressions; **(D2)** trivial baseline-fragility ranking = 3/16; **(D3)** the two candidates'
+  regression scenario-types barely overlap (2 shared of 8 vs 6).
+- Mechanism, stated plainly: the deployment-screen universe is baseline-CLEAN by construction
+  (R33's own words: "collisions on ordinary routes the baseline drives cleanly"), so intrinsic route
+  fragility carries no signal there — **where a candidate regresses is a property of the candidate's
+  training damage, not of the route**. K1 (global warp) and A2 (family coverage holes) damaged
+  almost disjoint route sets. A candidate-independent prior cannot compress the deployment screen.
+**Consequences (pre-registered):** W2/W3 (scorer tests) are cancelled before any GPU spend — the
+timebox did its job in one afternoon. The negative is a first-class paper-2 result: it VALIDATES the
+full-scope deployment gate (R33's cost is not lazily avoidable by static ranking) and redirects
+cost-reduction toward candidate-AWARE or SEQUENTIAL/adaptive verification (early-stopping confirms;
+the Beyond-Binary-Success lineage) — parked in NEXT_PAPER.md. W4 (gate-reuse decay on the 51
+held-out routes) is scorer-independent and remains live. SEA submission untouched throughout.

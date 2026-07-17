@@ -1,0 +1,3 @@
+{"event": "register", "trial": "S3-W1", "recipe": {"name": "S3-W1", "type": "risk-screen", "move": "retrospective-loco"}, "lines": {"fix_max_fails": 6, "fix_n_planned": 18}, "note": "LOCO recall@30; fails=misses (18-hits); line misses<=6 == recall>=12/18. Universe=deployment-screen set + confirm routes; features per sealed contract (static + baseline-sweep only)."}
+{"event": "arm", "trial": "S3-W1", "arm": "fix", "data": {"fails": 15, "n": 18}}
+{"event": "verdict", "trial": "S3-W1", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL"}}}
