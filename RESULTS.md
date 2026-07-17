@@ -929,3 +929,19 @@ deployment-scope verification is SEQUENTIAL — and its floor is already 26% for
 anytime-valid rule (controlled error, earlier stops on strong effects like 70% vs 7%) is the
 paper-2 follow-up, validatable on these same records before any new GPU run. Together R44+R45 give
 paper 2 its thesis: "you cannot pre-compress the deployment gate (R44); you can stream it (R45)."
+
+## Result 46 — naive SPRT LOSES to curtailment on both axes (22% < 26% saved, 6/50 verdicts flip):
+## the boring exact rule beats the fancy sequential test at these arm sizes
+`s3_sprt2.py`: per-arm Wald SPRT (H0 p=.1 vs H1 p=.7, alpha=beta=.1 — rule fixed before running)
+replayed on the same R33/R37 confirm records:
+- Savings **22%** (338→263 runs) — BELOW curtailment's assumption-free 26% (R45), because SPRT's
+  undecided arms fall back at full cost while curtailment's early stops already harvest the easy mass.
+- **Concordance only 44/50** — and all 6 flips are the same failure mode: 2-consecutive-fail
+  prefixes on 2/4-flaky routes (e.g. cand [1,1,0,0], [0,1,1,0]) cross the H1 boundary and prematurely
+  "confirm" what the pre-registered fixed rule correctly calls unconfirmed. At n=4/arm, SPRT's
+  boundaries fire on exactly the flaky-route pattern our whole embodied study exists to distrust.
+**Lesson (paper-2 grade):** at deployment-confirm arm sizes, the assumption-free exact rule
+(curtailment) DOMINATES the textbook sequential test — more savings, zero verdict risk. Sequential
+sophistication beyond curtailment must be (a) designed on the paired difference, not per-arm, and
+(b) concordance-validated on recorded data before touching a live gate — else the cost optimizer
+itself becomes the reward hacker. Curtailment (26%, identity) is what a practitioner should ship.
