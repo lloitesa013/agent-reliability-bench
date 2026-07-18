@@ -17,9 +17,19 @@ $Route = "11755"
 $Ck = "outputs/checkpoints/vsi_" + $Name
 $csv = Join-Path $Lead ("outputs\{0}_panel_fix.csv" -f $Name)
 if (-not (Test-Path $csv)) { "route,run,status,score,collisions,failed,watchdog" | Out-File -Encoding utf8 $csv }
-$fails = 0; $passes = 0; $used = 0
+# resumable: recover valid-run tallies from an existing CSV (wedge-resilient top-up)
+$fails = 0; $passes = 0; $used = 0; $kStart = 1
+Get-Content $csv | Select-Object -Skip 1 | ForEach-Object {
+  $c = $_ -split ","
+  if ([int]$c[1] -ge $kStart) { $kStart = [int]$c[1] + 1 }
+  if ($c[5] -eq "1") { $fails++; $used++ } elseif ($c[5] -eq "0") { $passes++; $used++ }
+}
+Write-Output ("resume: kStart={0} fails={1} passes={2} valid={3}" -f $kStart, $fails, $passes, $used)
 
-for ($k = 1; $k -le 8; $k++) {
+for ($k = $kStart; $k -le 14; $k++) {
+  if ($used -ge 8) { break }
+  if ($fails -ge 3) { break }
+  if (($fails + (8 - $used)) -le 2) { break }
   Write-Output ("=== {0} fix run {1}/8 (F{2}/P{3}) {4} ===" -f $Name, $k, $fails, $passes, (Get-Date -Format HH:mm:ss))
   Get-Process CarlaUE4 -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
   schtasks /end /tn CarlaServerNewLog | Out-Null
