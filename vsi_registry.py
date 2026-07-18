@@ -34,9 +34,11 @@ __all__ = ["Registry", "compute_verdict"]
 # ------------------------------------------------------------------ axis decisions (pure)
 
 def _axis_fix(fails: int, n: int, max_fails: int, n_planned: int) -> Optional[str]:
-    """PASS/FAIL/None(undecided) for a count-threshold axis."""
+    """PASS/FAIL/None(undecided) for a count-threshold axis, with exact curtailment both ways."""
     if fails > max_fails:
         return "FAIL"                      # already over the line, no matter what remains
+    if fails + (n_planned - n) <= max_fails:
+        return "PASS"                      # even if every remaining run fails, still under the line
     if n >= n_planned:
         return "PASS"
     return None

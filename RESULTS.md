@@ -1004,3 +1004,31 @@ the selection ORDER is unaffected among qualifiers: 28330 is the only 8/8-baseli
 valid expert runs → **TARGET = 28330**. (Both readings and all raw numbers committed: p4/.)
 The automated cycle now begins: prescriber's first move on an empty target history = control-probe
 (the ladder's cheapest rung, per its rules — not a human choice).
+
+## Result 50 — P4 COMPLETE: the streamed gate ran a full embodied repair cycle LIVE — 27.5% cheaper,
+## zero human verdicts, one perfect repair caught breaking retention, and one false-REJECT disarmed
+The P4_PREREG cycle on target 28330 (baseline 8/8 collision), end to end:
+- **c1 (prescriber: control-probe):** throttle 0.7 -> 3/3 fail, LIVE curtailment stopped the arm at
+  3 runs (fixed-N: 8). Registry: REJECT.
+- **Prescriber evolution, replay-guarded:** two rules added (campaign-scoped budget;
+  transfer-known-good = start a new target from the registry's best panel-passer) — S2's replay
+  stayed 12/12 + 9/9 after each change. The prescriber then ordered: transfer A2's mixture.
+- **INCIDENT (paper-grade):** the first panel attempt produced 3 score-0 "failures" that were
+  actually agent-SETUP crashes (detached processes lack USER env — the same KeyError that had
+  killed training). The failure counter read them as driving fails = a **false REJECT, caught
+  before any registry entry** and then mechanized as a validity guard (SETUP_CRASH -> INVALID,
+  never verdict-bearing). Lesson: *a trustworthy verdict starts at the definition of a valid run —
+  the watcher needs a watcher.*
+- **c2 (transfer-known-good, A2 mixture + 10 expert demos):** fix arm **6/6 = score 100, zero
+  collisions — curtailed PASS at 6 runs** (baseline was 8/8 fail: a first-try perfect repair at
+  target scope, transferred from another target's search). Retention arm: **9 fails by run 20 ->
+  GLOBAL curtailment across the fleet (24 planned)** — collisions on 24258/3086/4183/4669, 3410
+  heavy — pooled >30% decided. Registry: **REJECT (fix PASS / retention FAIL).**
+- **Run ledger (live streaming, verdicts identical to fixed-N by construction):** 29 runs used vs
+  40 fixed (c1 3/8, fix 6/8, retention 20/24) = **27.5% saved live**, plus the structural save:
+  the deployment gate (~200 runs) never runs for a panel-FAIL candidate.
+- **The see-saw GENERALIZES:** a second target, a different scenario family, the best-known
+  mixture — and still fix-vs-retention. R41's bounded negative is a pattern, not an 11755 artifact.
+- Sealed branches: both recipes REJECT -> reported; the floor never dropped; prescriber's
+  post-verdict suggestion (raise-fix-ratio) is parked — P4's budget (2 recipes) is spent.
+**P4 = the paper-2 headline experiment, delivered 3 weeks early. Zero human verdicts end to end.**

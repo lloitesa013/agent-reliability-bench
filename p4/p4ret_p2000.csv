@@ -1,0 +1,6 @@
+﻿route,arm,k,status,score,collisions,failed,watchdog
+2143,cand,1,Completed,100,0,0,0
+2143,cand,2,Completed,100,0,0,0
+28243,cand,1,Completed,70,0,1,0
+28243,cand,2,Completed,70,0,1,0
+3410,cand,1,Failed,23.94,18.909,1,0

@@ -2,3 +2,6 @@
 {"event": "arm", "trial": "P4-28330-c1", "arm": "fix", "data": {"fails": 3, "n": 3}}
 {"event": "verdict", "trial": "P4-28330-c1", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL"}}}
 {"event": "register", "trial": "P4-28330-c2", "recipe": {"name": "P4-c2", "type": "finetune", "move": "transfer-known-good", "target": "28330", "template": "A2", "epochs": 5, "fix_ratio": 0.6, "data": "broad", "fix_bucket": "route"}, "lines": {"fix_max_fails": 2, "fix_n_planned": 8, "ret_max_rate": 0.3, "ret_n_planned": 24}, "note": "P4 cycle recipe 2/2 (FINAL per budget). Prescriber: transfer-known-good from A2 (global-registry memory). Fix bucket = 28330 expert demos (VSI_FIX_SCENARIOS=SignalizedJunctionLeftTurnEnterFlow, VSI_FIX_ROUTES=_28330_), retention = A2 broad set (11755's demos fall into retention). Panel runs with LIVE curtailment on both arms; run-ledger vs fixed-N is a deliverable."}
+{"event": "arm", "trial": "P4-28330-c2", "arm": "fix", "data": {"fails": 0, "n": 6}}
+{"event": "arm", "trial": "P4-28330-c2", "arm": "retention", "data": {"fails": 9, "n": 20}}
+{"event": "verdict", "trial": "P4-28330-c2", "result": {"verdict": "REJECT", "axes": {"fix": "PASS", "retention": "FAIL"}}}
