@@ -21,7 +21,7 @@ $used = 0
 
 for ($k = 1; $k -le 8; $k++) {
   Write-Output ("=== c1 control run {0}/8 (fails so far {1}) {2} ===" -f $k, $fails, (Get-Date -Format HH:mm:ss))
-  Get-Process CarlaUE4 -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+  Get-Process CarlaUE4,CarlaUE4-Win64-Shipping -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
   schtasks /end /tn CarlaServerNewLog | Out-Null
   Start-Sleep -Seconds 5
   schtasks /run /tn CarlaServerNewLog | Out-Null
@@ -43,7 +43,7 @@ for ($k = 1; $k -le 8; $k++) {
   if (-not $proc.WaitForExit($WALL_LIMIT_MS)) {
     $wd = 1
     try { Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue } catch {}
-    Get-Process CarlaUE4 -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+    Get-Process CarlaUE4,CarlaUE4-Win64-Shipping -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
     Start-Sleep -Seconds 3
   }
   $cp = Join-Path $out "checkpoint_endpoint.json"
@@ -64,6 +64,6 @@ for ($k = 1; $k -le 8; $k++) {
     "$Route,$k,INVALID,,,NA,$wd" | Out-File -Append -Encoding utf8 $csv
   }
 }
-Get-Process CarlaUE4 -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+Get-Process CarlaUE4,CarlaUE4-Win64-Shipping -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
 schtasks /end /tn CarlaServerNewLog | Out-Null
 Write-Output ("P4 C1 DONE: fails={0} used={1}" -f $fails, $used)

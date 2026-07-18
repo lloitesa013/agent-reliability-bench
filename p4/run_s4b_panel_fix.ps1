@@ -26,12 +26,12 @@ Get-Content $csv | Select-Object -Skip 1 | ForEach-Object {
 }
 Write-Output ("resume: kStart={0} fails={1} passes={2} valid={3}" -f $kStart, $fails, $passes, $used)
 
-for ($k = $kStart; $k -le 14; $k++) {
+for ($k = $kStart; $k -le 20; $k++) {
   if ($used -ge 8) { break }
   if ($fails -ge 3) { break }
   if (($fails + (8 - $used)) -le 2) { break }
   Write-Output ("=== {0} fix run {1}/8 (F{2}/P{3}) {4} ===" -f $Name, $k, $fails, $passes, (Get-Date -Format HH:mm:ss))
-  Get-Process CarlaUE4 -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+  Get-Process CarlaUE4,CarlaUE4-Win64-Shipping -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
   schtasks /end /tn CarlaServerNewLog | Out-Null
   Start-Sleep -Seconds 5
   schtasks /run /tn CarlaServerNewLog | Out-Null
@@ -53,7 +53,7 @@ for ($k = $kStart; $k -le 14; $k++) {
   if (-not $proc.WaitForExit($WALL_LIMIT_MS)) {
     $wd = 1
     try { Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue } catch {}
-    Get-Process CarlaUE4 -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+    Get-Process CarlaUE4,CarlaUE4-Win64-Shipping -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
     Start-Sleep -Seconds 3
   }
   $cp = Join-Path $out "checkpoint_endpoint.json"
@@ -68,14 +68,14 @@ for ($k = $kStart; $k -le 14; $k++) {
     }
     $failed = if (($score -lt 100) -or ($col -gt 0)) { 1 } else { 0 }
     "$Route,$k,$($gr.status),$score,$col,$failed,0" | Out-File -Append -Encoding utf8 $csv
-    $used = $k
+    $used++
     if ($failed -eq 1) { $fails++ } else { $passes++ }
-    if ($fails -ge 3) { Write-Output ("CURTAILED: fix REJECT after {0} runs" -f $used); break }
-    if (($fails + (8 - $used)) -le 2) { Write-Output ("CURTAILED: fix PASS after {0} runs" -f $used); break }
+    if ($fails -ge 3) { Write-Output ("CURTAILED: fix REJECT after {0} valid runs" -f $used); break }
+    if (($fails + (8 - $used)) -le 2) { Write-Output ("CURTAILED: fix PASS after {0} valid runs" -f $used); break }
   } else {
     "$Route,$k,INVALID,,,NA,$wd" | Out-File -Append -Encoding utf8 $csv
   }
 }
-Get-Process CarlaUE4 -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+Get-Process CarlaUE4,CarlaUE4-Win64-Shipping -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
 schtasks /end /tn CarlaServerNewLog | Out-Null
 Write-Output ("{0} PANEL FIX DONE: fails={1} passes={2} used={3}" -f $Name, $fails, $passes, $used)

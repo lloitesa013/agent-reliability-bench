@@ -21,7 +21,7 @@ foreach ($Route in $Routes) {
     $out = Join-Path $Lead ("outputs\p4_expert\{0}_e{1}" -f $Route, $k)
     if (Test-Path (Join-Path $out "checkpoint_endpoint.json")) { continue }
     Write-Output ("=== EXPERT probe {0} run {1}/{2} ({3}) ===" -f $Route, $k, $N, (Get-Date -Format HH:mm:ss))
-    Get-Process CarlaUE4 -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+    Get-Process CarlaUE4,CarlaUE4-Win64-Shipping -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
     schtasks /end /tn CarlaServerNewLog | Out-Null
     Start-Sleep -Seconds 5
     schtasks /run /tn CarlaServerNewLog | Out-Null
@@ -42,7 +42,7 @@ foreach ($Route in $Routes) {
     if (-not $proc.WaitForExit($WALL_LIMIT_MS)) {
       $wd = 1
       try { Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue } catch {}
-      Get-Process CarlaUE4 -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+      Get-Process CarlaUE4,CarlaUE4-Win64-Shipping -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
       Start-Sleep -Seconds 3
     }
     $cp = Join-Path $out "checkpoint_endpoint.json"
@@ -58,6 +58,6 @@ foreach ($Route in $Routes) {
     }
   }
 }
-Get-Process CarlaUE4 -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+Get-Process CarlaUE4,CarlaUE4-Win64-Shipping -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
 schtasks /end /tn CarlaServerNewLog | Out-Null
 Write-Output "P4 EXPERT PROBE DONE"
