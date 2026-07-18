@@ -8,6 +8,7 @@ $Lead = "C:\lead"
 $env:CARLA_ROOT = "C:\CARLA_0.9.15\WindowsNoEditor"
 $env:LEAD_PROJECT_ROOT = $Lead
 $env:PYTHONUNBUFFERED = "1"; $env:PYTHONIOENCODING = "utf-8"; $env:PYTHONUTF8 = "1"
+$env:SCRATCH = "C:\lead\tmp_cache"; $env:USER = "tulpa"; $env:USERNAME = "tulpa"
 $env:PATH = "$EnvDir;$EnvDir\Scripts;$EnvDir\Library\bin;$EnvDir\Library\usr\bin;$env:PATH"
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 
@@ -51,6 +52,12 @@ for ($k = 1; $k -le 8; $k++) {
     $gr = $j._checkpoint.global_record
     $col = [double]$gr.infractions.collisions_vehicle + [double]$gr.infractions.collisions_pedestrian + [double]$gr.infractions.collisions_layout
     $score = [double]$gr.scores_mean.score_composed
+    # validity guard: empty status + score 0 + zero collisions = harness/setup crash, NOT a driving
+    # failure -- record INVALID so an infra fault can never manufacture a verdict
+    if ((-not $gr.status) -and ($score -eq 0) -and ($col -eq 0)) {
+      "$Route,$k,SETUP_CRASH,,,NA,0" | Out-File -Append -Encoding utf8 $csv
+      continue
+    }
     $failed = if (($score -lt 100) -or ($col -gt 0)) { 1 } else { 0 }
     "$Route,$k,$($gr.status),$score,$col,$failed,0" | Out-File -Append -Encoding utf8 $csv
     $used = $k
