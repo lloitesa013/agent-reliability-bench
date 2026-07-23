@@ -1,10 +1,16 @@
-% The Verifier Is the Loop — SEA Workshop @ NeurIPS 2026 submission draft
-% Style: official neurips_2025.sty as stand-in; swap for the SEA/NeurIPS-2026 workshop
-% style when released (one line below). Long format (9 content pages), non-archival.
+% The Verifier Is the Loop — NeurIPS 2026 workshop submission draft
+% (primary target: "Who Verifies the Agents?"; backups: SEA, Eval-Interactive — same deadline).
+% Style: official neurips_2025.sty as stand-in; swap for the target workshop style when
+% released. Footer year overridden below. Long format (9 content pages), non-archival.
 % Build: pdflatex main && bibtex main && pdflatex main && pdflatex main
 \documentclass{article}
 % default = anonymous submission mode with line numbers; [final] for camera-ready
 \usepackage{neurips_2025}
+% Interim footer fix (stand-in style says "NeurIPS 2025"): correct venue/year until the
+% workshop's own style file replaces neurips_2025.sty.
+\makeatletter
+\renewcommand{\@noticestring}{Submitted to a NeurIPS 2026 workshop (non-archival). Draft, July 2026.}
+\makeatother
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{hyperref}
@@ -42,7 +48,7 @@ and tools---and report gains measured on the tasks those modifications were deri
 measurement is broken: recent work shows major agent benchmarks are reward-hackable to near-perfect
 scores, and we find the same failure \emph{inside} the self-improvement loop itself. Across controlled
 tasks, two real code benchmarks, and an embodied driving system, we show that \textbf{fake
-self-improvement is the norm, not the exception}: 29--30\% of real coding problems yield a genuine
+self-improvement is frequent and systematic}: 29--30\% of real coding problems yield a genuine
 overfit that aces the shown test and fails held-out tests; 100\% of tool-rewrite decision sets contain a
 reward-hack; a plausible driving fix raises the failure rate it targets. We treat the agent's own
 modifications as untrusted and gate adoption behind a two-part verifier---a \emph{hidden test} (held-out
@@ -52,14 +58,14 @@ it was measured. The gate wins the adoption decision reliably (naive selection s
 in 59\% of tool decisions and 66--88\% of code problems where an overfit exists; the verifier ships
 0\%, while still adopting real improvements). On an embodied CARLA/Bench2Drive system the same gate,
 pre-registered, exhibits every decision mode it exists for: it \emph{accepts} a real repair
-($7/12\!\to\!0/19$ failures, $p=6\times10^{-8}$), then \emph{rejects the very same candidate at
-deployment scope} (12 confirmed collateral regressions, $p=8.5\times10^{-45}$)---catastrophic forgetting
+($7/12\!\to\!0/19$ failures, $p=3.0\times10^{-4}$), then \emph{rejects the very same candidate at
+deployment scope} (12 confirmed collateral regressions, $p=6.3\times10^{-17}$)---catastrophic forgetting
 that single-target evaluation would have shipped---and then protects the system through a ten-recipe
 repair search that maps the repair--retention Pareto frontier without ever adopting a regression. The
 search itself ends in an honest bounded negative: at this budget, no fine-tuning recipe passes both
-gates. Finally we remove the human from the loop: an append-only trial registry and a rule-based
+gates. Finally we remove the human from the verdict path: an append-only trial registry and a rule-based
 prescriber replay every recorded verdict exactly and run fresh trials with zero human verdicts---one
-accept ($p=2.8\times10^{-8}$), one honest null. We argue this is exactly the point: in a loop whose own
+accept ($p=4.8\times10^{-6}$), one honest null. We argue this is exactly the point: in a loop whose own
 proposal stream is adversarial, the verifier---not the proposer---is the load-bearing component.
 \emph{The verifier is the loop.}
 \end{abstract}
@@ -111,10 +117,10 @@ per-decision advantage does not compound into a large multi-round cumulative gap
 self-improvement loop on an embodied system} (to our knowledge; CARLA/Bench2Drive, a real end-to-end
 driving stack). Failures are so stochastic (a route flips PASS/FAIL at 58\%) that only rate-based
 verification is meaningful; the gate rejects a harmful plausible fix ($p$-gated, before deployment) and
-accepts a real repair ($0/19$ fresh rollouts, $p=6\times10^{-8}$) (\S\ref{sec:embodied}).
+accepts a real repair ($0/19$ fresh rollouts, $p=3.0\times10^{-4}$) (\S\ref{sec:embodied}).
 \item \textbf{The deployment-scope demonstration.} The locally-accepted candidate, re-verified over the
 full route distribution, is globally \emph{rejected}: 12 confirmed collateral regressions, pooled
-failure 70\% vs.\ 7\% ($p=8.5\times10^{-45}$)---catastrophic forgetting that single-target evaluation
+failure 70\% vs.\ 7\% ($p=6.3\times10^{-17}$)---catastrophic forgetting that single-target evaluation
 would have shipped. Verification scope must match deployment scope; we demonstrate it, on a real system,
 with error control (\S\ref{sec:scope}).
 \item \textbf{A gate-protected repair search that ends in an honest bounded negative.} Ten pre-registered
@@ -126,7 +132,7 @@ never dropped (\S\ref{sec:search}).
 \item \textbf{The outer loop, automated.} Under a sealed protocol, an append-only trial registry plus a
 rule-based prescriber (the gate remaining sole adoption authority) replays every recorded verdict of
 the embodied search exactly from raw counts, then runs fresh code-surface trials with \emph{zero human
-verdicts}: one accept ($41\%\!\to\!8.5\%$ audit failures, $p=2.8\times10^{-8}$), one honest null
+verdicts}: one accept ($41\%\!\to\!8.5\%$ audit failures, $p=4.8\times10^{-6}$), one honest null
 (REJECT where no failure existed to improve on), and a self-stop on unmapped state
 (\S\ref{sec:automated}).
 \end{enumerate}
@@ -151,7 +157,12 @@ existing capabilities $j$, for noise margin $\varepsilon$.
 \item \textbf{Selection:} among candidates passing both, adopt the best by hidden score; else adopt
 nothing (abstain).
 \item \textbf{Stochastic domains:} replace scores with failure rates over $N$ runs and require a
-one-sided significant reduction (exact binomial test). Single runs are meaningless when the baseline
+one-sided significant reduction (Fisher's exact test over the two arms' failure
+counts).\footnote{Our pre-registered decision rules and the released \texttt{gate\_rate()} use a
+fixed-baseline exact binomial, which treats the measured baseline rate as a known reference
+probability. All $p$-values reported in this paper use the more conservative two-sample Fisher's
+exact test, which treats the baseline as estimated; every accept/reject verdict is identical under
+both tests.} Single runs are meaningless when the baseline
 itself is flaky (\S\ref{sec:flaky}).
 \item \textbf{Scope rule:} a verdict licenses adoption only at the scope of the evaluators that produced
 it. Deployment-scope adoption requires a deployment-scope gate: a screen over the deployable
@@ -197,7 +208,7 @@ adoption requires a deployment-scope gate.}
 \label{fig:gate}
 \end{figure}
 
-\section{Fake improvement is the norm}
+\section{Fake improvement is frequent and systematic}
 \label{sec:fake}
 
 One pattern repeats across every surface an agent can modify: the score on the data a modification
@@ -317,7 +328,7 @@ The full cycle then ran end-to-end: student fails 11755 at 58\% $\rightarrow$ th
 stable-perfect there ($8/8$) $\rightarrow$ 359\,MB of expert demonstrations collected on the failure
 scenario plus retention routes $\rightarrow$ 10-epoch fine-tune from the released checkpoint (single
 RTX~5090, ${\sim}2.5$\,h) $\rightarrow$ the pre-registered gate on fresh rollouts:
-\textbf{hidden test} $0/19$ failures (baseline $7/12$; exact binomial $p = 6.0\times10^{-8}$);
+\textbf{hidden test} $0/19$ failures (baseline $7/12$; Fisher's exact $p = 3.0\times10^{-4}$);
 \textbf{regression} $0/12$ on the retention routes $\rightarrow$ \textbf{ACCEPT}. To our knowledge this
 is the first pre-registered, error-controlled statistical \emph{accept} produced inside a closed
 self-improvement loop on an embodied system---and the same harness had already produced the
@@ -340,14 +351,14 @@ The screen flagged 19 collision routes plus a systematic soft signature (14 rout
 with a red-light violation and mass minimum-speed infractions---a behavioral warp, not noise). The
 confirmation batch (176/176 valid interleaved runs) returned:
 \textbf{12 confirmed regressions}; pooled on flagged routes, candidate $53/76 = 70\%$ vs.\ baseline
-$5/76 = 7\%$ failures, one-sided $p = 8.5\times10^{-45}$ $\rightarrow$ \textbf{GLOBAL REJECT}
+$5/76 = 7\%$ failures, one-sided Fisher's exact $p = 6.3\times10^{-17}$ $\rightarrow$ \textbf{GLOBAL REJECT}
 (Figure~\ref{fig:scope}).
 
 The mechanism is classic catastrophic forgetting~\citep{mccloskey1989catastrophic,french1999catastrophic}:
 ten epochs on ${\sim}1.6$k frames of four scenario types with a 3-route retention set warped global
 driving---collisions on ordinary routes, red-light violations, slow driving everywhere. What is new here
 is not the phenomenon but the demonstration: \emph{the same candidate earns a legitimate statistical
-ACCEPT at target scope and a $p=8.5\times10^{-45}$ REJECT at deployment scope, on a real system, under
+ACCEPT at target scope and a $p=6.3\times10^{-17}$ REJECT at deployment scope, on a real system, under
 pre-registered rules}. Single-target evaluation---the standard practice when a fix is verified at
 all---would have shipped this model. The 3-route retention check passed ($0/12$) because those routes
 happen to sit among the least-affected; a narrow regression set does not just under-measure damage, it
@@ -370,7 +381,7 @@ adopted; the deployed capability floor never dropped.
 ]
 \addplot[fill=vblue!55, draw=vblue, bar shift=0pt] coordinates {(baseline,58)};
 \addplot[fill=vok!70, draw=vok, bar shift=0pt] coordinates {(candidate,0)};
-\node[font=\scriptsize, anchor=north] at (axis cs:candidate,97) {$0/19$, $p{=}6{\times}10^{-8}$};
+\node[font=\scriptsize, anchor=north] at (axis cs:candidate,97) {$0/19$, $p{=}3.0{\times}10^{-4}$};
 \node[font=\scriptsize, anchor=north] at (axis cs:baseline,97) {$7/12$};
 \end{axis}
 \begin{axis}[
@@ -385,7 +396,7 @@ adopted; the deployed capability floor never dropped.
 ]
 \addplot[fill=vblue!55, draw=vblue, bar shift=0pt] coordinates {(baseline,7)};
 \addplot[fill=vbad!70, draw=vbad, bar shift=0pt] coordinates {(candidate,70)};
-\node[font=\scriptsize, anchor=north] at (axis cs:candidate,97) {$53/76$, $p{=}8.5{\times}10^{-45}$};
+\node[font=\scriptsize, anchor=north] at (axis cs:candidate,97) {$53/76$, $p{=}6.3{\times}10^{-17}$};
 \node[font=\scriptsize, anchor=north] at (axis cs:baseline,97) {$5/76$};
 \end{axis}
 \end{tikzpicture}
@@ -427,7 +438,7 @@ K2a & K1 data, 3 epochs & $0/8$ \checkmark & $12/12$ routes fail & REJECT \\
 K2b & broad retention (17 routes), 3 ep & $4/8$ & $33\%$ & REJECT (fix diluted) \\
 A1 & fix $40\%$ oversample, 3 ep & $4/8$ & $25\%$ \checkmark & REJECT (fix diluted) \\
 A2 & fix $60\%$ oversample, 5 ep & $0/8$ \checkmark & $29\%$ \checkmark & \textbf{panel PASS} $\to$ \\
-  & \quad$\hookrightarrow$ deployment gate & --- & 6 confirmed reg., $p{=}2.5{\times}10^{-20}$ & \textbf{global REJECT} \\
+  & \quad$\hookrightarrow$ deployment gate & --- & 6 confirmed reg., $p{=}9.0{\times}10^{-10}$ & \textbf{global REJECT} \\
 A3 & A2 + fix-family demos in fix bucket & $6/7$ & (cut short) & REJECT (family conflict) \\
 A4 & A2 fix bucket + targeted retention & $4/8$ & $33\%$ & REJECT \\
 A5 & A4 + frozen backbone (head-only) & $4/8$ & ${\sim}31\%$ & REJECT \\
@@ -491,7 +502,7 @@ parameters, echoing at system scale the classic trade-off~\citep{french1999catas
 generalize the repair---it diluted and conflicted with it one level down (A3: the family-scenario route
 itself had failed $4/4$ under A2, a within-family overfit; fixing that broke 11755).
 \item \textbf{Panel pass $\ne$ deployment pass, again}: A2, the one panel-passer, was rejected by the
-deployment gate (6 confirmed regressions, $p=2.5\times10^{-20}$)---though the search was converging
+deployment gate (6 confirmed regressions, $p=9.0\times10^{-10}$)---though the search was converging
 (12 confirmed regressions $\to$ 6, global behavioral warp eliminated).
 \item \textbf{Bounded negative}: at this budget (a single consumer GPU, the stack's native fine-tuning
 machinery, ${\sim}450$ verification rollouts), no recipe passed both gates. Full fine-tuning repairs
@@ -532,7 +543,7 @@ human launched a script and read the result). On 100 never-before-used MBPP prob
 problem's tests split visible / gate-hidden / \emph{audit} (the gate never sees the audit; without this
 split ``the gate ships zero failures'' would be true by construction): naive ships an audit-failing
 solution $41/100$; the gate adopts 59, abstains 41, and its adoptions fail audit $5/59 = 8.5\%$---a
-registry-computed \textbf{ACCEPT} ($p = 2.8\times10^{-8}$). Note the honest non-zero: the audit
+registry-computed \textbf{ACCEPT} ($p = 4.8\times10^{-6}$). Note the honest non-zero: the audit
 measures what the gate buys ($41\%\!\to\!8.5\%$), not a tautology. The prescriber---not a
 human---then ordered scope escalation, and on the remaining 26 fresh HumanEval problems naive shipped
 \emph{zero} audit failures: the registry returned \textbf{REJECT} (no improvement evidence, $p=1$),
@@ -549,11 +560,12 @@ score carries no signal against them; held-out (on code, \emph{executed}) evalua
 two-gate verifier converts this into a reliable per-decision win: $59\%\!\to\!0\%$, $19/29\!\to\!0$,
 $21/24\!\to\!0$. (4)~Regression checking is necessary: the best target-fix can be the worst adoption.
 (5)~In stochastic embodied domains, only rate-based statistical verification is meaningful, and it
-supports both accept ($p=6\times10^{-8}$) and reject ($p=8.5\times10^{-45}$) with error control.
+supports both accept ($p=3.0\times10^{-4}$) and reject ($p=6.3\times10^{-17}$) with error control.
 (6)~A verdict is only valid at its measured scope; scope-mismatched acceptance ships catastrophic
-forgetting on a real system. (7)~The outer loop needs no human: registry + prescriber + gate replays
-the recorded search exactly from raw counts and runs fresh trials end-to-end, accepting where evidence
-exists and returning an honest null where it does not (\S\ref{sec:automated}).
+forgetting on a real system. (7)~The recorded verdict-and-prescription loop executes without human
+intervention within its encoded state space: registry + prescriber + gate replay the recorded search
+exactly from raw counts and run fresh trials end-to-end, accepting where evidence exists, returning an
+honest null where it does not, and halting on unmapped state (\S\ref{sec:automated}).
 
 \textbf{Not established.} Large cumulative multi-round gains (\S\ref{sec:negative}); verified
 self-improvement on hard tasks where no candidate transfers (the verifier then correctly adopts
@@ -574,10 +586,15 @@ emerging thread}: PACE shows that greedy ``keep it if the score went up'' accept
 adaptive multiple testing and replaces it with anytime-valid (e-process) commit tests on text-agent
 loops~\citep{pace2026}---the same diagnosis as ours, in the statistical dimension we
 pre-register; GRASP gates skill-library edits on probe-based net improvement~\citep{grasp2026}; GRACE
-uses an update-rejection gate inside prompt optimization~\citep{grace2025}; and sequential statistics
-have been brought to robot policy comparison as an offline evaluation tool~\citep{beyondbinary2025}.
-None of these operate on an embodied system inside the loop, and none demonstrate the
-deployment-scope failure. \textbf{Driving-benchmark noise is
+uses an update-rejection gate inside prompt optimization~\citep{grace2025}; Self-Harness admits
+self-proposed harness edits only after regression testing on held-out tasks~\citep{selfharness2026};
+governed capability evolution stages embodied upgrades through sandbox, shadow evaluation, gated
+activation, and rollback~\citep{governed2026}; and sequential statistics have been brought to robot
+policy comparison as an offline evaluation tool~\citep{beyondbinary2025}. The text-domain gates never
+leave benchmark substrates, and the embodied governance pipeline gates on compatibility and safety
+checks rather than pre-registered statistical verdicts. None demonstrates the deployment-scope
+failure---the same candidate legitimately accepted at target scope and rejected at deployment
+scope---with error control inside a closed loop. \textbf{Driving-benchmark noise is
 documented}~\citep{jia2024bench2drive,dosovitskiy2017carla}, with published scores typically
 single-run. \textbf{Continual learning} names our regression phenomenon catastrophic
 forgetting~\citep{mccloskey1989catastrophic,french1999catastrophic,kirkpatrick2017ewc}, and our repair
@@ -603,7 +620,10 @@ $0.17$); one vehicle stack and one simulator; the embodied fix targets one (repr
 failure route with an 8-run fix arm and 24-run retention arm at panel scope---adequate for the
 pre-registered lines, underpowered for small effects; the bounded negative of \S\ref{sec:search} is a
 statement about this training budget and recipe family (parameter-efficient adapters and larger fix-side
-data remain untested). Gate reuse must be budgeted (\S\ref{sec:method}); we spec but do not automate it.
+data remain untested). Gate reuse must be budgeted (\S\ref{sec:method}); we spec but do not automate
+it---and the ten-recipe search queried the same retention panel sequentially, so pre-registration alone
+does not control adaptive multiple testing; a per-candidate fresh holdout or an alpha-spending schedule
+is the disciplined form (cf.\ anytime-valid acceptance testing~\citep{pace2026}).
 Multi-round compounding may appear on richer substrates; we did not demonstrate it.
 
 \section{Conclusion}
@@ -647,6 +667,8 @@ iff candidate $\ge 3/4$ failures and baseline $\le 1/4$; global REJECT iff $\ge 
 or pooled candidate failure significantly above baseline (one-sided exact test, $\alpha=0.05$).
 \textbf{(rate gate)} a fix claim requires a one-sided exact-binomial significant reduction against the
 measured baseline rate, power-planned before collection (e.g.\ $58\%\!\to\!20\%$ requires
-${\sim}19$ runs/arm at $80\%$ power).
+${\sim}19$ runs/arm at $80\%$ power). These rules are reproduced verbatim as pre-registered; the main
+text reports the more conservative two-sample Fisher's exact $p$-values computed from the same raw
+counts---every verdict is unchanged under both tests.
 
 \end{document}
