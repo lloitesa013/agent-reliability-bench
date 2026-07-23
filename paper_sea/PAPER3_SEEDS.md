@@ -3,7 +3,7 @@
 Source: external AI roadmap ("performance problems after the gate"), cross-checked against our
 actual state. NOT August work — nothing here before 8/29. Post-9/30 (after paper 2 draft).
 
-## The trilogy frame (for research statements / KAIST interview)
+## The trilogy frame (for research statements / interviews)
 - Paper 1 (The Verifier Is the Loop): the gate BLOCKS bad self-modifications.  [done]
 - Paper 2 (The Price of the Gate): the gate can be STREAMED cheaply.          [draft 9/30]
 - Paper 3 (working title: Passing the Gate): LEARNING to synthesize repairs
