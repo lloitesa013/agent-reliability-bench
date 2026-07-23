@@ -93,3 +93,37 @@ systems checks not statistical verdicts) and state the delta in one sentence eac
 Schedule note: this scan is the argument for holding the 8/29 date — the paper is finished while
 adjacent groups would still need months of embodied experiments; public repo commits (R1–R51,
 dated) already timestamp priority.
+
+## SECOND SCAN 2026-07-23 (evaluator co-evolution thread) — CITED + DISCUSSION AMMO
+- **Who Grades the Grader? Co-Evolving Evaluation Metrics and Skills for Self-Improving LLM Agents**
+  (Xing Zhang, Guanghui Wang, Yanwei Cui, Ziyuan Li, Wei Qiu, Bing Zhu, Peiyang He;
+  arXiv:2607.12790, July 14 2026). Double-Ratchet: metric loop evolves drawback-detector
+  compositions against a 10-item anchored reference + locked held-out anchor; skill loop graded by
+  the evolved metric. KEY CONCESSION (verbatim theme): "the anchor cannot be manufactured" — their
+  ablation shows removing the anchor guard collapses the metric into a pass-everything grader.
+  ALREADY CITED as of this commit (related work) — positioned as: they evolve the evaluator, but
+  concede an irreducible external anchor = the layer our fixed pre-registered gate occupies. Their
+  result STRENGTHENS our thesis rather than competing with the embodied scope demonstration.
+- Also real, cite if space allows: **The Red Queen Gödel Machine: Co-Evolving Agents and Their
+  Evaluators** (arXiv:2606.26294); **Human-on-the-Bridge: Scalable Evaluation for AI Agents**
+  (arXiv:2606.16871, June 2026 — human as upstream author of evaluation intelligence: domain
+  context, traps, juror personas, audit rules; explicitly accepts the human-as-constitution-author
+  boundary, same stance as our §automated concession).
+
+## POSTER / REVIEWER Q&A AMMO — the "verifier constitution" question
+Expected sharpest question at a workshop literally named "Who Verifies the Agents?":
+"You removed the human from the verdict path — but the human still wrote the gate's constitution
+(what counts as failure, which capabilities are regression-checked, what scope suffices). Who
+verifies THAT?" Prepared answer, three beats:
+1. Correct, and the paper says so explicitly (prescriber rules distilled from the human search —
+   replay validates distillation, not generality; halt-on-unmapped-state is the honest boundary).
+2. The scope demonstration IS the empirical case study of a mis-written constitution: the 3-route
+   retention set was a legitimate-looking constitution that passed a damaging candidate; widening
+   scope to match deployment caught 12 regressions. We don't solve constitution design — we show,
+   on a real system with error control, what its failure costs and that scope-matching is the
+   first constitutional principle.
+3. The frontier agrees the top anchor is irreducible (whogrades2026's anchor ablation;
+   human-on-the-bridge's upstream-expert stance). Our position: keep the constitution small,
+   pre-registered, and external to the loop it governs — and verify at the scope you deploy.
+This is also the paper-2/paper-3 seam: "who writes the verifier's constitution" as the research
+question above the Verify layer.
