@@ -1032,3 +1032,36 @@ The P4_PREREG cycle on target 28330 (baseline 8/8 collision), end to end:
 - Sealed branches: both recipes REJECT -> reported; the floor never dropped; prescriber's
   post-verdict suggestion (raise-fix-ratio) is parked — P4's budget (2 recipes) is spent.
 **P4 = the paper-2 headline experiment, delivered 3 weeks early. Zero human verdicts end to end.**
+
+## Result 51 — S4-③ COMPLETE: blind search 0/6 panel passes (four distinct failure modes) vs the
+## prescriber's 1/5 — the sealed comparison lands pro-structure, reported with its honest CI
+Six recipes sampled uniformly (seed 20260718, sealed before any training) from the 96-point space
+minus S1's points, each trained (LEAD native) and judged by the SAME panel under live curtailment:
+
+| recipe | combo (ep/data/ratio/targeted/freeze) | verdict | failure mode |
+|---|---|---|---|
+| B1 | 5/broad/none/T/F | REJECT | dilution (2P/4F) |
+| B2 | 3/narrow/0.6/T/F | REJECT | all-fail collisions |
+| B3 | 5/broad/0.4/T/- | REJECT | PARALYSIS (agent never moves) |
+| B4 | 5/narrow/0.4/T/- | REJECT | bimodal (one 100, three frozen) |
+| B5 | 5/broad/0.4/-/- | REJECT | heavy collisions |
+| B6 | 10/broad/0.4/-/- | REJECT | incompletion + collisions |
+
+- **Primary (sealed) metric:** blind = 0 passes / ~23 GPU-h; prescriber trajectory = 1 pass (A2) /
+  ~30 GPU-h in 5 recipes. Per the sealed branch (a): the prescriber advantage stands — **with the
+  honest caveat sealed up front: N=6 cannot make this statistically decisive** (if blind's true
+  per-recipe pass rate equaled the prescriber's observed 1/5, seeing 0/6 has p≈0.26). What N=6 DOES
+  establish: the space is hostile (0/6; exact 95% upper bound on the per-recipe pass rate ≈ 39%),
+  and half the blind draws produced DEGENERATE policies (paralysis/bimodal) that the structured
+  ladder never produced in 10 recipes — structure's measurable value here is avoiding pathological
+  corners, not just finding the pass.
+- **Secondary (sealed) metric — frontier coverage:** the blind sample contributed ZERO informative
+  frontier points (degenerate models have no meaningful fix↔retention trade-off), vs the
+  prescriber's complete frontier map (R41). 
+- **Streaming, live again:** blind fix arms decided in 3–6 valid runs each; NO retention arm ever
+  ran (6×24 = 144 runs saved by arm-sequencing alone) — the curtailed panels made this whole
+  comparison affordable (~1 fleet-day of eval instead of ~3).
+- Gate integrity: 6 more recipes, zero adopted, floor never dropped. Raw records: s4_data/,
+  s4_trials.jsonl.
+**S4's experimental core is COMPLETE** (①repro ②protocol ③this ④P4). What remains of S4 is the
+paper-2 draft (sealed close-out: 9/30).

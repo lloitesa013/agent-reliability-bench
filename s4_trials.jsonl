@@ -10,3 +10,9 @@
 {"event": "verdict", "trial": "S4-B2", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "MISSING"}}}
 {"event": "arm", "trial": "S4-B3", "arm": "fix", "data": {"fails": 3, "n": 3}}
 {"event": "verdict", "trial": "S4-B3", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "MISSING"}}}
+{"event": "arm", "trial": "S4-B4", "arm": "fix", "data": {"fails": 3, "n": 4}}
+{"event": "verdict", "trial": "S4-B4", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "MISSING"}}}
+{"event": "arm", "trial": "S4-B5", "arm": "fix", "data": {"fails": 3, "n": 3}}
+{"event": "verdict", "trial": "S4-B5", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "MISSING"}}}
+{"event": "arm", "trial": "S4-B6", "arm": "fix", "data": {"fails": 3, "n": 3}}
+{"event": "verdict", "trial": "S4-B6", "result": {"verdict": "REJECT", "axes": {"fix": "FAIL", "retention": "MISSING"}}}
