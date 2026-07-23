@@ -47,3 +47,19 @@ integrity. The gate never becomes the training loss verbatim (leak rule).
 ## One-line next-paper question (theirs, adopted)
 "Can a self-improving agent learn to synthesize repairs that satisfy both target improvement and
 deployment-scale capability retention?"
+
+## SEQUENCED PIPELINE (relay verdict 2026-07-23; work starts AFTER paper-2 draft 9/30)
+Ordering principle: multipliers before adders.
+- E1 (first, ~2-4 wks, sealed prereg): **stochasticity source tracing** — localize the injection
+  points of route-level nondeterminism (traffic seed / physics substep / inference nondeterminism)
+  by fixing layers one at a time and measuring failure-rate variance collapse on 11755 + 2 control
+  routes. Success → verification cost collapses for ALL later experiments (E2, P1 need hundreds of
+  rollouts). "Mundane cause" outcome still ships as a deterministic-verification protocol note.
+  Connects to the variance literature (TransFuser PAMI; B2D single-seed practice).
+- E2 (second): **causal failure attribution** — same-seed counterfactual replay, intervene on one
+  actor; upgrades attribution from correlational to causal; becomes paper 3's diagnosis stage.
+- P1 (third, flagship): constraint-aware repair search (as above) — cheaper if E1 succeeded.
+- Anchor typology: written as the FRAME section of the constitution paper, not a standalone
+  flagship. Independence experiment (same-family judges, text substrate): fellowship-project
+  scope (12-week), keep in reserve.
+- Checkpoint-zoo mechanistic study: preserved asset, NOT pursued now (different subfield/tooling).
