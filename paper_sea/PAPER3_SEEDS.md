@@ -63,3 +63,22 @@ Ordering principle: multipliers before adders.
   flagship. Independence experiment (same-family judges, text substrate): fellowship-project
   scope (12-week), keep in reserve.
 - Checkpoint-zoo mechanistic study: preserved asset, NOT pursued now (different subfield/tooling).
+
+## DESIGN SKETCHES (relay 2026-07-23 — session writes the actual PREREG before any run)
+E1 variance-source localization: determinism ladder L0(as-is)→L1(+TM seed)→L2(+physics/sync)
+→L3(+inference determinism)→L4(all). 3 routes (11755 + 1 stable-pass + 1 flaky control) × 12
+runs/level, early-stop when variance→0. Metrics: failure-rate CI width, trajectory divergence
+time. H1 TM-seed dominates; H2 L4 deterministic; H3 paired-seed verification concordance ≥95%
+vs rate-gate at ≤50% rollouts. Budget ≈180 rollouts, 1-2 wks fleet. Both outcomes ship
+(protocol note vs irreducible-sensitivity result strengthening rate-gate necessity).
+E2 counterfactual attribution (DEPENDS on E1 determinism): same-seed replay, single
+interventions (remove/delay one actor; splice expert action at divergence point). Attribution =
+minimal outcome-flipping intervention. 12 failure cases × 10-20 CF runs ≈ 150-250 rollouts.
+Side payoff: causally re-labels the B2D failure taxonomy (v2 of the taxonomy repo).
+P1 constraint-aware repair, 3 pre-registered arms + A6 baseline: (a) gradient projection
+(fix-grad ⊥ retention-grad subspace, head-scale), (b) EWC/trust-region penalty on planning
+head (Fisher from retention data), (c) LoRA adapter + scenario-gated routing (architecture
+arm). SAME S1 gates (fix ≤2/8; retention ≤30%; deployment gate for passers), new registry
+epoch, timeboxed. Budget ≈300-450 rollouts (less if E1 lands). Any pass → flagship; all fail →
+second bounded negative with mechanism map.
+Assembly: paper 3 = E2 diagnosis + P1 repair + E1 economics. Order: E1 → (E2 ∥ P1).
