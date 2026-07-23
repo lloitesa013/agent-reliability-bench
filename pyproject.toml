@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vsi-gate"
+version = "0.1.0"
+description = "The verifier for self-improving agents: hidden-test + regression adoption gate, statistical rate gate for flaky domains, append-only trial registry, and exact curtailment. Pure stdlib."
+readme = "PYPI_README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "lloitesa013" }]
+keywords = ["agents", "self-improvement", "verification", "evaluation", "reward-hacking", "regression"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+Repository = "https://github.com/lloitesa013/agent-reliability-bench"
+
+[tool.setuptools]
+packages = ["vsi"]
+py-modules = ["vsi_gate", "vsi_registry"]

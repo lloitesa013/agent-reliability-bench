@@ -10,3 +10,7 @@ w2_trials.jsonl
 w2_details.jsonl
 w2_progress.txt
 w2_run.log
+dist/
+*.whl
+build/
+*.egg-info/

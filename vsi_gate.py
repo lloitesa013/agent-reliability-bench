@@ -1,14 +1,14 @@
 """
-vsi-gate — the VSI-0 verifier as a reusable library (pure stdlib, no dependencies).
+vsi-gate -- the VSI-0 verifier as a reusable library (pure stdlib, no dependencies).
 
-An agent (or a human pipeline) proposes candidate self-modifications — a new prompt, a rule, a memory
+An agent (or a human pipeline) proposes candidate self-modifications -- a new prompt, a rule, a memory
 entry, a rewritten tool, a fine-tuned checkpoint. THIS MODULE IS THE GATE: it treats every candidate as
 untrusted and ACCEPTs one only if it
 
-  (1) HIDDEN TEST  — improves the target capability on held-out data the candidate was not derived from,
-  (2) REGRESSION   — does not degrade any existing capability beyond a noise margin.
+  (1) HIDDEN TEST  -- improves the target capability on held-out data the candidate was not derived from,
+  (2) REGRESSION   -- does not degrade any existing capability beyond a noise margin.
 
-If no candidate clears both gates, the gate ABSTAINS (adopt nothing) — which is the safe outcome.
+If no candidate clears both gates, the gate ABSTAINS (adopt nothing) -- which is the safe outcome.
 Backed by VSI-0 results R11–R25 (github.com/lloitesa013/agent-reliability-bench): selecting by the score
 a candidate was tuned on ships fakes (59% on tool rewrites, 19/29 overfits on MBPP, 12% on solvable
 problems); this gate shipped 0% across all of them.
@@ -28,7 +28,7 @@ Quick start (scores are floats where higher is better; you supply the evaluators
     if report.accepted is not None:
         deploy(report.accepted.candidate)               # else keep the current version
 
-For FLAKY / stochastic domains (embodied agents, CI, driving) use the statistical form — a single run is
+For FLAKY / stochastic domains (embodied agents, CI, driving) use the statistical form -- a single run is
 noise; verify by failure RATE:
 
     from vsi_gate import gate_rate
@@ -71,7 +71,7 @@ class GateReport:
                             "ACCEPT" if v.accepted else "reject",
                             (" [%s]" % v.reason) if v.reason else ""))
         lines.append("DECISION: " + ("adopt cand#%d" % self.accepted.index if self.accepted
-                                     else "ABSTAIN — no candidate cleared both gates (keep current)"))
+                                     else "ABSTAIN -- no candidate cleared both gates (keep current)"))
         return "\n".join(lines)
 
 
@@ -85,7 +85,7 @@ def gate(candidates: List[Any],
     """Score every candidate on the hidden test and the regression profile; ACCEPT the best-hidden
     candidate among those clearing BOTH gates, else abstain.
 
-    hidden_score MUST evaluate on data the candidates were not derived/tuned on — that is the whole point.
+    hidden_score MUST evaluate on data the candidates were not derived/tuned on -- that is the whole point.
     Reusing a small selection set across many gate() calls re-creates the overfitting this prevents
     (VSI-0 R18: +0.045 optimism from a 20-item reused set); use fresh or large held-out data.
     """
@@ -132,8 +132,8 @@ def gate_rate(baseline_fail: int, baseline_n: int,
     LOWER than the baseline rate (one-sided exact binomial test at the baseline point estimate).
 
     VSI-0 R19–R25 background: driving failures flip PASS/FAIL run-to-run (route 11755 = 58% flaky), so a
-    single run is meaningless, and a plausible fix can make things WORSE (R25: 50%→83%) — always verify
-    by rate. Power guidance (R23): detecting 58%→20% needs ~19 runs/arm; 58%→40% needs ~91.
+    single run is meaningless, and a plausible fix can make things WORSE (R25: 50%->83%) -- always verify
+    by rate. Power guidance (R23): detecting 58%->20% needs ~19 runs/arm; 58%->40% needs ~91.
     """
     if baseline_n <= 0 or cand_n <= 0:
         raise ValueError("need runs in both arms")
@@ -144,9 +144,9 @@ def gate_rate(baseline_fail: int, baseline_n: int,
     return {
         "baseline_rate": p0, "candidate_rate": p1, "p_value": pval, "alpha": alpha,
         "accept": accept,
-        "verdict": "ACCEPT — failure rate significantly lower" if accept else
-                   ("REJECT — rate not lower" if p1 >= p0 else
-                    "REJECT — direction ok but not significant (p=%.3f); add runs (see R23 power table)" % pval),
+        "verdict": "ACCEPT -- failure rate significantly lower" if accept else
+                   ("REJECT -- rate not lower" if p1 >= p0 else
+                    "REJECT -- direction ok but not significant (p=%.3f); add runs (see R23 power table)" % pval),
     }
 
 
@@ -173,7 +173,7 @@ def _demo() -> int:
     best_vis = max(acc(fn, seen) for _, fn in candidates.values())
     tied = [i for i, (_, fn) in candidates.items() if acc(fn, seen) == best_vis]
     exp_hidden = sum(acc(candidates[i][1], hidden) for i in tied) / len(tied)
-    print("\nNAIVE (best visible): #%s tie at visible=%.2f — the seen score CANNOT tell the general tool"
+    print("\nNAIVE (best visible): #%s tie at visible=%.2f -- the seen score CANNOT tell the general tool"
           % (" and #".join(map(str, tied)), best_vis))
     print("from the lookup-hack; naive gambles (expected hidden = %.2f)." % exp_hidden)
 
