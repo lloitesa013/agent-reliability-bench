@@ -48,8 +48,14 @@ integrity. The gate never becomes the training loss verbatim (leak rule).
 "Can a self-improving agent learn to synthesize repairs that satisfy both target improvement and
 deployment-scale capability retention?"
 
-## SEQUENCED PIPELINE (relay verdict 2026-07-23; work starts AFTER paper-2 draft 9/30)
-Ordering principle: multipliers before adders.
+## SEQUENCED PIPELINE (REVISED 2026-07-23: GPU lane starts IMMEDIATELY — user order.
+Scheduling is per-resource-lane, not calendar: GPU never idles; session writing bandwidth
+belongs to the paper reframe until 8/29; experiments queue by engineering-readiness.)
+Ordering principle: multipliers before adders; zero-new-code work fills GPU gaps.
+GPU queue: E1 (now, seal first) → E1-ext variance atlas (10-15 routes, zero new code) ∥
+baseline bank (fixed-seed baseline rollouts on the 13 panel routes — reusable paired arms
+that cheapen every future panel) → Sept: P1 arms by ascending engineering cost (b EWC →
+a projection → c adapter) ∥ E2 harness when coded.
 - E1 (first, ~2-4 wks, sealed prereg): **stochasticity source tracing** — localize the injection
   points of route-level nondeterminism (traffic seed / physics substep / inference nondeterminism)
   by fixing layers one at a time and measuring failure-rate variance collapse on 11755 + 2 control
