@@ -1,8 +1,10 @@
-# E1 PREREG (DRAFT — session: finalize, commit as seal BEFORE first run, then run)
+# E1 PREREG — SEALED 2026-07-24 (this commit = the seal; L0 launched immediately after)
 
 Experiment: variance-source localization (determinism ladder) on CARLA/Bench2Drive.
-Status: DRAFT written by relay 2026-07-23 on user's order to start now (5090 idle; paper work
-is writing-bound, not GPU-bound). Session owns final seal + execution.
+Status: SEALED by relay 2026-07-24 on user's order (5090 idle; paper work is writing-bound).
+L0 runner: run_e1_l0.ps1 on the 5090 box (derived from run_multi.ps1 2026-07-09; loop/env
+identical, only plan+naming differ). L1+ toggles: session implements; decision lines below
+are FIXED as of this commit.
 
 ## Question
 Where does route-level run-to-run nondeterminism enter? (R19-R21 observed 11755 = 7/12 fail
@@ -17,8 +19,10 @@ under identical config; three FAILURE-labeled routes pass 100% on rerun.)
   in the final seal; if none remain, L4 = L3 (state so).
 
 ## Routes & runs
-- Routes: 11755 (flakiest), one stable-PASS route, one single-run-FAILURE-that-passes-on-rerun
-  route (pick from R19-R21 set; name them in the final seal).
+- Routes (FIXED, chosen from R19-R21 recorded data before any E1 run): **11755**
+  (EnterActorFlow, 7/12=58% — high variance), **18252** (pedestrian crossing, 1/5=20% — mid
+  variance), **3436** (HazardSideLane, 0/4 stable-pass AND originally mislabeled FAILURE in the
+  single-run taxonomy — zero-variance control). Spans the variance spectrum.
 - 12 runs per (level, route). EARLY-STOP rule: if a level shows 12/12 identical outcomes AND
   trajectory divergence < threshold (define metric in seal) on all 3 routes, higher levels run
   6 runs (confirmation only).
@@ -48,6 +52,12 @@ under identical config; three FAILURE-labeled routes pass 100% on rerun.)
   reframe wins.
 - S1 seals untouched; E1 gets its own registry epoch.
 
+## Remaining parameters (fixed BEFORE the analyses they affect, per clause below)
+- Trajectory-divergence threshold X and paired-seed count K (≤10): do not affect L0 data
+  collection; MUST be fixed and committed before any L1+ analysis or H3 evaluation begins.
+- Exact L2/L3 toggle settings: session enumerates and commits before L1 runs.
+
 ## Session TODO on pickup
-1. Fill bracketed choices (routes, X, K, exact L2/L3 settings), 2. commit this file (renamed
-E1_PREREG.md) as the seal, 3. record seal commit hash in RESULTS.md, 4. launch L0.
+1. Read L0 results in C:\lead\outputs\e1_l0\ (master log: outputs\e1_l0_master.log),
+2. fix X/K + L2/L3 settings in a follow-up commit, 3. implement L1 toggles, 4. record this
+seal's commit hash in RESULTS.md when opening the E1 entry.
