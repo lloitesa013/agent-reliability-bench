@@ -104,6 +104,17 @@ E2 counterfactual attribution (DEPENDS on E1 determinism): same-seed replay, sin
 interventions (remove/delay one actor; splice expert action at divergence point). Attribution =
 minimal outcome-flipping intervention. 12 failure cases × 10-20 CF runs ≈ 150-250 rollouts.
 Side payoff: causally re-labels the B2D failure taxonomy (v2 of the taxonomy repo).
+E2 MUST-CITE prior art (from study-gap research 2026-07-24):
+  - Buesing et al., "Woulda Coulda Shoulda: Counterfactually-Guided Policy Search" (CF-GPS,
+    ICLR 2019, arXiv:1811.06272) — counterfactual replay in a simulator via an SCM, fixing the
+    exogenous noise to de-bias. This IS E2's method, done at DeepMind. Cite + state the delta.
+  - Halpern-Pearl actual causality: "minimal outcome-flipping intervention" = actual cause /
+    degree of responsibility (responsibility = 1/|minimal contingency set|). Gives E2's metric a
+    name + citation (Halpern, "Actual Causality," MIT Press, open access).
+  - Frame the sim explicitly as an SCM: seed = exogenous U, dynamics = structural equations,
+    intervene-on-one-actor = do(x); same-seed replay = the abduction step that makes the
+    Layer-3 counterfactual identifiable (data-only counterfactuals are NOT — a defensible
+    privileged-access point vs a reviewer).
 P1 constraint-aware repair, 3 pre-registered arms + A6 baseline: (a) gradient projection
 (fix-grad ⊥ retention-grad subspace, head-scale), (b) EWC/trust-region penalty on planning
 head (Fisher from retention data), (c) LoRA adapter + scenario-gated routing (architecture

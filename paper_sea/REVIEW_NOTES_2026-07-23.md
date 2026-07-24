@@ -109,6 +109,38 @@ dated) already timestamp priority.
   (arXiv:2606.16871, June 2026 — human as upstream author of evaluation intelligence: domain
   context, traps, juror personas, audit rules; explicitly accepts the human-as-constitution-author
   boundary, same stance as our §automated concession).
+- BIB HYGIENE (August pass): references.bib now contains DUPLICATE keys for the same paper —
+  `whogrades2026` (full verified author list, canonical) and `zhang2026grader` ("and others") —
+  keep whogrades2026, delete zhang2026grader (update any \citep using it). `redqueen2026` has a
+  placeholder author + "re-verify" note — resolve full author list from arXiv 2606.26294 BEFORE
+  submission (same rule as the GRACE/GRASP fix: no placeholders in the submitted PDF).
+
+## MUST-CITE PRIOR ART + RENAMING (from study-gap research 2026-07-24) — paper-1 hardening
+Reviewers in this space WILL catch these if missing. Fold into the August reframe.
+- **Seldonian / High-Confidence Off-Policy Policy Improvement** (Thomas, Theocharous, Ghavamzadeh,
+  ICML 2015; + Thomas et al., "Preventing Undesirable Behaviour of Intelligent Machines," Science
+  2019). This is the CLOSEST prior art: "accept a proposed change only if a high-confidence bound
+  says it beats baseline, at a user-chosen error rate" IS the gate, stated in RL vocabulary. MUST
+  cite + state the delta in one sentence: scope-matched (target vs deployment) + anytime-valid
+  (sequential/registry monitoring). Not citing this reads as unaware of the field.
+- **RENAME for legibility**: "streaming verification" is a coined label for what the field calls
+  **anytime-valid / sequential inference** (e-values, test martingales, e-processes). In public
+  text put the standard name FIRST and let the coined term sit beside it — cite the survey
+  Ramdas–Grünwald–Vovk–Shafer, "Game-Theoretic Statistics and Safe Anytime-Valid Inference"
+  (Statistical Science 2023, arXiv:2210.01948). Same for "watcher" → trusted-monitoring / control
+  protocol if that framing appears. Keep coined terms as internal shorthand only.
+- Gao–Schulman–Hilton reward-model overoptimization (2210.10760) = the intro's motivation cite
+  (already flagged below); it is the quantitative Goodhart curve the gate exists to catch.
+- The Fisher/nuisance-parameter fix is done (footnote), but frame the registry's sequential
+  monitoring explicitly as anytime-valid where possible — that is what "streaming" already means.
+
+## CANON CITES TO CONSIDER (August pass, optional)
+- Gao et al., "Scaling Laws for Reward Model Overoptimization" (arXiv:2210.10760) — the
+  quantitative Goodhart result; natural cite next to our fake-rate motivation.
+- Denison et al., "Sycophancy to Subterfuge: Reward-Tampering in LLMs" (arXiv:2406.10162) —
+  empirical reward-tampering; strengthens the "loop supplies its own fakes" intro claim.
+- Schmidhuber, "Gödel Machines" (arXiv:cs/0309048) — the provably-beneficial-self-modification
+  ancestor; one lineage sentence in the intro if space allows.
 
 ## POSTER / REVIEWER Q&A AMMO — the "verifier constitution" question
 Expected sharpest question at a workshop literally named "Who Verifies the Agents?":
