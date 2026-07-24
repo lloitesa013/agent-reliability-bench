@@ -70,6 +70,29 @@ a projection → c adapter) ∥ E2 harness when coded.
   scope (12-week), keep in reserve.
 - Checkpoint-zoo mechanistic study: preserved asset, NOT pursued now (different subfield/tooling).
 
+## FULL DISPOSITION of the 4-pile mine (2026-07-24 — every item gets a home)
+ZERO-GPU items (writing-lane, fold into paper 2 drafting in Sept):
+- Verification-cost scaling law: formalize the price curve (effect size × flakiness × scope →
+  required rollouts) from EXISTING ledger data points (19/91/~450 runs, 169-screen). Paper 2
+  economics section. No new runs.
+- Paired sequential test design: successor to the naive SPRT that R46 killed — design + Monte
+  Carlo validation on RECORDED counts (CPU only); later live-validate on E1's paired-seed data.
+  Paper 2 methods contribution or standalone stats note.
+INSTRUMENTATION items (free byproducts — add logging to P1 arms, no dedicated runs):
+- Paralysis-collapse dynamics (0.4 ratio: drives at 3ep, freezes at 5ep): log per-epoch action
+  distributions + loss decomposition during ALL P1 training runs → the phenomenon gets its
+  data as a side effect.
+- Fractal dilution cause (A3 same-family conflict): tag P1 training batches by route family,
+  log gradient-conflict stats between family members. Same trick.
+COLLABORATION-CURRENCY item:
+- Checkpoint zoo (13 same-base differently-broken/repaired models): do NOT dissect ourselves —
+  offer as a dataset to an interpretability collaborator (December venue conversations).
+  "Mechanistic anatomy of forgetting" is a strong joint-paper hook; we bring the zoo, they
+  bring the microscope.
+Already queued elsewhere: stochasticity=E1 (running), causal attribution=E2, repair
+routing=P1 arm (c), anchor typology=constitution frame section, independence
+experiment=fellowship-scoped reserve.
+
 ## DESIGN SKETCHES (relay 2026-07-23 — session writes the actual PREREG before any run)
 E1 variance-source localization: determinism ladder L0(as-is)→L1(+TM seed)→L2(+physics/sync)
 →L3(+inference determinism)→L4(all). 3 routes (11755 + 1 stable-pass + 1 flaky control) × 12
