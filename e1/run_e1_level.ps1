@@ -12,6 +12,7 @@ param(
   [int]$Seed = 0,
   [string[]]$Routes = @("11755", "18252", "3436"),
   [int]$Runs = 12,
+  [int]$Substep = 0,
   [int]$Determinism = 0
 )
 $ErrorActionPreference = "Continue"
@@ -23,6 +24,7 @@ $env:CARLA_ROOT = "C:\CARLA_0.9.15\WindowsNoEditor"
 $env:LEAD_PROJECT_ROOT = $Lead
 $env:PYTHONUNBUFFERED = "1"; $env:PYTHONIOENCODING = "utf-8"; $env:PYTHONUTF8 = "1"
 $env:PATH = "$EnvDir;$EnvDir\Scripts;$EnvDir\Library\bin;$EnvDir\Library\usr\bin;$env:PATH"
+if ($Substep -eq 1) { $env:E1_L2 = "1" } else { Remove-Item Env:E1_L2 -ErrorAction SilentlyContinue }
 if ($Determinism -eq 1) { $env:E1_DETERMINISM = "1"; $env:CUBLAS_WORKSPACE_CONFIG = ":4096:8" }
 else { Remove-Item Env:E1_DETERMINISM -ErrorAction SilentlyContinue }
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
@@ -67,7 +69,7 @@ for ($k = 1; $k -le $Runs; $k++) {
     if (Test-ValidCheckpoint $cp) { Write-Output ("=== SKIP valid: {0} {1} run {2}/{3} ===" -f $Tag, $RouteId, $k, $Runs); continue }
     $done = $false
     for ($try = 1; $try -le 2 -and -not $done; $try++) {
-      Write-Output ("=== E1-{0} route {1} run {2}/{3} seed={4} det={5} (try {6}) {7} ===" -f $Tag, $RouteId, $k, $Runs, $tmSeed, $Determinism, $try, (Get-Date -Format "MM-dd HH:mm:ss"))
+      Write-Output ("=== E1-{0} route {1} run {2}/{3} seed={4} sub={5} det={6} (try {7}) {8} ===" -f $Tag, $RouteId, $k, $Runs, $tmSeed, $Substep, $Determinism, $try, (Get-Date -Format "MM-dd HH:mm:ss"))
       if (-not (Start-CarlaFresh)) { Write-Output "  CARLA not stable -> next try"; continue }
       $gpu = (& nvidia-smi --query-gpu=memory.used,memory.total --format=csv,noheader,nounits) -join ","
       ("{0},{1},{2},{3},{4}" -f $RouteId, $k, $tmSeed, (Get-Date -Format "yyyy-MM-ddTHH:mm:ss"), $gpu) | Out-File -Append -Encoding utf8 $machCsv

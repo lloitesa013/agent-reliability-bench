@@ -1,6 +1,7 @@
-# E1: dump every valid L0 run's full record to CSV (raw evidence -> repo).
-$root = "C:\lead\outputs\e1_l0"
-$outCsv = "C:\lead\outputs\e1_l0_runs.csv"
+# E1: dump every valid run of a level to CSV (raw evidence -> repo).  -Tag l0 | l1 | l1seedvary | l2 | l3
+param([string]$Tag = "l0")
+$root = "C:\lead\outputs\e1_$Tag"
+$outCsv = "C:\lead\outputs\e1_${Tag}_runs.csv"
 $rows = @()
 Get-ChildItem $root -Directory -ErrorAction SilentlyContinue | Sort-Object Name | ForEach-Object {
   $dir = $_.Name
@@ -13,6 +14,7 @@ Get-ChildItem $root -Directory -ErrorAction SilentlyContinue | Sort-Object Name 
   $inf = $gr.infractions
   $parts = $dir -split "_run"
   $rows += [pscustomobject]@{
+    level          = $Tag
     route          = $parts[0]
     run            = [int]$parts[1]
     status         = $gr.status
@@ -35,9 +37,3 @@ Get-ChildItem $root -Directory -ErrorAction SilentlyContinue | Sort-Object Name 
 }
 $rows | Export-Csv -NoTypeInformation -Encoding UTF8 $outCsv
 Write-Output ("wrote {0} rows -> {1}" -f $rows.Count, $outCsv)
-# what per-frame artifacts exist? (for the trajectory-divergence metric)
-$sample = Join-Path $root "11755_run1"
-Write-Output "--- artifacts in 11755_run1 ---"
-Get-ChildItem $sample -Recurse -File -ErrorAction SilentlyContinue |
-  Select-Object -First 12 @{n='rel';e={$_.FullName.Substring($sample.Length)}}, @{n='KB';e={[int]($_.Length/1KB)}} |
-  Format-Table -AutoSize | Out-String -Width 160
