@@ -1065,3 +1065,42 @@ minus S1's points, each trained (LEAD native) and judged by the SAME panel under
   s4_trials.jsonl.
 **S4's experimental core is COMPLETE** (①repro ②protocol ③this ④P4). What remains of S4 is the
 paper-2 draft (sealed close-out: 9/30).
+
+## Result 52 — E1/L0 baseline complete (36/36 valid): the "coin flip" is a DISCRETE BRANCH, not
+## continuous noise — and the intended zero-variance control is not zero-variance
+E1 = variance-source localization (determinism ladder), sealed at commit **e46c94d**
+(`E1_PREREG.md`; routes, N=12, hypotheses and decision lines fixed before any run). L0 = current
+harness as-is. Runner `run_e1_l0d.ps1`; raw records `e1/data/e1_l0_runs.csv`; aggregation
+`e1/aggregate_l0.py` (stdlib, exact Clopper-Pearson).
+
+| route | fail rate | 95% CI (exact) | width | distinct outcome VALUES | entropy |
+|---|---|---|---|---|---|
+| 11755 EnterActorFlow | **7/12 = 58.3%** | [0.277, 0.848] | 0.572 | **3** | 1.325 bits |
+| 18252 pedestrian crossing | 6/12 = 50.0% | [0.211, 0.789] | 0.578 | **2** | 1.000 bits |
+| 3436 HazardSideLane (intended control) | **1/12 = 8.3%** | [0.002, 0.385] | 0.383 | **2** | 0.414 bits |
+
+**Finding 1 — replication.** 11755 reproduces its historical rate exactly (R19-R21: 7/12; L0:
+7/12), months and a rebuilt harness later. The flakiness is a stable property, not drift.
+
+**Finding 2 — outcomes quantize.** Runs do not scatter: they land on a handful of EXACTLY repeated
+values (collision magnitudes identical to 3 decimals across runs — 11755: 60/12.325 x6, 100/0 x5,
+31.854/23.215 x1; 18252: 100/0 x6, 50/7.51 x6; 3436: 100/0 x11, 60/7.572 x1). Identical collision
+magnitude means the same impact geometry and speed. So the simulator is behaving deterministically
+*within* a branch; the randomness is WHICH branch a run falls into. 18252 is a near-perfect fair
+coin between exactly two outcomes (6/6, entropy 1.000 bit).
+
+**Finding 3 — but trajectories vary continuously.** Durations differ on every run (11755: 12
+distinct values, 12.15-20.25 game-seconds) even when the outcome value is identical. Continuous
+timing jitter therefore exists and is *absorbed* into discrete outcomes — consistent with a
+threshold/trigger mechanism (who arrives at the conflict point first), which is the mechanism L1
+(TM seed) and L2 (sync/physics) are designed to separate.
+
+**Finding 4 — the control route is not a control.** 3436 was chosen as the zero-variance arm on
+0/4 historical runs; at n=12 it fails 1/12. Underpowered "stable" labels are themselves unreliable
+— the same lesson as R20, now applied to our own experimental design.
+
+**Honest caveat (recorded, not adjusted for).** 11755's 12 runs span two collection sessions
+(5 old + 7 new): 4/5 fails old vs 3/7 new, Fisher p = 0.29 (not significant). It is possible that
+machine state (the box is shared; VRAM contention observed) shifts branch probabilities. From L1
+on, machine state is logged with each run so this can be tested rather than assumed.
+Budget: 36 valid runs of the sealed 220-rollout cap consumed at L0.
