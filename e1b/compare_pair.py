@@ -90,6 +90,33 @@ def main():
         prev = [x for x in steps if x < s]
         print("    last identical tick: %s" % (prev[-1] if prev else "none"))
 
+    # --- per-key attribution (instrument v2): which field diverges, and when ---
+    def keymap(r, col):
+        out = {}
+        for part in (r.get(col) or "").split("|"):
+            if ":" in part:
+                k, v = part.rsplit(":", 1)
+                out[k] = v
+        return out
+
+    for col, label in (("obs_keys", "observation"), ("net_keys", "network output")):
+        if not any(A[s].get(col) for s in steps):
+            continue
+        keys = sorted(set(keymap(A[steps[0]], col)) | set(keymap(B[steps[0]], col)))
+        if not keys:
+            continue
+        print("\n--- per-key first divergence, %s stream ---" % label)
+        rows = []
+        for k in keys:
+            t = None
+            for s in steps:
+                if keymap(A[s], col).get(k) != keymap(B[s], col).get(k):
+                    t = s
+                    break
+            rows.append((k, t))
+        for k, t in sorted(rows, key=lambda kt: (kt[1] is None, kt[1] if kt[1] is not None else 0)):
+            print("    %-34s %s" % (k, "identical over common range" if t is None else "first differs at tick %d" % t))
+
     print("\n--- sealed verdict (E1B_PREREG HB1-HB4) ---")
     if not firsts:
         print("  HB1: all three streams identical over the common range -> "

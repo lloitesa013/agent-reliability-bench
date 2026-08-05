@@ -1151,3 +1151,58 @@ the E1 entry above and one design error. All are recorded here rather than quiet
 **Consequence: the E1 ladder is closed as-is at 70/220 rollouts.** Spending the remaining budget on
 rate comparison would buy uninterpretable numbers. The question moves to trajectory-level
 localization (R53), which answers it with single-digit rollouts.
+
+## Result 53 — E1-B: the nondeterminism is already present in the FIRST observation the agent ever
+## receives — 9 rollouts localize what 220 rate-comparison rollouts could not
+Sealed in `e1b/E1B_PREREG.md` (before the first rollout) and re-sealed as `e1b/E1B2_PREREG.md`
+after an instrument defect (below). Instrument: per-tick SHA256 of three separate streams —
+observation entering the network (pre-forward tensor bytes), raw network output (pre-post-process),
+and applied control (post shield) — plus per-key hashes so a divergence names its field.
+Route 11755, CARLA default physics, TM seed 0. `E1_L2` never set (C6).
+
+**(a) C7-b — strict determinism does not raise.** With
+`torch.use_deterministic_algorithms(True, warn_only=False)` the route ran to completion (score 100).
+Every operator the model uses has a deterministic implementation available; nondeterminism cannot be
+blamed on an op that lacks one.
+
+**(b) Instrument defect, found before any verdict was drawn (E1-B, first seal).** `net_out_hash` was
+the constant string `ERR` on **every tick of every run** — the v1 byte image called `tensor.numpy()`,
+which raises on half/bfloat16, and a broad `except` turned the failure into a constant. "The network
+stream is identical" was therefore an artifact, and no HB verdict was claimed from that batch
+(9 attempts / 5 valid). v2 hashes through float64/int64, decomposes per key, and names exceptions;
+a **pre-run instrument-validation gate** now aborts the plan unless both streams are ERR-free and
+non-constant within a validation run. The gate passed before the E1-B2 pairs were spent.
+
+**(c) The localization (E1-B2, 5 rollouts).** In BOTH pairs — determinism ON and OFF:
+
+| stream / key | det=1 pair | det=0 pair |
+|---|---|---|
+| `rgb`, `rasterized_lidar` (sensor payloads) | **differ at tick 1** | **differ at tick 1** |
+| ego state at that tick (x, y, yaw, speed, steer, throttle, brake) | **bit-identical** | bit-identical |
+| observed `speed` | tick 4 | tick 2 |
+| `target_point*`, `radar` | tick 12 | tick 3-12 |
+| `command` / `town` | tick 89 / never | tick 265 / never |
+| ticks with identical obs but different net_out | **0** | **0** |
+| episode outcome | **100 vs 60 (diverged)** | 100 vs 31.9 (diverged) |
+
+The two runs already receive **different camera and lidar bytes on the first tick they log**, while
+the vehicle's state is bit-identical to the last digit and its control output is still the same.
+The agent has not yet done anything different — so the difference is in what the simulator handed
+it. Everything downstream (network outputs at tick 1, control at tick 3, observed speed at tick 4)
+is explained by that. **And `E1_DETERMINISM=1` does not remove it:** the determinism-locked pair
+still diverged into different outcomes. That is why locking the TM seed, the physics step, and torch
+determinism all failed to remove flakiness — the entropy enters upstream of every one of them.
+
+**Sealed-rule honesty.** HB2's literal trigger is `t_obs < t_net`; we observed `t_obs = t_net = 1`,
+because both streams diverge on the first logged tick. The tick-ordering rule is therefore
+**degenerate at this logging granularity** and its literal verdict is unreachable — the second
+pre-registered rule in this project to self-diagnose as degenerate (cf. R52-C/C4). The conclusion
+above rests on the per-key attribution and the bit-identical ego state, which E1B2_PREREG does
+pre-register as HB2's reporting evidence, not on the tick-ordering trigger. HB1 is refuted outright.
+**Limitation, stated rather than resolved:** since the observation never repeats across runs
+(0 shared obs hashes anywhere in 1,700+ ticks), these logs *cannot* test whether inference itself is
+deterministic; that needs an offline replay of a saved input tensor, which costs zero rollouts and
+is the natural next step. Whether the sensor divergence originates in GPU rendering, in capture
+timing, or in spawn/initialization order is likewise not separated by this instrument.
+Budget: E1-B 9 attempts / 5 valid (at its <=8 cap); E1-B2 5 rollouts of its <=5 cap. Raw data:
+`e1b/data/` (v1, defective net stream) and `e1b/data2/` (v2); analysis `e1b/compare_pair.py`.
