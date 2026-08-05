@@ -9,9 +9,9 @@
 # slow failing branch and produced non-random dropout); output directories are NEVER deleted before
 # a retry (that destroyed the evidence of what happened); every attempt is recorded with its
 # termination reason in an attempt ledger, so censoring is visible instead of silent.
-param([string]$Route = "11755", [int]$Pairs = 1)
+param([string]$Route = "11755", [int]$Pairs = 1, [string]$Ns = "e1b")
 $ErrorActionPreference = "Continue"
-Start-Transcript -Path "C:\lead\outputs\e1b_master.log" -Append
+Start-Transcript -Path ("C:\lead\outputs\" + $Ns + "_master.log") -Append
 $Python = "$env:USERPROFILE\miniconda3\envs\lead-win\python.exe"
 $EnvDir = "$env:USERPROFILE\miniconda3\envs\lead-win"
 $Lead = "C:\lead"
@@ -23,7 +23,7 @@ Remove-Item Env:E1_L2 -ErrorAction SilentlyContinue      # never set: default ph
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
 
 $WALL = 2400
-$root = Join-Path $Lead "outputs\e1b"
+$root = Join-Path $Lead ("outputs\" + $Ns)
 New-Item -ItemType Directory -Force -Path $root | Out-Null
 $ledger = Join-Path $root "attempts.csv"
 if (-not (Test-Path $ledger)) {
@@ -119,7 +119,32 @@ function Invoke-E1BRun([string]$Cell, [string]$RunId, [int]$Det, [int]$Strict) {
   }
 }
 
-Invoke-E1BRun -Cell "strict" -RunId "s1" -Det 1 -Strict 1
+function Test-InstrumentValid([string]$TicksPath) {
+  # E1B2 seal gate: a stream is informative only if it has no ERR and >1 distinct value.
+  if (-not (Test-Path $TicksPath)) { Write-Output "  GATE: no tick file"; return $false }
+  $rows = @(Import-Csv $TicksPath)
+  if ($rows.Count -lt 20) { Write-Output ("  GATE: only {0} ticks" -f $rows.Count); return $false }
+  foreach ($col in @("obs_hash", "net_out_hash")) {
+    $vals = $rows | ForEach-Object { $_.$col }
+    $errs = @($vals | Where-Object { $_ -like "ERR*" }).Count
+    $distinct = @($vals | Sort-Object -Unique).Count
+    Write-Output ("  GATE {0}: distinct={1} errs={2}" -f $col, $distinct, $errs)
+    if ($errs -gt 0 -or $distinct -lt 2) { return $false }
+  }
+  return $true
+}
+
+Invoke-E1BRun -Cell "val" -RunId "v1" -Det 1 -Strict 0
+$gateOk = $false
+foreach ($t in 1, 2) {
+  $vt = Join-Path $root ("{0}_val_v1_t{1}_ticks.csv" -f $Route, $t)
+  if (Test-InstrumentValid $vt) { $gateOk = $true; break }
+}
+if (-not $gateOk) {
+  Write-Output "INSTRUMENT GATE FAILED -- aborting before science rollouts (E1B2 seal)"
+  Stop-CarlaHard | Out-Null; Write-Output "E1B PLAN ALL DONE"; Stop-Transcript; exit 1
+}
+Write-Output "INSTRUMENT GATE PASSED -- proceeding to the sealed pairs"
 for ($i = 1; $i -le $Pairs; $i++) {
   Invoke-E1BRun -Cell "det1" -RunId ("a{0}" -f $i) -Det 1 -Strict 0
   Invoke-E1BRun -Cell "det1" -RunId ("b{0}" -f $i) -Det 1 -Strict 0
