@@ -1079,15 +1079,32 @@ harness as-is. Runner `run_e1_l0d.ps1`; raw records `e1/data/e1_l0_runs.csv`; ag
 | 18252 pedestrian crossing | 6/12 = 50.0% | [0.211, 0.789] | 0.578 | **2** | 1.000 bits |
 | 3436 HazardSideLane (intended control) | **1/12 = 8.3%** | [0.002, 0.385] | 0.383 | **2** | 0.414 bits |
 
-**Finding 1 — replication.** 11755 reproduces its historical rate exactly (R19-R21: 7/12; L0:
-7/12), months and a rebuilt harness later. The flakiness is a stable property, not drift.
+> **CORRECTED 2026-08-05 — see R52-C below. Findings 1 and 2 as first written were wrong; the
+> corrected text is inline here and the reasoning is in `e1/E1_CORRECTIONS_2026-07-28.md`.**
 
-**Finding 2 — outcomes quantize.** Runs do not scatter: they land on a handful of EXACTLY repeated
-values (collision magnitudes identical to 3 decimals across runs — 11755: 60/12.325 x6, 100/0 x5,
-31.854/23.215 x1; 18252: 100/0 x6, 50/7.51 x6; 3436: 100/0 x11, 60/7.572 x1). Identical collision
-magnitude means the same impact geometry and speed. So the simulator is behaving deterministically
-*within* a branch; the randomness is WHICH branch a run falls into. 18252 is a near-perfect fair
-coin between exactly two outcomes (6/6, entropy 1.000 bit).
+**Finding 1 (CORRECTED) — the point estimate replicated; the rate did not become estimable.**
+L0's 11755 rate (7/12) equals the historical R19-R21 value (7/12). The original entry read that as
+"flakiness is a stable property, not drift". Our own configuration-identical replication arm then
+returned **8/11**, and all three routes moved up (7/12->8/11, 6/12->7/11, 1/12->2/12). Nothing is
+significant, and that is the point: the exact Clopper-Pearson half-width at n=12 is **+/-0.286**, so
+the "exact reproduction" was a coincidence the interval predicts. Correct statement: *per-route
+failure rates are not stably estimable at this n.*
+
+**Finding 2 (CORRECTED) — the outcome space is discrete BY CONSTRUCTION, which is not a finding.**
+The original entry claimed runs "land on EXACTLY repeated values" with "identical collision
+magnitude means the same impact geometry and speed". **That is false.** CARLA leaderboard
+`infractions` fields are **events per kilometre driven**, not magnitudes:
+`11755 12.325 x 0.081137 km = 1.00001 events`; `18252 7.510 x 0.133153 km = 0.99998`;
+`3436 7.572 x 0.132071 km = 1.00004`. The repeated "values" are simply *one collision* divided by
+the same route length, and `score_composed = route_completion x prod(penalty coefficients over
+integer infraction counts)` (leaderboard-1.0 multiplicative penalties, 0.6 vehicle / 0.5
+pedestrian; 100 x 0.6^2 = 36 verified). So the quantization is **the definition of the driving
+score**, not a discovered property of the simulator, and the downstream claim ("deterministic
+within a branch") is unsupported — indeed contradicted by Finding 3 and by L1 11755 run 6 (same
+outcome value at 46.6 game-seconds vs 16.1-20.3 s on that branch). Correct framing: *the outcome
+space is discrete by construction; the object of study is the branch probability, not the branch
+values.* Two observed values sit off the 100x0.6^k lattice because route_completion is continuous
+(L0 run 7: 31.854 at RC=53.09%; L1 run 5: 58.48 with a continuous outside-lane term).
 
 **Finding 3 — but trajectories vary continuously.** Durations differ on every run (11755: 12
 distinct values, 12.15-20.25 game-seconds) even when the outcome value is identical. Continuous
@@ -1104,3 +1121,33 @@ threshold/trigger mechanism (who arrives at the conflict point first), which is 
 machine state (the box is shared; VRAM contention observed) shifts branch probabilities. From L1
 on, machine state is logged with each run so this can be tested rather than assumed.
 Budget: 36 valid runs of the sealed 220-rollout cap consumed at L0.
+
+## Result 52-C — corrections to R52/E1, and the closure of the E1 ladder as-is
+Adversarial panel review (`e1/E1_CORRECTIONS_2026-07-28.md`, commit a7e1b20) found four errors in
+the E1 entry above and one design error. All are recorded here rather than quietly fixed:
+- **C1 metric error** (corrected inline in R52): infractions are events/km; the "identical collision
+  magnitude" claim was arithmetic misreading, and the outcome quantization is the score definition.
+- **C2 Finding 1** refuted by our own L1 arm (8/11); rewritten inline.
+- **C3 run count and censoring:** the L1 arm ran **34 valid, not 36** (11755 run8 and 18252 run1
+  absent). The machine log shows duplicate rows exactly 21 minutes apart — the 1200 s watchdog fired,
+  retried, and failed twice. Hangs correlate with the failure mode being measured (3436's failing
+  branch takes 527-625 s wall vs ~82 s for passes) and L0 lost zero runs while L1 lost two, i.e.
+  **non-random ~6% dropout in one arm only.** Direction of bias is NOT asserted; it is unresolved.
+  Fixed forward: watchdog raised to 2400 s, output directories are never deleted before a retry
+  (that destroyed evidence), and every attempt is ledgered with its termination reason.
+- **C4 the sealed H1 line was arithmetically degenerate.** Minimum attainable exact CP width at
+  n=12 is **0.2646**, while H1's thresholds were 0.2858 / 0.2891 / **0.1913** — route 3436's
+  acceptance region is the **empty set for any possible outcome**, and the other two are satisfiable
+  only under total determinism (which is H2, not H1). Per the no-line-moving rule H1 is reported
+  **NOT SUPPORTED**, with the degeneracy published rather than hidden.
+- **C5 power:** exact Fisher at n=12/arm has power **0.20** against a halving of the failure rate
+  (~55/arm needed). A toggle that genuinely halved failures would read as "no effect". Combined with
+  the between-session movement (measurement floor ~+/-0.35-0.40 in rate), **any L3 rate comparison
+  at this n is uninterpretable.**
+- **C6 L2 as specified was a physics change, not a lock:** CARLA's defaults are already
+  `substepping=True, 0.01 x 10` with `fixed_delta_seconds=0.05` locked at L0, so the substep count
+  was already a fixed 5 x 0.01; setting 0.0125 x 4 **changes the integrator**. The L2 arm on disk is
+  therefore a perturbation arm, not a determinism rung, and is not interpreted as one.
+**Consequence: the E1 ladder is closed as-is at 70/220 rollouts.** Spending the remaining budget on
+rate comparison would buy uninterpretable numbers. The question moves to trajectory-level
+localization (R53), which answers it with single-digit rollouts.
