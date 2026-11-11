@@ -44,8 +44,14 @@ measurements. Verify failure *rates*:
 ```python
 from vsi import gate_rate
 verdict = gate_rate(baseline_fail=7, baseline_n=12, cand_fail=0, cand_n=19)
-# ACCEPT only if the candidate's rate is significantly lower (one-sided exact binomial)
+# ACCEPT only if the candidate's rate is significantly lower (one-sided two-sample Fisher exact;
+# the baseline rate is an estimate, not a known constant)
 ```
+
+`gate_rate_type1(baseline_n, cand_n, true_rate)` returns the exact false-ACCEPT probability of a
+no-op change, so you can audit the gate before trusting it. With 12 vs 19 runs the older
+fixed-baseline test (`method="fixed_baseline"`) falsely accepted 8.6–15.6% at alpha=5%; Fisher
+stays at 1.6–2.8%.
 
 ## Curtailment (free cost reduction, verdict-identical)
 

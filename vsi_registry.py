@@ -26,7 +26,7 @@ import json
 import os
 from typing import Dict, List, Optional
 
-from vsi_gate import gate_rate, _binom_tail_le
+from vsi_gate import gate_rate, _fisher_cand_ge
 
 __all__ = ["Registry", "compute_verdict"]
 
@@ -91,9 +91,10 @@ def compute_verdict(trial: dict) -> dict:
             return {"verdict": "UNDECIDED", "axes": axes}
         confirmed = d.get("confirmed_regressions", 0)
         axes["confirmed_regressions"] = str(confirmed)
-        # pooled: is the CANDIDATE's failure rate significantly ABOVE baseline?
+        # pooled: is the CANDIDATE's failure rate significantly ABOVE baseline? (two-sample Fisher;
+        # the baseline rate is an estimate too -- same test family as gate_rate)
         p0 = d["baseline_fails"] / d["baseline_n"]
-        p_worse = max(0.0, 1.0 - _binom_tail_le(d["fails"] - 1, d["n"], p0)) if d["fails"] > 0 else 1.0
+        p_worse = _fisher_cand_ge(d["baseline_fails"], d["baseline_n"], d["fails"], d["n"])
         axes["pooled_worse_p"] = "%.3g" % p_worse
         worse = (d["fails"] / d["n"] > p0) and (p_worse < lines["deploy_alpha"])
         if confirmed > lines.get("deploy_max_confirmed", 0) or worse:

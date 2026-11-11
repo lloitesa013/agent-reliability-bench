@@ -34,6 +34,7 @@ noise; verify by failure RATE:
     from vsi_gate import gate_rate
     verdict = gate_rate(baseline_fail=7, baseline_n=12, cand_fail=2, cand_n=20, alpha=0.05)
     # ACCEPT only if the candidate's failure rate is significantly LOWER (one-sided) than baseline.
+    # Both rates are estimates: the test is two-sample (Fisher exact), not "baseline rate = known".
 
 Demo (no LLM, deterministic):  python vsi_gate.py --demo
 """
@@ -41,7 +42,7 @@ from dataclasses import dataclass, field
 from math import comb
 from typing import Any, Callable, Dict, List, Optional
 
-__all__ = ["gate", "gate_rate", "GateReport", "CandidateVerdict"]
+__all__ = ["gate", "gate_rate", "gate_rate_type1", "GateReport", "CandidateVerdict"]
 
 
 # ----------------------------------------------------------------------------- deterministic gate
@@ -125,29 +126,77 @@ def _binom_tail_le(k: int, n: int, p: float) -> float:
     return sum(comb(n, i) * (p ** i) * ((1 - p) ** (n - i)) for i in range(0, k + 1))
 
 
+def _fisher_cand_le(baseline_fail: int, baseline_n: int, cand_fail: int, cand_n: int) -> float:
+    """One-sided Fisher exact p: P(candidate failures <= cand_fail | both arms' totals fixed).
+    Hypergeometric tail -- both failure rates are treated as estimates. Exact, stdlib-only."""
+    k = baseline_fail + cand_fail
+    lo = max(0, k - baseline_n)
+    hits = sum(comb(cand_n, x) * comb(baseline_n, k - x) for x in range(lo, cand_fail + 1))
+    return hits / comb(baseline_n + cand_n, k)
+
+
+def _fisher_cand_ge(baseline_fail: int, baseline_n: int, cand_fail: int, cand_n: int) -> float:
+    """One-sided Fisher exact p: P(candidate failures >= cand_fail | both arms' totals fixed)."""
+    k = baseline_fail + cand_fail
+    hi = min(cand_n, k)
+    hits = sum(comb(cand_n, x) * comb(baseline_n, k - x) for x in range(cand_fail, hi + 1))
+    return hits / comb(baseline_n + cand_n, k)
+
+
+RATE_METHODS = ("fisher", "fixed_baseline")
+
+
 def gate_rate(baseline_fail: int, baseline_n: int,
               cand_fail: int, cand_n: int,
-              alpha: float = 0.05) -> dict:
+              alpha: float = 0.05,
+              method: str = "fisher") -> dict:
     """ACCEPT a candidate fix in a stochastic domain only if its observed failure rate is significantly
-    LOWER than the baseline rate (one-sided exact binomial test at the baseline point estimate).
+    LOWER than the baseline rate.
+
+    method="fisher" (default): one-sided two-sample Fisher exact test. The baseline rate is itself an
+    estimate from baseline_n runs, so it is tested as a sample, not as a known constant.
+    method="fixed_baseline": the pre-2026-11 test -- one-sided exact binomial at the baseline POINT
+    ESTIMATE. Kept only to reproduce p-values recorded before the change (R31 p=5.97e-8, R43 p=2.81e-8).
+    It is anti-conservative: with 12 baseline vs 19 candidate runs and NO real difference it ACCEPTs
+    8.6-15.6% of the time at alpha=0.05 (true rate 0.1-0.8; see gate_rate_type1); fisher: 1.6-2.8%.
 
     VSI-0 R19–R25 background: driving failures flip PASS/FAIL run-to-run (route 11755 = 58% flaky), so a
     single run is meaningless, and a plausible fix can make things WORSE (R25: 50%->83%) -- always verify
-    by rate. Power guidance (R23): detecting 58%->20% needs ~19 runs/arm; 58%->40% needs ~91.
+    by rate. Power (fisher, equal arms, 80%): 58%->20% needs ~24 runs/arm; 58%->40% needs ~100+.
+    (R23's ~19 / ~91 assumed the fixed-baseline test.) One adoption decision per call: a loop that
+    gates many candidates against the same baseline still accumulates false adoptions -- confirm the
+    winner on a fresh held-out arm or spend alpha across the campaign.
     """
     if baseline_n <= 0 or cand_n <= 0:
         raise ValueError("need runs in both arms")
+    if method not in RATE_METHODS:
+        raise ValueError("method must be one of %s" % (RATE_METHODS,))
     p0 = baseline_fail / baseline_n
     p1 = cand_fail / cand_n
-    pval = _binom_tail_le(cand_fail, cand_n, p0)     # P(this few failures | true rate = baseline)
+    if method == "fisher":
+        pval = _fisher_cand_le(baseline_fail, baseline_n, cand_fail, cand_n)
+    else:
+        pval = _binom_tail_le(cand_fail, cand_n, p0)  # P(this few failures | true rate = baseline)
     accept = (p1 < p0) and (pval < alpha)
     return {
         "baseline_rate": p0, "candidate_rate": p1, "p_value": pval, "alpha": alpha,
-        "accept": accept,
+        "method": method, "accept": accept,
         "verdict": "ACCEPT -- failure rate significantly lower" if accept else
                    ("REJECT -- rate not lower" if p1 >= p0 else
                     "REJECT -- direction ok but not significant (p=%.3f); add runs (see R23 power table)" % pval),
     }
+
+
+def gate_rate_type1(baseline_n: int, cand_n: int, true_rate: float,
+                    alpha: float = 0.05, method: str = "fisher") -> float:
+    """Exact probability that gate_rate ACCEPTs a no-op change: baseline and candidate share the same
+    true failure rate. Audit the gate itself before trusting its verdicts (sums over every outcome)."""
+    def pmf(n):
+        return [comb(n, i) * true_rate ** i * (1 - true_rate) ** (n - i) for i in range(n + 1)]
+    pb, pc = pmf(baseline_n), pmf(cand_n)
+    return sum(pb[i] * pc[j]
+               for i in range(baseline_n + 1) for j in range(cand_n + 1)
+               if gate_rate(i, baseline_n, j, cand_n, alpha=alpha, method=method)["accept"])
 
 
 # ----------------------------------------------------------------------------- demo (no LLM needed)
@@ -191,6 +240,10 @@ def _demo() -> int:
     print("  conservative-throttle 'fix' 50%%->83%%: %s" % r["verdict"])
     r2 = gate_rate(baseline_fail=7, baseline_n=12, cand_fail=1, cand_n=19)
     print("  hypothetical real fix 58%%->5%% over 19 runs: %s (p=%.4f)" % (r2["verdict"], r2["p_value"]))
+    t_fix = gate_rate_type1(12, 19, 7 / 12, method="fixed_baseline")
+    t_fis = gate_rate_type1(12, 19, 7 / 12)
+    print("  no-op change, 12 vs 19 runs at a true 58%% rate: false ACCEPT %.1f%% (fixed_baseline) "
+          "vs %.1f%% (fisher), alpha=5%%" % (100 * t_fix, 100 * t_fis))
     return 0
 
 

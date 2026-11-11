@@ -10,7 +10,8 @@ trust those modifications. This package is the adoption gate, extracted from the
   - selecting by the score a change was derived from ships broken changes 59-88% of the time;
     this gate shipped 0% across every benchmark while still adopting real improvements;
   - in stochastic domains a single run is noise — verify failure RATES (a real driving fix was
-    accepted at p=6e-8, and the same candidate REJECTED at deployment scope at p=8.5e-45);
+    accepted at p=3.0e-4, and the same candidate REJECTED at deployment scope at p=6.3e-17;
+    two-sample Fisher exact — the earlier 6e-8 / 8.5e-45 treated the baseline rate as known);
   - curtailment (stop an arm the moment its verdict is mathematically decided) recovers ~26% of
     verification cost with verdicts identical by construction.
 
@@ -33,10 +34,10 @@ Quick start:
 
 Run the no-LLM demo:  python -m vsi
 """
-from vsi_gate import gate, gate_rate, GateReport, CandidateVerdict
+from vsi_gate import gate, gate_rate, gate_rate_type1, GateReport, CandidateVerdict
 from vsi_registry import Registry, compute_verdict
 from vsi.curtail import curtail_counts, decided
 
 __version__ = "0.1.0"
-__all__ = ["gate", "gate_rate", "GateReport", "CandidateVerdict",
+__all__ = ["gate", "gate_rate", "gate_rate_type1", "GateReport", "CandidateVerdict",
            "Registry", "compute_verdict", "curtail_counts", "decided"]
