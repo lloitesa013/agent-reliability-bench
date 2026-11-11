@@ -4,9 +4,10 @@ First public release of the gate machinery from the VSI-0 study ("The Verifier I
 
 - `gate()` — hidden-test + regression adoption gate for {prompt, rule, memory, tool} self-mods.
   Shipped 0% broken changes across every benchmark where naive selection shipped 59–88%.
-- `gate_rate()` — one-sided exact-binomial rate gate for flaky/stochastic surfaces. The same
-  machinery that accepted a real embodied repair (p=6e-8) and rejected the same candidate at
-  deployment scope (p=8.5e-45).
+- `gate_rate()` — one-sided two-sample Fisher exact rate gate for flaky/stochastic surfaces. The
+  same machinery that accepted a real embodied repair (p=3.0e-4) and rejected the same candidate at
+  deployment scope (p=6.3e-17). (Before 2026-11 it tested against the baseline point estimate,
+  giving p=6e-8 / 8.5e-45 and 8.6–15.6% false accepts at alpha=5%; kept as `method="fixed_baseline"`.)
 - `Registry` — append-only trial ledger: lines sealed before data, verdicts computed not declared,
   frozen after verdict. Replays the entire 10-recipe embodied search verdict-exactly.
 - `vsi.curtail` — stop any count-threshold arm the moment its verdict is decided. Recovered 26%

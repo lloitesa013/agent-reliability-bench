@@ -13,13 +13,14 @@ Verified fresh on 2026-07-18 (`repro_outputs.txt` holds the captured outputs).
 |---|---|---|---|
 | gate demo | the gate as a library | `python vsi_gate.py --demo` | lookup-hack rejected; R25 rates REJECT |
 | R42 (S2/W1) | S1's 12 verdicts replay exactly; prescriber 9/9 | `python s2_replay.py` | `W1a: 12/12 exact`, `W1b: 9/9`, `W1 GREEN`, exit 0 |
-| R43 (S2/W2) | automated-loop ledger + evidence | inspect `results_w2/w2_trials.jsonl` (6 events), `w2_details.jsonl` (126 rows); verdicts recompute via `vsi_registry.compute_verdict` | MBPP ACCEPT p=2.81e-8; HumanEval REJECT p=1 |
+| R43 (S2/W2) | automated-loop ledger + evidence | inspect `results_w2/w2_trials.jsonl` (6 events), `w2_details.jsonl` (126 rows); verdicts recompute via `vsi_registry.compute_verdict` | MBPP ACCEPT p=4.8e-6 (two-sample Fisher on 41/100 vs 5/59; recorded 2.81e-8 = `method="fixed_baseline"`); HumanEval REJECT p=1. Note: `results_w2/` is gitignored, so these ledgers are not in the repository |
 | R33/R37 confirmed sets | 12 + 6 confirmed regressions from raw runs | `python -c "import s3_w1; print(s3_w1.confirm_sets())"` | 12 K1 routes; 6 A2 routes (11715, 17598, 25845, 26944, 27532, 3737) |
 | R44 (S3/W1) | risk ranking ≈ random | `python s3_w1.py` | `POOLED LOCO recall@30: 3/18`, `REGISTRY VERDICT: REJECT` |
 | R45 | curtailment saves 26%, verdicts identical | `python s3_sprt_replay.py` | `338 runs / 249 runs / SAVED 26%` (identity asserted per route) |
 | R46 | naive SPRT loses | `python s3_sprt2.py` | `SAVED 22%`, `concordance 44/50` |
 | R47 (S3/W4) | no gate-reuse decay | `python s3_w4_analysis.py` | fresh −7.8pp / iterated +12.5pp, `no decay detected` |
-| R31 verdict | accepted-fix statistics | `python -c "from vsi_gate import gate_rate; print(gate_rate(7,12,0,19))"` | p ≈ 5.97e-8, ACCEPT |
+| R31 verdict | accepted-fix statistics | `python -c "from vsi_gate import gate_rate; print(gate_rate(7,12,0,19))"` | p ≈ 3.0e-4 (two-sample Fisher), ACCEPT. The recorded 5.97e-8 reproduces with `method="fixed_baseline"` (baseline rate treated as known; anti-conservative, see `gate_rate_type1`) |
+| gate audit | false-ACCEPT rate of the rate gate itself | `python -m unittest tests.test_gate_rate -v` | Fisher ≤ 5% at every true rate; fixed-baseline 8.6–15.6% (12 vs 19 runs) |
 
 Raw data locations: `s3_data/` (sweeps, screens, confirms, panels, W4, route metadata),
 `results_w2/` (automated-loop ledger + per-problem evidence), `s3_trials.jsonl` (frozen S3-W1),

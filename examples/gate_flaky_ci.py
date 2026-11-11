@@ -42,5 +42,6 @@ print("rate gate: baseline %.0f%% vs candidate %d/%d -> %s"
       % (100 * BASELINE_FAIL_RATE, fails, n, verdict["verdict"]))
 print()
 print("why this matters: with a 58%-flaky baseline, a single lucky green run would 'confirm' any")
-print("change 42% of the time. The rate gate needs ~19 runs for a 58%->20% claim at 80% power --")
-print("and curtailment gives many of those runs back whenever the verdict comes early.")
+print("change 42% of the time. The rate gate (two-sample Fisher) needs ~24 runs per arm for a")
+print("58%->20% claim at 80% power -- and curtailment gives many of those runs back whenever the")
+print("verdict comes early.")
